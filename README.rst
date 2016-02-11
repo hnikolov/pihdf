@@ -1,6 +1,5 @@
-# pihdf
-Python Hardware Design Framework based on MyHDL
-===============================================
+pihdf: Python Hardware Design Framework based on MyHDL
+======================================================
 
 Install ``pihdf`` 
 -----------------
