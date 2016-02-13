@@ -1,6 +1,10 @@
 pihdf: Python Hardware Design Framework based on MyHDL
 ======================================================
 
+A very preliminary documentation (work-in-progress) is available at: http://hnikolov.github.io/pyhdf_doc/
+
+Note that the name "pyhdf_doc" has to be changed to "pihdf_doc".
+
 Install ``pihdf`` 
 -----------------
 
@@ -21,3 +25,12 @@ To un-install ``pihdf``: ::
 Then, remove the command-line script ``module`` from its location: ::
 
     which module | xargs sudo rm
+
+Note
+----
+
+``pihdf`` requiers ``myhdl_lib`` (https://github.com/nkavaldj/myhdl_lib) 
+
+``myhdl_lib`` requires ``scapy`` (http://www.secdev.org/projects/scapy/doc/installation.html)
+
+
