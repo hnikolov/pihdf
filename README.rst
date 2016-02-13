@@ -3,7 +3,7 @@ pihdf: Python Hardware Design Framework based on MyHDL
 
 A very preliminary documentation (work-in-progress) is available at: http://hnikolov.github.io/pyhdf_doc/
 
-Note that the name "pyhdf_doc" has to be changed to "pihdf_doc".
+TODO: Change the name ``pyhdf_doc`` to ``pihdf_doc``.
 
 Install ``pihdf`` 
 -----------------
@@ -15,7 +15,7 @@ To install ``pihdf`` in editable mode: ::
 Make sure that file ``myhdl.vpi`` is located in directory ``/.pihdf``!
 
 
-Un-install `pihdf`
+Un-install ``pihdf``
 ------------------------
 
 To un-install ``pihdf``: ::
