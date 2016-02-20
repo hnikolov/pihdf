@@ -1,0 +1,13 @@
+[dumpfile] "Param/Param/out/Param_top_cosim.vcd"
+[savefile] "Param/Param/test/Param_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_Param_top.
+[sst_expanded] 1
+tb_Param_top.dut.rst
+tb_Param_top.dut.clk
+-
+-TX (OUT)
+tb_Param_top.dut.tx_ready
+tb_Param_top.dut.tx_valid
+tb_Param_top.dut.tx_data[15:0]

@@ -1,0 +1,70 @@
+{
+    "design": 
+    {
+        "name": "ParamStruct",
+        "interfaces":
+        [
+            { "name": "rst",        "type": "Reset", "active": "1"                      },
+            { "name": "clk",        "type": "Clock"                                     },
+            { "name": "tx" ,        "type": "HSD",   "data": "16", "direction": "OUT"   }
+        ],
+        "parameters":
+        [
+            { "name":"TOP_PARAM_NONE"  , "value":"None"          },
+            { "name":"TOP_PARAM_BOOL"  , "value":"True"          },
+            { "name":"TOP_PARAM_INT"   , "value":"10"            },
+            { "name":"TOP_PARAM_FLOAT" , "value":"1.5"           },
+            { "name":"TOP_PARAM_STR"   , "value":"'my_string_A'" }
+
+        ]
+    },
+    "structure":
+    {
+        "local_parameters":
+        [
+
+            { "name":"LOC_PARAM_NONE"  , "value":"None"          },
+            { "name":"LOC_PARAM_BOOL"  , "value":"False"         },
+            { "name":"LOC_PARAM_INT"   , "value":"20"            },
+            { "name":"LOC_PARAM_FLOAT" , "value":"2.5"           },
+            { "name":"LOC_PARAM_STR"   , "value":"'my_string_B'" }
+
+            
+        ],
+        "design_modules": 
+        [
+            {
+                "name":"my_submodule_loc", "type":"Param",
+                "path":"../Param",
+                "connections":
+                [
+                    { "local_name":"rst"        , "direction":"IN" , "connect_to":"rst"             },
+                    { "local_name":"clk"        , "direction":"IN" , "connect_to":"clk"             },
+                    { "local_name":"tx"         , "direction":"OUT", "connect_to":"tx"              },
+                    { "local_name":"PARAM_NONE"                    , "connect_to":"LOC_PARAM_NONE"  },
+                    { "local_name":"PARAM_BOOL"                    , "connect_to":"LOC_PARAM_BOOL"  },
+                    { "local_name":"PARAM_INT"                     , "connect_to":"LOC_PARAM_INT"   },
+                    { "local_name":"PARAM_FLOAT"                   , "connect_to":"LOC_PARAM_FLOAT" },
+                    { "local_name":"PARAM_STR"                     , "connect_to":"LOC_PARAM_STR"   }
+                    
+                 ]
+            },
+            {
+                "name":"my_submodule_top", "type":"Param",
+                "path":"../Param",
+                "connections":
+                [
+                    { "local_name":"rst"        , "direction":"IN" , "connect_to":"rst"             },
+                    { "local_name":"clk"        , "direction":"IN" , "connect_to":"clk"             },
+                    { "local_name":"tx"         , "direction":"OUT", "connect_to":"tx"              },
+                    { "local_name":"PARAM_NONE"                    , "connect_to":"TOP_PARAM_NONE"  },
+                    { "local_name":"PARAM_BOOL"                    , "connect_to":"TOP_PARAM_BOOL"  },
+                    { "local_name":"PARAM_INT"                     , "connect_to":"TOP_PARAM_INT"   },
+                    { "local_name":"PARAM_FLOAT"                   , "connect_to":"TOP_PARAM_FLOAT" },
+                    { "local_name":"PARAM_STR"                     , "connect_to":"TOP_PARAM_STR"   }
+                    
+                 ]
+            }
+        ]
+    }
+}

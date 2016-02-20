@@ -1,0 +1,20 @@
+{
+    "design": 
+    {
+        "name": "Param",
+        "interfaces":
+        [
+            { "name": "rst",        "type": "Reset", "active": "1"                      },
+            { "name": "clk",        "type": "Clock"                                     },
+            { "name": "tx" ,        "type": "HSD",   "data": "16", "direction": "OUT"   }
+        ],
+        "parameters":
+        [
+            { "name":"PARAM_NONE"  , "value":"None"         },
+            { "name":"PARAM_BOOL"  , "value":"True"         },
+            { "name":"PARAM_INT"   , "value":"10"           },
+            { "name":"PARAM_FLOAT" , "value":"1.5"          },
+            { "name":"PARAM_STR"   , "value":"'my_string_A'"}
+        ]
+    }
+}

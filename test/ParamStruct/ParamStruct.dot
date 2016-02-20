@@ -1,0 +1,7 @@
+digraph ParamStruct {
+    bgcolor=white
+    rankdir=LR;
+    node [shape=doublecircle, style=filled, color=lightgray]; IN OUT;
+    node [shape=ellipse]; IN OUT;
+    my_submodule_top -> OUT [ label = "tx\n" ];
+    }

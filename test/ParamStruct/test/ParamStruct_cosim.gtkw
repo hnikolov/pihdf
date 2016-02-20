@@ -1,0 +1,13 @@
+[dumpfile] "ParamStruct/ParamStruct/out/ParamStruct_top_cosim.vcd"
+[savefile] "ParamStruct/ParamStruct/test/ParamStruct_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_ParamStruct_top.
+[sst_expanded] 1
+tb_ParamStruct_top.dut.rst
+tb_ParamStruct_top.dut.clk
+-
+-TX (OUT)
+tb_ParamStruct_top.dut.tx_ready
+tb_ParamStruct_top.dut.tx_valid
+tb_ParamStruct_top.dut.tx_data[15:0]
