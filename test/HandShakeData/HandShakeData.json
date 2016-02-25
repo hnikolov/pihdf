@@ -1,0 +1,100 @@
+{
+    "design": 
+    {
+        "name": "HandShakeData",
+        "interfaces":
+        [
+            { "name":"rst"             , "type":"Reset" , "active": "1"                                                 },
+            { "name":"clk"             , "type":"Clock"                                                                 },
+            { "name":"rx_width"        , "type":"HSD"   , "data":"64"             , "direction":"IN"                  },
+            { "name":"tx_width"        , "type":"HSD"   , "data":"64"             , "direction":"OUT"                 },
+            { "name":"rx_width1"       , "type":"HSD"   , "data":"1"              , "direction":"IN"                  },
+            { "name":"tx_width1"       , "type":"HSD"   , "data":"1"              , "direction":"OUT"                 },
+            { "name":"rx_fields"       , "type":"HSD"   , "data":"test_fields"    , "direction":"IN"                  },
+            { "name":"tx_fields"       , "type":"HSD"   , "data":"test_fields"    , "direction":"OUT"                 },
+            { "name":"rx_width_buf"    , "type":"HSD"   , "data":"64"             , "direction":"IN"                  },
+            { "name":"tx_width_buf"    , "type":"HSD"   , "data":"64"             , "direction":"OUT"                 },
+            { "name":"rx_width1_buf"   , "type":"HSD"   , "data":"1"              , "direction":"IN"                  },
+            { "name":"tx_width1_buf"   , "type":"HSD"   , "data":"1"              , "direction":"OUT"                 },
+            { "name":"rx_fields_buf"   , "type":"HSD"   , "data":"test_fields"    , "direction":"IN"                  },
+            { "name":"tx_fields_buf"   , "type":"HSD"   , "data":"test_fields"    , "direction":"OUT"                 },
+            { "name":"rx_fields_const" , "type":"HSD"   , "data":"test_fields"    , "direction":"IN"                  },
+            { "name":"tx_fields_const" , "type":"HSD"   , "data":"test_fields"    , "direction":"OUT"                 },
+            { "name":"rx_push"         , "type":"HSD"   , "data":"64"             , "direction":"IN"  , "push":"True" },
+            { "name":"tx_pull"         , "type":"HSD"   , "data":"64"             , "direction":"OUT" , "pull":"True" },
+            { "name":"rx_terminate"    , "type":"HSD"   , "data":"64"             , "direction":"IN"                  },
+            { "name":"tx_terminate"    , "type":"HSD"   , "data":"64"             , "direction":"OUT"                 },
+            { "name":"ipg_rx_width"    , "type":"HSD"   , "data":"16"             , "direction":"OUT"                 },
+            { "name":"ipg_tx_width"    , "type":"HSD"   , "data":"16"             , "direction":"OUT"                 }
+        ]
+    },
+    "structure":
+    {
+        "local_interfaces":
+        [
+            { "name":"hs_width"            , "type":"HSD", "data":"64"                           },
+            { "name":"hs_width1"           , "type":"HSD", "data":"1"                            },
+            { "name":"hs_fields"           , "type":"HSD", "data":"test_fields"                  },
+            { "name":"hs_width_buf"        , "type":"HSD", "data":"64"          , "buf_size":"4" },
+            { "name":"hs_width1_buf"       , "type":"HSD", "data":"1"           , "buf_size":"4" },
+            { "name":"hs_fields_buf"       , "type":"HSD", "data":"test_fields" , "buf_size":"4" },
+            { "name":"hs_terminate_snk"    , "type":"HSD", "data":"64", "terminate":"True"       },
+            { "name":"hs_terminate_src"    , "type":"HSD", "data":"64", "terminate":"True"       }
+        ],
+        "design_modules": 
+        [
+            {
+                "name":"my_submodule_rx", "type":"submodule_rx",
+                "path":"",
+                "connections":
+                [
+                    { "local_name":"rst"            ,"direction":"IN"  , "connect_to":"rst"               },
+                    { "local_name":"clk"            ,"direction":"IN"  , "connect_to":"clk"               },
+                    { "local_name":"rx_width"       ,"direction":"IN"  , "connect_to":"rx_width"          },
+                    { "local_name":"tx_width"       ,"direction":"OUT" , "connect_to":"hs_width"          },
+                    { "local_name":"rx_width1"      ,"direction":"IN"  , "connect_to":"rx_width1"         },
+                    { "local_name":"tx_width1"      ,"direction":"OUT" , "connect_to":"hs_width1"         },
+                    { "local_name":"rx_fields"      ,"direction":"IN"  , "connect_to":"rx_fields"         },
+                    { "local_name":"tx_fields"      ,"direction":"OUT" , "connect_to":"hs_fields"         },
+                    { "local_name":"rx_width_buf"   ,"direction":"IN"  , "connect_to":"rx_width_buf"      },
+                    { "local_name":"tx_width_buf"   ,"direction":"OUT" , "connect_to":"hs_width_buf"      },
+                    { "local_name":"rx_width1_buf"  ,"direction":"IN"  , "connect_to":"rx_width1_buf"     },
+                    { "local_name":"tx_width1_buf"  ,"direction":"OUT" , "connect_to":"hs_width1_buf"     },
+                    { "local_name":"rx_fields_buf"  ,"direction":"IN"  , "connect_to":"rx_fields_buf"     },
+                    { "local_name":"tx_fields_buf"  ,"direction":"OUT" , "connect_to":"hs_fields_buf"     },
+                    { "local_name":"rx_push"        ,"direction":"IN"  , "connect_to":"rx_push"           },
+                    { "local_name":"rx_terminate"   ,"direction":"IN"  , "connect_to":"rx_terminate"      },
+                    { "local_name":"tx_terminate"   ,"direction":"OUT" , "connect_to":"hs_terminate_snk"  },
+                    { "local_name":"ipg_rx_width"   ,"direction":"OUT" , "connect_to":"ipg_rx_width"      }
+                 ]
+            },
+            {
+                "name":"my_submodule_tx", "type":"submodule_tx",
+                "path":"",
+                "connections":
+                [
+                    { "local_name":"rst"            , "direction":"IN"  , "connect_to":"rst"               },
+                    { "local_name":"clk"            , "direction":"IN"  , "connect_to":"clk"               },
+                    { "local_name":"rx_width"       , "direction":"IN"  , "connect_to":"hs_width"          },
+                    { "local_name":"tx_width"       , "direction":"OUT" , "connect_to":"tx_width"          },
+                    { "local_name":"rx_width1"      , "direction":"IN"  , "connect_to":"hs_width1"         },
+                    { "local_name":"tx_width1"      , "direction":"OUT" , "connect_to":"tx_width1"         },
+                    { "local_name":"rx_fields"      , "direction":"IN"  , "connect_to":"hs_fields"         },
+                    { "local_name":"tx_fields"      , "direction":"OUT" , "connect_to":"tx_fields"         },
+                    { "local_name":"rx_width_buf"   , "direction":"IN"  , "connect_to":"hs_width_buf"      },
+                    { "local_name":"tx_width_buf"   , "direction":"OUT" , "connect_to":"tx_width_buf"      },
+                    { "local_name":"rx_width1_buf"  , "direction":"IN"  , "connect_to":"hs_width1_buf"     },
+                    { "local_name":"tx_width1_buf"  , "direction":"OUT" , "connect_to":"tx_width1_buf"     },
+                    { "local_name":"rx_fields_buf"  , "direction":"IN"  , "connect_to":"hs_fields_buf"     },
+                    { "local_name":"tx_fields_buf"  , "direction":"OUT" , "connect_to":"tx_fields_buf"     },
+                    { "local_name":"rx_fields_const", "direction":"IN"  , "connect_to":"rx_fields_const"   },
+                    { "local_name":"tx_fields_const", "direction":"OUT" , "connect_to":"tx_fields_const"   },
+                    { "local_name":"tx_pull"        , "direction":"OUT" , "connect_to":"tx_pull"           },
+                    { "local_name":"rx_terminate"   , "direction":"IN"  , "connect_to":"hs_terminate_src"  },
+                    { "local_name":"tx_terminate"   , "direction":"OUT" , "connect_to":"tx_terminate"      },
+                    { "local_name":"ipg_tx_width"   , "direction":"OUT" , "connect_to":"ipg_tx_width"      }
+                 ]
+            }
+        ]
+    }
+}

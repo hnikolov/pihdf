@@ -1,0 +1,110 @@
+[dumpfile] "HandShakeData/src/modules/submodule_tx/submodule_tx/out/submodule_tx_top_cosim.vcd"
+[savefile] "HandShakeData/src/modules/submodule_tx/submodule_tx/test/submodule_tx_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_submodule_tx_top.
+[sst_expanded] 1
+tb_submodule_tx_top.dut.rst
+tb_submodule_tx_top.dut.clk
+-
+-RX_WIDTH (IN)
+tb_submodule_tx_top.dut.rx_width_ready
+tb_submodule_tx_top.dut.rx_width_valid
+tb_submodule_tx_top.dut.rx_width_data[63:0]
+-
+-TX_WIDTH (OUT)
+tb_submodule_tx_top.dut.tx_width_ready
+tb_submodule_tx_top.dut.tx_width_valid
+tb_submodule_tx_top.dut.tx_width_data[63:0]
+-
+-RX_WIDTH1 (IN)
+tb_submodule_tx_top.dut.rx_width1_ready
+tb_submodule_tx_top.dut.rx_width1_valid
+tb_submodule_tx_top.dut.rx_width1_data
+-
+-TX_WIDTH1 (OUT)
+tb_submodule_tx_top.dut.tx_width1_ready
+tb_submodule_tx_top.dut.tx_width1_valid
+tb_submodule_tx_top.dut.tx_width1_data
+-
+-RX_FIELDS (IN)
+tb_submodule_tx_top.dut.rx_fields_ready
+tb_submodule_tx_top.dut.rx_fields_valid
+tb_submodule_tx_top.dut.rx_fields_bit
+tb_submodule_tx_top.dut.rx_fields_byte[8:0]
+tb_submodule_tx_top.dut.rx_fields_word[15:0]
+-
+-TX_FIELDS (OUT)
+tb_submodule_tx_top.dut.tx_fields_ready
+tb_submodule_tx_top.dut.tx_fields_valid
+tb_submodule_tx_top.dut.tx_fields_bit
+tb_submodule_tx_top.dut.tx_fields_byte[8:0]
+tb_submodule_tx_top.dut.tx_fields_word[15:0]
+-
+-RX_WIDTH_BUF (IN)
+tb_submodule_tx_top.dut.rx_width_buf_ready
+tb_submodule_tx_top.dut.rx_width_buf_valid
+tb_submodule_tx_top.dut.rx_width_buf_data[63:0]
+-
+-TX_WIDTH_BUF (OUT)
+tb_submodule_tx_top.dut.tx_width_buf_ready
+tb_submodule_tx_top.dut.tx_width_buf_valid
+tb_submodule_tx_top.dut.tx_width_buf_data[63:0]
+-
+-RX_WIDTH1_BUF (IN)
+tb_submodule_tx_top.dut.rx_width1_buf_ready
+tb_submodule_tx_top.dut.rx_width1_buf_valid
+tb_submodule_tx_top.dut.rx_width1_buf_data
+-
+-TX_WIDTH1_BUF (OUT)
+tb_submodule_tx_top.dut.tx_width1_buf_ready
+tb_submodule_tx_top.dut.tx_width1_buf_valid
+tb_submodule_tx_top.dut.tx_width1_buf_data
+-
+-RX_FIELDS_BUF (IN)
+tb_submodule_tx_top.dut.rx_fields_buf_ready
+tb_submodule_tx_top.dut.rx_fields_buf_valid
+tb_submodule_tx_top.dut.rx_fields_buf_bit
+tb_submodule_tx_top.dut.rx_fields_buf_byte[8:0]
+tb_submodule_tx_top.dut.rx_fields_buf_word[15:0]
+-
+-TX_FIELDS_BUF (OUT)
+tb_submodule_tx_top.dut.tx_fields_buf_ready
+tb_submodule_tx_top.dut.tx_fields_buf_valid
+tb_submodule_tx_top.dut.tx_fields_buf_bit
+tb_submodule_tx_top.dut.tx_fields_buf_byte[8:0]
+tb_submodule_tx_top.dut.tx_fields_buf_word[15:0]
+-
+-RX_FIELDS_CONST (IN)
+tb_submodule_tx_top.dut.rx_fields_const_ready
+tb_submodule_tx_top.dut.rx_fields_const_valid
+tb_submodule_tx_top.dut.rx_fields_const_bit
+tb_submodule_tx_top.dut.rx_fields_const_byte[8:0]
+tb_submodule_tx_top.dut.rx_fields_const_word[15:0]
+-
+-TX_FIELDS_CONST (OUT)
+tb_submodule_tx_top.dut.tx_fields_const_ready
+tb_submodule_tx_top.dut.tx_fields_const_valid
+tb_submodule_tx_top.dut.tx_fields_const_bit
+tb_submodule_tx_top.dut.tx_fields_const_byte[8:0]
+tb_submodule_tx_top.dut.tx_fields_const_word[15:0]
+-
+-TX_PULL (OUT)
+tb_submodule_tx_top.dut.tx_pull_ready
+tb_submodule_tx_top.dut.tx_pull_valid
+tb_submodule_tx_top.dut.tx_pull_data[63:0]
+-
+-RX_TERMINATE (IN)
+tb_submodule_tx_top.dut.rx_terminate_ready
+tb_submodule_tx_top.dut.rx_terminate_valid
+tb_submodule_tx_top.dut.rx_terminate_data[63:0]
+-
+-TX_TERMINATE (OUT)
+tb_submodule_tx_top.dut.tx_terminate_ready
+tb_submodule_tx_top.dut.tx_terminate_valid
+tb_submodule_tx_top.dut.tx_terminate_data[63:0]
+-
+-IPG_TX_WIDTH (OUT)
+tb_submodule_tx_top.dut.ipg_tx_width_ready
+tb_submodule_tx_top.dut.ipg_tx_width_valid
+tb_submodule_tx_top.dut.ipg_tx_width_data[15:0]

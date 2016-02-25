@@ -1,0 +1,2 @@
+submodule_tx_top.v
+tb_submodule_tx_top.v

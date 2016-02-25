@@ -1,0 +1,14 @@
+digraph HandShakeData {
+    bgcolor=white
+    rankdir=LR;
+    node [shape=ellipse, style=filled, color=orange]; ERR_SRC ERR_DST;
+    node [shape=doublecircle, style=filled, color=lightgray]; IN OUT;
+    node [shape=ellipse]; IN OUT;
+    IN -> my_submodule_rx [ label = "rx_width\nrx_width1\nrx_fields\nrx_width_buf\nrx_width1_buf\nrx_fields_buf\nrx_push\nrx_terminate\n" ];
+    my_submodule_tx -> OUT [ label = "tx_width\ntx_width1\ntx_fields\ntx_width_buf\ntx_width1_buf\ntx_fields_buf\ntx_fields_const\ntx_pull\ntx_terminate\nipg_tx_width\n" ];
+    IN -> my_submodule_tx [ label = "rx_fields_const\n" ];
+    my_submodule_rx -> OUT [ label = "ipg_rx_width\n" ];
+    my_submodule_rx -> my_submodule_tx [ label = "hs_width\nhs_width1\nhs_fields\nhs_width_buf\nhs_width1_buf\nhs_fields_buf\n" ];
+    my_submodule_rx -> ERR_DST [ label = "hs_terminate_snk\n" ];
+    ERR_SRC -> my_submodule_tx [ label = "hs_terminate_src\n" ];
+    }

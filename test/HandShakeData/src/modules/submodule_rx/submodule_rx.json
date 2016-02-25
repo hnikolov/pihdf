@@ -1,0 +1,27 @@
+{
+    "design":
+    {
+        "name": "submodule_rx",
+        "interfaces":
+        [
+            {"active": "1", "type": "Reset", "name": "rst"},
+            {"type": "Clock", "name": "clk"},
+            {"type": "HSD", "direction": "IN", "data": "64", "name": "rx_width"},
+            {"type": "HSD", "direction": "OUT", "data": "64", "name": "tx_width"},
+            {"type": "HSD", "direction": "IN", "data": "1", "name": "rx_width1"},
+            {"type": "HSD", "direction": "OUT", "data": "1", "name": "tx_width1"},
+            {"type": "HSD", "direction": "IN", "data": "test_fields", "name": "rx_fields"},
+            {"type": "HSD", "direction": "OUT", "data": "test_fields", "name": "tx_fields"},
+            {"type": "HSD", "direction": "IN", "data": "64", "name": "rx_width_buf"},
+            {"type": "HSD", "direction": "OUT", "data": "64", "name": "tx_width_buf", "buf_size": "4"},
+            {"type": "HSD", "direction": "IN", "data": "1", "name": "rx_width1_buf"},
+            {"type": "HSD", "direction": "OUT", "data": "1", "name": "tx_width1_buf", "buf_size": "4"},
+            {"type": "HSD", "direction": "IN", "data": "test_fields", "name": "rx_fields_buf"},
+            {"type": "HSD", "direction": "OUT", "data": "test_fields", "name": "tx_fields_buf", "buf_size": "4"},
+            {"direction": "IN", "name": "rx_push", "push": "True", "data": "64", "type": "HSD"},
+            {"type": "HSD", "direction": "IN", "data": "64", "name": "rx_terminate"},
+            {"type": "HSD", "direction": "OUT", "data": "64", "name": "tx_terminate", "terminate": "True"},
+            {"type": "HSD", "direction": "OUT", "data": "16", "name": "ipg_rx_width"}
+        ]
+    }
+}
