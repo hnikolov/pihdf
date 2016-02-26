@@ -1,0 +1,19 @@
+{
+    "design": 
+    {
+        "name": "STAvln_tb",
+        "interfaces":
+        [
+            { "name": "rst",        "type": "Reset",  "active": "1"                      },
+            { "name": "clk",        "type": "Clock"                                      },
+            { "name": "rx16",       "type": "STAvln", "width": "16", "direction": "IN"   },
+            { "name": "tx16",       "type": "STAvln", "width": "16", "direction": "OUT"  },
+            { "name": "rx32",       "type": "STAvln", "width": "32", "direction": "IN"   },
+            { "name": "tx32",       "type": "STAvln", "width": "32", "direction": "OUT"  },
+            { "name": "rx64",       "type": "STAvln", "width": "64", "direction": "IN"   },
+            { "name": "tx64",       "type": "STAvln", "width": "64", "direction": "OUT"  },
+            { "name": "ipg_rx16",   "type": "HSD",    "data": "16",  "direction": "OUT"  },
+            { "name": "ipg_tx16",   "type": "HSD",    "data": "16",  "direction": "OUT"  }
+        ]
+    }
+}

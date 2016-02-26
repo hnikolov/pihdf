@@ -1,0 +1,72 @@
+[dumpfile] "STAvln_tb/STAvln_tb/out/STAvln_tb_top_cosim.vcd"
+[savefile] "STAvln_tb/STAvln_tb/test/STAvln_tb_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_STAvln_tb_top.
+[sst_expanded] 1
+tb_STAvln_tb_top.dut.rst
+tb_STAvln_tb_top.dut.clk
+-
+-RX16 (IN)
+tb_STAvln_tb_top.dut.rx16_ready
+tb_STAvln_tb_top.dut.rx16_valid
+tb_STAvln_tb_top.dut.rx16_sop
+tb_STAvln_tb_top.dut.rx16_eop
+tb_STAvln_tb_top.dut.rx16_empty
+tb_STAvln_tb_top.dut.rx16_data[15:0]
+tb_STAvln_tb_top.dut.rx16_err
+-
+-TX16 (OUT)
+tb_STAvln_tb_top.dut.tx16_ready
+tb_STAvln_tb_top.dut.tx16_valid
+tb_STAvln_tb_top.dut.tx16_sop
+tb_STAvln_tb_top.dut.tx16_eop
+tb_STAvln_tb_top.dut.tx16_empty
+tb_STAvln_tb_top.dut.tx16_data[15:0]
+tb_STAvln_tb_top.dut.tx16_err
+-
+-RX32 (IN)
+tb_STAvln_tb_top.dut.rx32_ready
+tb_STAvln_tb_top.dut.rx32_valid
+tb_STAvln_tb_top.dut.rx32_sop
+tb_STAvln_tb_top.dut.rx32_eop
+tb_STAvln_tb_top.dut.rx32_empty[1:0]
+tb_STAvln_tb_top.dut.rx32_data[31:0]
+tb_STAvln_tb_top.dut.rx32_err
+-
+-TX32 (OUT)
+tb_STAvln_tb_top.dut.tx32_ready
+tb_STAvln_tb_top.dut.tx32_valid
+tb_STAvln_tb_top.dut.tx32_sop
+tb_STAvln_tb_top.dut.tx32_eop
+tb_STAvln_tb_top.dut.tx32_empty[1:0]
+tb_STAvln_tb_top.dut.tx32_data[31:0]
+tb_STAvln_tb_top.dut.tx32_err
+-
+-RX64 (IN)
+tb_STAvln_tb_top.dut.rx64_ready
+tb_STAvln_tb_top.dut.rx64_valid
+tb_STAvln_tb_top.dut.rx64_sop
+tb_STAvln_tb_top.dut.rx64_eop
+tb_STAvln_tb_top.dut.rx64_empty[2:0]
+tb_STAvln_tb_top.dut.rx64_data[63:0]
+tb_STAvln_tb_top.dut.rx64_err
+-
+-TX64 (OUT)
+tb_STAvln_tb_top.dut.tx64_ready
+tb_STAvln_tb_top.dut.tx64_valid
+tb_STAvln_tb_top.dut.tx64_sop
+tb_STAvln_tb_top.dut.tx64_eop
+tb_STAvln_tb_top.dut.tx64_empty[2:0]
+tb_STAvln_tb_top.dut.tx64_data[63:0]
+tb_STAvln_tb_top.dut.tx64_err
+-
+-IPG_RX16 (OUT)
+tb_STAvln_tb_top.dut.ipg_rx16_ready
+tb_STAvln_tb_top.dut.ipg_rx16_valid
+tb_STAvln_tb_top.dut.ipg_rx16_data[15:0]
+-
+-IPG_TX16 (OUT)
+tb_STAvln_tb_top.dut.ipg_tx16_ready
+tb_STAvln_tb_top.dut.ipg_tx16_valid
+tb_STAvln_tb_top.dut.ipg_tx16_data[15:0]
