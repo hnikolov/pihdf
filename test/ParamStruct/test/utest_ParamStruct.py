@@ -44,7 +44,7 @@ class Test_ParamStruct(t_ParamStruct):
         self.dut_params = {"TOP_PARAM_NONE":None, "TOP_PARAM_BOOL":False, "TOP_PARAM_INT":20, "TOP_PARAM_FLOAT":2.5, "TOP_PARAM_STR":'my_string_B'}
         self.models = {"top":self.RTL}
         # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":True, "fdump":False, "ipgi":1, "ipgo":1}
+        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":1, "ipgo":1}
 
         # TO DO: generate stimuli and reference data here
 
