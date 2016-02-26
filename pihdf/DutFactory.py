@@ -16,6 +16,7 @@ class DutFactory(object):
         '''  '''
         self._simulator = 'icarus' if cosimulation else "myhdl"
         self._trace     =  trace
+        self.top_suffix = "_top"
 
         # Registry of external HDL simulators
         self.sim_reg = {}
@@ -25,7 +26,7 @@ class DutFactory(object):
             name         = "icarus",
             hdl          = "Verilog",
             analyze_cmd  = 'iverilog -o {topname}.o tb_{topname}.v {topname}.v',
-            simulate_cmd = "vvp -m /.pihdf/myhdl.vpi {topname}.o"
+            simulate_cmd = "vvp -m /.myframework/myhdl.vpi {topname}.o"
         )
 
     def registerSimulator(self, name=None, hdl=None, analyze_cmd=None, elaborate_cmd=None, simulate_cmd=None):
@@ -92,7 +93,7 @@ class DutFactory(object):
         |     kwargs_struct - dict of module structural interface assignments: for signals, interfaces and parameters
         |________'''
         vals = {}
-        vals['topname'] = module.get_name()
+        vals['topname'] = module.get_name() + self.top_suffix
         hdlsim = self._simulator
         if not hdlsim:
             raise ValueError("No _simulator specified")
@@ -168,7 +169,7 @@ class DutFactory(object):
                 sim_dut = module.gen(**kwargs)
                 mylog.infob("Simulating... trace will NOT be generated")
             else:
-                traceSignals.name = module.get_name()
+                traceSignals.name = module.get_name() + self.top_suffix
                 sim_dut = traceSignals(module.gen, **kwargs)
                 mylog.infob("Simulating... trace will be generated ({}.vcd)".format(traceSignals.name))
         else:

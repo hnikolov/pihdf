@@ -30,6 +30,7 @@ class Convertible(object):
 
         self.module_name = self.__class__.__name__
         self.is_top = False
+        self.top_suffix = "_top"
 
         self.resets = []
         self.clocks = []
@@ -372,10 +373,10 @@ class Convertible(object):
 
         if verbose: mylog.infob('Converting to {}...'.format(hdl))
         if hdl.lower()=='verilog':
-            toVerilog.name = self.get_name()
+            toVerilog.name = self.get_name() + self.top_suffix
             toVerilog(self.top, **top_kwargs)
         elif hdl.lower()=='vhdl':
-            toVHDL.name = self.get_name()
+            toVHDL.name = self.get_name() + self.top_suffix
             toVHDL(self.top, **top_kwargs)
         else:
             raise ValueError("Unknown HDL: {}".format(hdl))
@@ -386,7 +387,7 @@ class Convertible(object):
         | 'Clean' (moves) generated .v and .vcd files to 'module'/out
         | To be used also when generating test vectors...
         |________'''
-        filename = self.module_name
+        filename = self.module_name + self.top_suffix
         for file in os.listdir('.'):
         
             if os.path.isfile(file):
