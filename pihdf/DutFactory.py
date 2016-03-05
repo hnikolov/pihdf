@@ -26,7 +26,7 @@ class DutFactory(object):
             name         = "icarus",
             hdl          = "Verilog",
             analyze_cmd  = 'iverilog -o {topname}.o tb_{topname}.v {topname}.v',
-            simulate_cmd = "vvp -m /.myframework/myhdl.vpi {topname}.o"
+            simulate_cmd = "vvp -m /.pihdf/myhdl.vpi {topname}.o"
         )
 
     def registerSimulator(self, name=None, hdl=None, analyze_cmd=None, elaborate_cmd=None, simulate_cmd=None):
