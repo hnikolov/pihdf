@@ -1,0 +1,18 @@
+[dumpfile] "myvrlg/myvrlg/out/myvrlg_top_cosim.vcd"
+[savefile] "myvrlg/myvrlg/test/myvrlg_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_myvrlg_top.
+[sst_expanded] 1
+tb_myvrlg_top.dut.rst
+tb_myvrlg_top.dut.clk
+-
+-RX_HS (IN)
+tb_myvrlg_top.dut.rx_hs_ready
+tb_myvrlg_top.dut.rx_hs_valid
+tb_myvrlg_top.dut.rx_hs_data[63:0]
+-
+-TX_HS (OUT)
+tb_myvrlg_top.dut.tx_hs_ready
+tb_myvrlg_top.dut.tx_hs_valid
+tb_myvrlg_top.dut.tx_hs_data[63:0]

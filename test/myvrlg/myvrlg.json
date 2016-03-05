@@ -1,0 +1,23 @@
+{
+    "design":
+    {
+        "name": "myvrlg",
+        "interfaces":
+        [
+            {"active": "1", "type": "Reset", "name": "rst"},
+            {"type": "Clock", "name": "clk"},
+            {"name": "rx_hs", "type": "HSD", "data": "64", "direction": "IN" },
+            {"name": "tx_hs", "type": "HSD", "data": "64", "direction": "OUT", "push": "False"}
+        ]
+    },
+
+
+    "__comment": "The verilog section below is optional and specifies the verilog implementation of the module.",
+    "__comment": "The interface signals of the verilog module must match the signals of the used interfaces above.",
+
+    "verilog":
+    {
+        "name": "",
+        "path": ""
+    }
+}

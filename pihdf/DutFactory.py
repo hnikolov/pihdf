@@ -25,7 +25,7 @@ class DutFactory(object):
         self.registerSimulator(
             name         = "icarus",
             hdl          = "Verilog",
-            analyze_cmd  = 'iverilog -o {topname}.o tb_{topname}.v {topname}.v',
+            analyze_cmd  = 'iverilog -o {topname}.o -f {modulepath}/src/compile_list.txt',
             simulate_cmd = "vvp -m /.pihdf/myhdl.vpi {topname}.o"
         )
 
@@ -94,6 +94,7 @@ class DutFactory(object):
         |________'''
         vals = {}
         vals['topname'] = module.get_name() + self.top_suffix
+        vals['modulepath'] = module.c_path # absolute path
         hdlsim = self._simulator
         if not hdlsim:
             raise ValueError("No _simulator specified")

@@ -1,5 +1,5 @@
 from str_builder import StrBuilder
-
+import os
 
 def print_compile_list_file(mfdo):
     '''|
@@ -12,8 +12,8 @@ def print_compile_list_file(mfdo):
     s += mfdo.module_name + '_top.v\n'
     if mfdo.verilog != {}:
         if mfdo.verilog["path"]=='':
-            s += mfdo.c_path + '/' + mfdo.src_path + '/' + mfdo.module_name + '.v\n'
+            s += os.getcwd() + '/' + mfdo.c_path + '/' + mfdo.src_path + '/' + mfdo.module_name + '.v\n'
         else:
-            s += mfdo.c_path + '/' + mfdo.src_path + '/' + mfdo.verilog["name"] + '.v\n'
+            s += os.getcwd() + '/' + mfdo.c_path + '/' + mfdo.src_path + '/' + mfdo.verilog["name"] + '.v\n'
     s += 'tb_' + mfdo.module_name + '_top.v\n'
     s.write(filename, overwrite = mfdo.overwrite)

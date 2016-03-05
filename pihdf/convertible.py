@@ -122,11 +122,11 @@ class Convertible(object):
         |________'''
         return OrderedDict([(clk.inst_name, clk) for clk in self.get_clocks()])
 
-    def get_all_interfaces(self):
+    def get_all_interfaces(self, FDUMP=False):
         '''|
         | Returns OrderedDict of all interface (unique)
         |________'''
-        return OrderedDict([(interface.inst_name, interface) for interface in self.get_interfaces()])
+        return OrderedDict([(interface.inst_name, interface) for interface in self.get_interfaces(FDUMP)])
 
     def get_all_parameters(self, overwrite_params={}, verbose=False):
         '''|
@@ -210,7 +210,7 @@ class Convertible(object):
         RST_PATCH = resets.values()[-1] # TODO: Dirty patch, keeps the last from the list
 
         # Get interfaces
-        interfaces = self.get_all_interfaces()
+        interfaces = self.get_all_interfaces(FDUMP)
 
         # Overwrite default parameters
         parameters = self.get_all_parameters(overwrite_params=dut_params, verbose=True)
