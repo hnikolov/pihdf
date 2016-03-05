@@ -29,8 +29,6 @@ Notes
 
 ``pihdf`` requiers ``myhdl_lib`` (https://github.com/nkavaldj/myhdl_lib) 
 
-``myhdl_lib`` requires ``scapy`` (http://www.secdev.org/projects/scapy/doc/installation.html)
-
 The command-line tool ``module`` makes use of the very convenient package ``docopt`` (https://github.com/docopt/docopt), which is copied in the ``pihdf`` repository.
 
 
