@@ -1,5 +1,5 @@
-[dumpfile] "STAvln_tb/STAvln_tb/out/STAvln_tb_top_cosim.vcd"
-[savefile] "STAvln_tb/STAvln_tb/test/STAvln_tb_top_cosim.gtkw"
+[dumpfile] "test/STAvln_tb/STAvln_tb/out/STAvln_tb_top_cosim.vcd"
+[savefile] "test/STAvln_tb/STAvln_tb/test/STAvln_tb_top_cosim.gtkw"
 [timestart] 0
 [pos] -1 -1
 [treeopen] tb_STAvln_tb_top.

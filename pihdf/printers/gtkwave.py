@@ -36,7 +36,7 @@ def print_gtkw_file(mfdo, cosim = False):
             j = mfdo.getInterfaceObj(i)
             iname = i["name"] + '_' if len(j) > 1 else ''
             for k in j:
-                xtra = dut if not cosim else ''
+                xtra = 'rtl.' if not cosim else ''
                 s += "-\n"
 
                 cname = '_' + k.inst_name.upper() if len(j) > 1 else ''
@@ -45,7 +45,6 @@ def print_gtkw_file(mfdo, cosim = False):
 
                 for sigName, sigLen in zip(k.get_sig_names(), k.get_sig_lens()):
                     ss = "[" + str(sigLen-1) + ":0]" if (sigLen > 1) else ''
-                    #if (sigName=="src_data") and (not cosim): sigName = "data" # strange we need this (update: sigName do not contain 'src_' anymore)
                     s += dut + xtra + iname + k.inst_name + '_' + sigName + ss + "\n"
 
         s.write(filename, overwrite=True)

@@ -1,5 +1,5 @@
-[dumpfile] "HandShakeData/src/modules/submodule_rx/submodule_rx/out/submodule_rx_top_cosim.vcd"
-[savefile] "HandShakeData/src/modules/submodule_rx/submodule_rx/test/submodule_rx_top_cosim.gtkw"
+[dumpfile] "test/HandShakeData/src/modules/submodule_rx/submodule_rx/out/submodule_rx_top_cosim.vcd"
+[savefile] "test/HandShakeData/src/modules/submodule_rx/submodule_rx/test/submodule_rx_top_cosim.gtkw"
 [timestart] 0
 [pos] -1 -1
 [treeopen] tb_submodule_rx_top.

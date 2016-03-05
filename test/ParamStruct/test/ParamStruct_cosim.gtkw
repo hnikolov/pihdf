@@ -1,5 +1,5 @@
-[dumpfile] "ParamStruct/ParamStruct/out/ParamStruct_top_cosim.vcd"
-[savefile] "ParamStruct/ParamStruct/test/ParamStruct_top_cosim.gtkw"
+[dumpfile] "test/ParamStruct/ParamStruct/out/ParamStruct_top_cosim.vcd"
+[savefile] "test/ParamStruct/ParamStruct/test/ParamStruct_top_cosim.gtkw"
 [timestart] 0
 [pos] -1 -1
 [treeopen] tb_ParamStruct_top.

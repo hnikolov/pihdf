@@ -1,5 +1,5 @@
-[dumpfile] "ParamStruct/ParamStruct/out/ParamStruct_top.vcd"
-[savefile] "ParamStruct/ParamStruct/test/ParamStruct_top.gtkw"
+[dumpfile] "test/ParamStruct/ParamStruct/out/ParamStruct_top.vcd"
+[savefile] "test/ParamStruct/ParamStruct/test/ParamStruct_top.gtkw"
 [timestart] 0
 [pos] -1 -1
 [treeopen] tb_ParamStruct_top.
@@ -8,6 +8,6 @@ ParamStruct_top.rst
 ParamStruct_top.clk
 -
 -TX (OUT)
-ParamStruct_top.ParamStruct_top.tx_ready
-ParamStruct_top.ParamStruct_top.tx_valid
-ParamStruct_top.ParamStruct_top.tx_data[15:0]
+ParamStruct_top.rtl.tx_ready
+ParamStruct_top.rtl.tx_valid
+ParamStruct_top.rtl.tx_data[15:0]

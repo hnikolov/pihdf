@@ -1,5 +1,5 @@
-[dumpfile] "HandShakeData/src/modules/submodule_rx/submodule_rx/out/submodule_rx_top.vcd"
-[savefile] "HandShakeData/src/modules/submodule_rx/submodule_rx/test/submodule_rx_top.gtkw"
+[dumpfile] "test/HandShakeData/src/modules/submodule_rx/submodule_rx/out/submodule_rx_top.vcd"
+[savefile] "test/HandShakeData/src/modules/submodule_rx/submodule_rx/test/submodule_rx_top.gtkw"
 [timestart] 0
 [pos] -1 -1
 [treeopen] tb_submodule_rx_top.
@@ -8,89 +8,89 @@ submodule_rx_top.rst
 submodule_rx_top.clk
 -
 -RX_WIDTH (IN)
-submodule_rx_top.submodule_rx_top.rx_width_ready
-submodule_rx_top.submodule_rx_top.rx_width_valid
-submodule_rx_top.submodule_rx_top.rx_width_data[63:0]
+submodule_rx_top.rtl.rx_width_ready
+submodule_rx_top.rtl.rx_width_valid
+submodule_rx_top.rtl.rx_width_data[63:0]
 -
 -TX_WIDTH (OUT)
-submodule_rx_top.submodule_rx_top.tx_width_ready
-submodule_rx_top.submodule_rx_top.tx_width_valid
-submodule_rx_top.submodule_rx_top.tx_width_data[63:0]
+submodule_rx_top.rtl.tx_width_ready
+submodule_rx_top.rtl.tx_width_valid
+submodule_rx_top.rtl.tx_width_data[63:0]
 -
 -RX_WIDTH1 (IN)
-submodule_rx_top.submodule_rx_top.rx_width1_ready
-submodule_rx_top.submodule_rx_top.rx_width1_valid
-submodule_rx_top.submodule_rx_top.rx_width1_data
+submodule_rx_top.rtl.rx_width1_ready
+submodule_rx_top.rtl.rx_width1_valid
+submodule_rx_top.rtl.rx_width1_data
 -
 -TX_WIDTH1 (OUT)
-submodule_rx_top.submodule_rx_top.tx_width1_ready
-submodule_rx_top.submodule_rx_top.tx_width1_valid
-submodule_rx_top.submodule_rx_top.tx_width1_data
+submodule_rx_top.rtl.tx_width1_ready
+submodule_rx_top.rtl.tx_width1_valid
+submodule_rx_top.rtl.tx_width1_data
 -
 -RX_FIELDS (IN)
-submodule_rx_top.submodule_rx_top.rx_fields_ready
-submodule_rx_top.submodule_rx_top.rx_fields_valid
-submodule_rx_top.submodule_rx_top.rx_fields_bit
-submodule_rx_top.submodule_rx_top.rx_fields_byte[8:0]
-submodule_rx_top.submodule_rx_top.rx_fields_word[15:0]
+submodule_rx_top.rtl.rx_fields_ready
+submodule_rx_top.rtl.rx_fields_valid
+submodule_rx_top.rtl.rx_fields_bit
+submodule_rx_top.rtl.rx_fields_byte[8:0]
+submodule_rx_top.rtl.rx_fields_word[15:0]
 -
 -TX_FIELDS (OUT)
-submodule_rx_top.submodule_rx_top.tx_fields_ready
-submodule_rx_top.submodule_rx_top.tx_fields_valid
-submodule_rx_top.submodule_rx_top.tx_fields_bit
-submodule_rx_top.submodule_rx_top.tx_fields_byte[8:0]
-submodule_rx_top.submodule_rx_top.tx_fields_word[15:0]
+submodule_rx_top.rtl.tx_fields_ready
+submodule_rx_top.rtl.tx_fields_valid
+submodule_rx_top.rtl.tx_fields_bit
+submodule_rx_top.rtl.tx_fields_byte[8:0]
+submodule_rx_top.rtl.tx_fields_word[15:0]
 -
 -RX_WIDTH_BUF (IN)
-submodule_rx_top.submodule_rx_top.rx_width_buf_ready
-submodule_rx_top.submodule_rx_top.rx_width_buf_valid
-submodule_rx_top.submodule_rx_top.rx_width_buf_data[63:0]
+submodule_rx_top.rtl.rx_width_buf_ready
+submodule_rx_top.rtl.rx_width_buf_valid
+submodule_rx_top.rtl.rx_width_buf_data[63:0]
 -
 -TX_WIDTH_BUF (OUT)
-submodule_rx_top.submodule_rx_top.tx_width_buf_ready
-submodule_rx_top.submodule_rx_top.tx_width_buf_valid
-submodule_rx_top.submodule_rx_top.tx_width_buf_data[63:0]
+submodule_rx_top.rtl.tx_width_buf_ready
+submodule_rx_top.rtl.tx_width_buf_valid
+submodule_rx_top.rtl.tx_width_buf_data[63:0]
 -
 -RX_WIDTH1_BUF (IN)
-submodule_rx_top.submodule_rx_top.rx_width1_buf_ready
-submodule_rx_top.submodule_rx_top.rx_width1_buf_valid
-submodule_rx_top.submodule_rx_top.rx_width1_buf_data
+submodule_rx_top.rtl.rx_width1_buf_ready
+submodule_rx_top.rtl.rx_width1_buf_valid
+submodule_rx_top.rtl.rx_width1_buf_data
 -
 -TX_WIDTH1_BUF (OUT)
-submodule_rx_top.submodule_rx_top.tx_width1_buf_ready
-submodule_rx_top.submodule_rx_top.tx_width1_buf_valid
-submodule_rx_top.submodule_rx_top.tx_width1_buf_data
+submodule_rx_top.rtl.tx_width1_buf_ready
+submodule_rx_top.rtl.tx_width1_buf_valid
+submodule_rx_top.rtl.tx_width1_buf_data
 -
 -RX_FIELDS_BUF (IN)
-submodule_rx_top.submodule_rx_top.rx_fields_buf_ready
-submodule_rx_top.submodule_rx_top.rx_fields_buf_valid
-submodule_rx_top.submodule_rx_top.rx_fields_buf_bit
-submodule_rx_top.submodule_rx_top.rx_fields_buf_byte[8:0]
-submodule_rx_top.submodule_rx_top.rx_fields_buf_word[15:0]
+submodule_rx_top.rtl.rx_fields_buf_ready
+submodule_rx_top.rtl.rx_fields_buf_valid
+submodule_rx_top.rtl.rx_fields_buf_bit
+submodule_rx_top.rtl.rx_fields_buf_byte[8:0]
+submodule_rx_top.rtl.rx_fields_buf_word[15:0]
 -
 -TX_FIELDS_BUF (OUT)
-submodule_rx_top.submodule_rx_top.tx_fields_buf_ready
-submodule_rx_top.submodule_rx_top.tx_fields_buf_valid
-submodule_rx_top.submodule_rx_top.tx_fields_buf_bit
-submodule_rx_top.submodule_rx_top.tx_fields_buf_byte[8:0]
-submodule_rx_top.submodule_rx_top.tx_fields_buf_word[15:0]
+submodule_rx_top.rtl.tx_fields_buf_ready
+submodule_rx_top.rtl.tx_fields_buf_valid
+submodule_rx_top.rtl.tx_fields_buf_bit
+submodule_rx_top.rtl.tx_fields_buf_byte[8:0]
+submodule_rx_top.rtl.tx_fields_buf_word[15:0]
 -
 -RX_PUSH (IN)
-submodule_rx_top.submodule_rx_top.rx_push_ready
-submodule_rx_top.submodule_rx_top.rx_push_valid
-submodule_rx_top.submodule_rx_top.rx_push_data[63:0]
+submodule_rx_top.rtl.rx_push_ready
+submodule_rx_top.rtl.rx_push_valid
+submodule_rx_top.rtl.rx_push_data[63:0]
 -
 -RX_TERMINATE (IN)
-submodule_rx_top.submodule_rx_top.rx_terminate_ready
-submodule_rx_top.submodule_rx_top.rx_terminate_valid
-submodule_rx_top.submodule_rx_top.rx_terminate_data[63:0]
+submodule_rx_top.rtl.rx_terminate_ready
+submodule_rx_top.rtl.rx_terminate_valid
+submodule_rx_top.rtl.rx_terminate_data[63:0]
 -
 -TX_TERMINATE (OUT)
-submodule_rx_top.submodule_rx_top.tx_terminate_ready
-submodule_rx_top.submodule_rx_top.tx_terminate_valid
-submodule_rx_top.submodule_rx_top.tx_terminate_data[63:0]
+submodule_rx_top.rtl.tx_terminate_ready
+submodule_rx_top.rtl.tx_terminate_valid
+submodule_rx_top.rtl.tx_terminate_data[63:0]
 -
 -IPG_RX_WIDTH (OUT)
-submodule_rx_top.submodule_rx_top.ipg_rx_width_ready
-submodule_rx_top.submodule_rx_top.ipg_rx_width_valid
-submodule_rx_top.submodule_rx_top.ipg_rx_width_data[15:0]
+submodule_rx_top.rtl.ipg_rx_width_ready
+submodule_rx_top.rtl.ipg_rx_width_valid
+submodule_rx_top.rtl.ipg_rx_width_data[15:0]
