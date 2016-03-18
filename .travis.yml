@@ -12,12 +12,20 @@ addons:
 # command to install dependencies
 install:
   - pip install myhdl simplejson coverage nose
+
+  # To make use of the command-line tool 'module'
   - python setup.py develop
+
+  # Create the myhdl.vpi file
+  - git clone https://github.com/jandecaluwe/myhdl
+  - make -C myhdl/cosimulation/icarus
+  - mkdir /.pihdf
+  - cp myhdl/cosimulation/icarus/myhdl.vpi /.pihdf
+
+  # myhdl_lib
   - git clone https://github.com/nkavaldj/myhdl_lib.git
   - python myhdl_lib/setup.py install
 
-#  - ./scripts/make_vpi.sh
-  
 # command to run tests
 script: 
 #  - nosetests -vsx -w test -i "test"
