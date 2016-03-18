@@ -1,0 +1,23 @@
+sudo: false
+
+language: python
+python:
+  - "2.7"
+  
+addons:
+  apt:
+    packages:
+    - iverilog
+
+# command to install dependencies
+install:
+  - pip install myhdl simplejson coverage nose
+#  - ./scripts/make_vpi.sh
+  
+# command to run tests
+script: 
+  - nosetests -vsx -w test -i "test"
+
+notifications:
+  email: false
+
