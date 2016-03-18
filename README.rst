@@ -10,10 +10,10 @@ To install ``pihdf`` in editable mode: ::
 
     $ sudo python setup.py develop
 
-``pihdf`` depends on the following python packages: __myhdl, simplejson, coverage, nose__. 
+``pihdf`` depends on the following python packages: **myhdl, simplejson, coverage, nose**. 
 These will be installed during the installation of `pihdf` if not present on your system. 
 
-__Note:__ These packages will __not__ be un-installed if you un-install `pyhdf`. 
+**Note:** These packages will **not** be un-installed if you un-install `pyhdf`. 
 
 
 Un-install ``pihdf``
@@ -31,7 +31,7 @@ Then, remove the command-line script ``module`` from its location: ::
 Co-simulation, waveform and dotty viewers
 -----------------------------------------
 
-For co-simulations, `pihdf` uses the __Icarus iverilog__ simulator. __GTKWave__ is the waveform viewer used in `pihdf`. For structured designs, `pihdf` generates also the design topology (i.e., HW modules interconnections) as a `.dot` file. To viasualize it, you can use `xdot` program. Install all programs by executing: ::
+For co-simulations, `pihdf` uses the **Icarus iverilog** simulator. **GTKWave** is the waveform viewer used in `pihdf`. For structured designs, `pihdf` generates also the design topology (i.e., HW modules interconnections) as a `.dot` file. To viasualize it, you can use `xdot` program. Install all programs by executing: ::
 
     $ sudo apt-get install iverilog gtkwave xdot
 
