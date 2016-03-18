@@ -1,4 +1,4 @@
-sudo: false
+sudo: true
 
 language: python
 python:
@@ -12,6 +12,7 @@ addons:
 # command to install dependencies
 install:
   - pip install myhdl simplejson coverage nose
+  - python setup.py develop
 #  - ./scripts/make_vpi.sh
   
 # command to run tests
