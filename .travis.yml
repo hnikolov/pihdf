@@ -16,8 +16,8 @@ install:
   
 # command to run tests
 script: 
-  - nosetests -vsx -w test -i "test"
-#  - module test/ test recursive
+#  - nosetests -vsx -w test -i "test"
+  - module test/ test recursive
 
 notifications:
   email: false

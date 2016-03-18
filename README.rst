@@ -1,6 +1,8 @@
 pihdf: Python Hardware Design Framework based on MyHDL
 ======================================================
 
+[![Build Status](https://travis-ci.org/hnikolov/pihdf.svg?branch=master)](https://travis-ci.org/hnikolov/pihdf)
+
 A very preliminary documentation (work-in-progress) is available at: http://hnikolov.github.io/pihdf_doc/
 
 Install ``pihdf`` 
