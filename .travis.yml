@@ -19,8 +19,8 @@ install:
   # Create the myhdl.vpi file
   - git clone https://github.com/jandecaluwe/myhdl
   - make -C myhdl/cosimulation/icarus
-  - mkdir /.pihdf
-  - cp myhdl/cosimulation/icarus/myhdl.vpi /.pihdf
+  - sudo mkdir /.pihdf
+  - sudo cp myhdl/cosimulation/icarus/myhdl.vpi /.pihdf
 
   # myhdl_lib
   - git clone https://github.com/nkavaldj/myhdl_lib.git
