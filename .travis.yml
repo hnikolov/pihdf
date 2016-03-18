@@ -13,6 +13,9 @@ addons:
 install:
   - pip install myhdl simplejson coverage nose
   - python setup.py develop
+  - git clone https://github.com/nkavaldj/myhdl_lib.git
+  - python myhdl_lib/setup.py develop
+
 #  - ./scripts/make_vpi.sh
   
 # command to run tests
