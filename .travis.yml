@@ -13,6 +13,12 @@ addons:
 install:
   - pip install myhdl simplejson coverage nose
 
+  # myhdl_lib
+  - git clone https://github.com/nkavaldj/myhdl_lib.git
+  - cd myhdl_lib
+  - python setup.py install
+  - cd ..
+
   # To make use of the command-line tool 'module'
   - python setup.py develop
 
@@ -21,13 +27,6 @@ install:
   - make -C myhdl/cosimulation/icarus
   - sudo mkdir /.pihdf
   - sudo cp myhdl/cosimulation/icarus/myhdl.vpi /.pihdf
-
-  # myhdl_lib
-  - git clone https://github.com/nkavaldj/myhdl_lib.git
-  #- python myhdl_lib/setup.py install
-  - cd myhdl_lib
-  - python setup.py install
-  - cd ..
 
 # command to run tests
 script: 
