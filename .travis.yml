@@ -24,7 +24,10 @@ install:
 
   # myhdl_lib
   - git clone https://github.com/nkavaldj/myhdl_lib.git
-  - python myhdl_lib/setup.py install
+  #- python myhdl_lib/setup.py install
+  - cd myhdl_lib
+  - python setup.py install
+  - cd ..
 
 # command to run tests
 script: 
