@@ -19,7 +19,7 @@ install:
   - python setup.py install
   - cd ..
 
-  # To make use of the command-line tool 'module'
+  # pihdf and to make use of the command-line tool 'module'
   - python setup.py develop
 
   # Create the myhdl.vpi file
@@ -31,6 +31,7 @@ install:
 # command to run tests
 script: 
 #  - nosetests -vsx -w test -i "test"
+  - module test/ update recursive
   - module test/ test recursive
 
 notifications:
