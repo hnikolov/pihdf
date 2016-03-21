@@ -396,6 +396,7 @@ class MFDesign(object):
         
         print_module_class_file(self)
         print_btest_file(self)
+        print_compile_list_file(self)
        
         if self.modules == []:
             update_beh_file(self)
