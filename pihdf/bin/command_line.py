@@ -60,3 +60,4 @@ def main():
         cc = CommandChecker(  arguments   )
         ch = CommandHandler( cc.arguments )
         print "done"
+        exit(ch.status)

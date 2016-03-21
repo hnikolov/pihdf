@@ -30,6 +30,8 @@ class CommandHandler():
         self.opt_ParValue  = cl_arguments["-v"]
 
         self.full_name = self.module_path + '/' + self.file_name
+        
+        self.status = 0 # Used to return the status of executing the tests
 
         # Register command handlers
         self.handle = {
@@ -183,7 +185,8 @@ class CommandHandler():
         else:
             cmd = 'nosetests -vsx ' + self.module_path + '/' + 'test/' + file_name
             
-        os.system(cmd)
+        status = os.system(cmd)
+        self.status = status % 255 # On Unix: the first byte indicates signals, the second byte - the status
         
         
     def on_convert(self):
