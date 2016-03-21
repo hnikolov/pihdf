@@ -1,3 +1,5 @@
 myvrlg_top.v
-/home/nikolov/Projects/python_env/pihdf_env/hristo/pihdf/test/myvrlg/src/myvrlg.v
+/home/hristo/git/pihdf/test/myvrlg/src/myvrlg.v
+#--- Add files begin ---#
+#--- Add files end   ---#
 tb_myvrlg_top.v
