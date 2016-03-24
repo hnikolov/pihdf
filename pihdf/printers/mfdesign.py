@@ -186,8 +186,11 @@ class MFDesign(object):
 
                     if line.startswith(begin_str):
                         enable = True
-        except:
-            pass
+
+        except Exception as e:
+            mylog.err("in extractText():")
+            print "      ", e
+
         return s
 
 
