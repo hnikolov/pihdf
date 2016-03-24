@@ -1,4 +1,2 @@
 submodule_tx_top.v
-#--- Add files begin ---#
-#--- Add files end   ---#
 tb_submodule_tx_top.v

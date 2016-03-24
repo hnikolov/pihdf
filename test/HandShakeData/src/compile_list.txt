@@ -1,4 +1,2 @@
 HandShakeData_top.v
-#--- Add files begin ---#
-#--- Add files end   ---#
 tb_HandShakeData_top.v
