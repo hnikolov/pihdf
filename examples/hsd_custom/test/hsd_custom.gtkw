@@ -1,0 +1,20 @@
+[dumpfile] "examples/hsd_custom/hsd_custom/out/hsd_custom_top.vcd"
+[savefile] "examples/hsd_custom/hsd_custom/test/hsd_custom_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_hsd_custom_top.
+[sst_expanded] 1
+hsd_custom_top.rst
+hsd_custom_top.clk
+-
+-RX_PORT_FLDS (IN)
+hsd_custom_top.rtl.rx_port_flds_ready
+hsd_custom_top.rtl.rx_port_flds_valid
+hsd_custom_top.rtl.rx_port_flds_cmd
+hsd_custom_top.rtl.rx_port_flds_port[15:0]
+-
+-TX_PORT_FLDS (OUT)
+hsd_custom_top.rtl.tx_port_flds_ready
+hsd_custom_top.rtl.tx_port_flds_valid
+hsd_custom_top.rtl.tx_port_flds_cmd
+hsd_custom_top.rtl.tx_port_flds_port[15:0]

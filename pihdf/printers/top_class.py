@@ -38,6 +38,9 @@ def print_module_class_file(mfdo):
             s += "import site\n"
             s += "site.addsitedir(module_path + '/src/modules')\n\n"
 
+    if mfdo.custom_interfaces != []:
+        s += 'from interfaces import *\n\n'
+
     s += 'from ' + 'src.' + mfdo.module_name + '_beh import *\n'
     if mfdo.verilog != {}:
             s += 'from ' + 'src.' + mfdo.module_name + '_wrp import *\n'

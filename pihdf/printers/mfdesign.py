@@ -10,6 +10,7 @@ from time import gmtime, strftime
 import shutil
 
 import simplejson
+import collections
 
 import __builtin__
 
@@ -19,6 +20,7 @@ from ..           import mylog
 from str_builder import StrBuilder
 
 from top_class import print_module_class_file
+from custom_interfaces import print_custom_interfaces_file
 from btest_class import print_btest_file
 from utest_class import print_utest_file
 
@@ -46,6 +48,7 @@ class MFDesign(object):
 
         self.interfaces = []
         self.local_interfaces = []
+        self.custom_interfaces = []
 
         self.parameters = []
         self.local_parameters = []
@@ -188,8 +191,10 @@ class MFDesign(object):
                         enable = True
 
         except Exception as e:
-            mylog.err("in extractText():")
-            print "      ", e
+            # 'False positive' in command 'new'
+            # mylog.err("in extractText():")
+            # print "      ", e
+            pass
 
         return s
 
@@ -201,9 +206,10 @@ class MFDesign(object):
         |________'''
         f = open(filename)
         try:
-            json_struct = simplejson.load(f)
-        except:
-            mylog.err("cannot load .json file: " + filename)
+            json_struct = simplejson.load(f, object_pairs_hook=collections.OrderedDict)
+        except Exception as e:
+            mylog.err("in initialize(), cannot load .json file: " + filename)
+            print "      ", e
             sys.exit(1)
         f.close()
 
@@ -216,10 +222,13 @@ class MFDesign(object):
         head, tail = os.path.split(filename)
         self.c_path = head
         
-        jdesign  = json_struct['design']    if 'design'     in json_struct else None
-        jimplmn  = json_struct['structure'] if 'structure'  in json_struct else None
-        jverilog = json_struct['verilog']   if 'verilog'    in json_struct else None
-        
+        # Note: custom interfaces processed in "print_custom_interfaces_file()"
+        self.custom_interfaces = json_struct['custom_interfaces'] if 'custom_interfaces' in json_struct else []
+
+        jdesign  = json_struct['design']    if 'design'    in json_struct else None
+        jimplmn  = json_struct['structure'] if 'structure' in json_struct else None
+        jverilog = json_struct['verilog']   if 'verilog'   in json_struct else None
+
         # -----------------------------------------------------------------------------
         for tag in jdesign.keys():
             if tag=='name':
@@ -364,6 +373,7 @@ class MFDesign(object):
         StrBuilder().write(self.c_path + '/' + self.test_path + '/vectors/.gitignore', overwrite=True)
 
         # print files
+        print_custom_interfaces_file(self)
         print_module_class_file(self)
         print_btest_file(self)
         print_utest_file(self)
@@ -397,6 +407,7 @@ class MFDesign(object):
         
         self.overwrite = True
         
+        print_custom_interfaces_file(self)
         print_module_class_file(self)
         print_btest_file(self)
         print_compile_list_file(self)
