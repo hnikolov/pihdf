@@ -1,0 +1,28 @@
+{
+    "design":
+    {
+        "name": "C",
+        "interfaces":
+        [
+            {"name": "rst", "type": "Reset", "active": "1"},
+            {"name": "clk", "type": "Clock"},
+            {"name": "sbus", "type": "Bus", "interfaces": "SBUS", "reg_file": "True"}
+        ]
+    },
+    "structure":
+    {
+        "design_modules":
+        [
+            {
+                "name": "B1", "type": "B",
+                "path": "src/modules/B/B",
+                "connections":
+                [
+                    {"direction": "IN", "local_name": "rst", "connect_to": "rst"},
+                    {"direction": "IN", "local_name": "clk", "connect_to": "clk"},
+                    {"local_name": "sbus", "connect_to": "sbus"}                    
+                ]
+            }
+        ]
+    }
+}

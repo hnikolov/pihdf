@@ -1,0 +1,24 @@
+[dumpfile] "test/RegFile_tb/RegFile_tb/out/RegFile_tb_top.vcd"
+[savefile] "test/RegFile_tb/RegFile_tb/test/RegFile_tb_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_RegFile_tb_top.
+[sst_expanded] 1
+RegFile_tb_top.rst
+RegFile_tb_top.clk
+-
+-SIMPLE_BUS_SIMPLE_BUS_WA_WD (IN)
+RegFile_tb_top.rtl.simple_bus_simple_bus_wa_wd_ready
+RegFile_tb_top.rtl.simple_bus_simple_bus_wa_wd_valid
+RegFile_tb_top.rtl.simple_bus_simple_bus_wa_wd_addr[7:0]
+RegFile_tb_top.rtl.simple_bus_simple_bus_wa_wd_data[31:0]
+-
+-SIMPLE_BUS_SIMPLE_BUS_RADDR (IN)
+RegFile_tb_top.rtl.simple_bus_simple_bus_raddr_ready
+RegFile_tb_top.rtl.simple_bus_simple_bus_raddr_valid
+RegFile_tb_top.rtl.simple_bus_simple_bus_raddr_data[7:0]
+-
+-SIMPLE_BUS_SIMPLE_BUS_RDATA (OUT)
+RegFile_tb_top.rtl.simple_bus_simple_bus_rdata_ready
+RegFile_tb_top.rtl.simple_bus_simple_bus_rdata_valid
+RegFile_tb_top.rtl.simple_bus_simple_bus_rdata_data[31:0]
