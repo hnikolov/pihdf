@@ -31,6 +31,7 @@ setup( name                 = "pihdf",
        ],
        install_requires     = [
            'myhdl',
+           'myhdl_lib',
            'simplejson',
            'coverage',
            'nose',
