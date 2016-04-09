@@ -13,8 +13,8 @@ class t_A(Testable):
     | Automatically generated. Do not modify this file.
     |________'''
     pihdf.head("T E S T S")
-    pihdf.info("Using MyHDL version " + myhdl.__version__)
-    pihdf.info("Using MyFramework version " + pihdf.__version__ + '\n')
+    pihdf.info("Using myhdl version " + myhdl.__version__)
+    pihdf.info("Using pihdf version " + pihdf.__version__ + '\n')
 
     def __init__(self):
         # call base class constructor
