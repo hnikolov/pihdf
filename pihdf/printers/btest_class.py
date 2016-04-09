@@ -22,8 +22,8 @@ def print_btest_file(mfdo):
     s += s.indent() + s.header_comment('Automatically generated. Do not modify this file.')
 
     s += 'pihdf.head("T E S T S")\n'
-    s += 'pihdf.info("Using MyHDL version " + myhdl.__version__)\n'
-    s += 'pihdf.info("Using MyFramework version " + pihdf.__version__ + \'\\n\')\n\n'
+    s += 'pihdf.info("Using myhdl version " + myhdl.__version__)\n'
+    s += 'pihdf.info("Using pihdf version " + pihdf.__version__ + \'\\n\')\n\n'
 
     s += 'def __init__(self):\n'
     s.indent()

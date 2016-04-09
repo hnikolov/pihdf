@@ -41,7 +41,7 @@ Options:
    -w <width/fields>   Interface fields or width [default: None]
    
 More information is available at
-    http://hnikolov.github.io/pyhdf_doc    Use <CTRL + mouse click> to follow the link
+    http://hnikolov.github.io/pihdf_doc    Use <CTRL + mouse click> to follow the link
 
 """
 from docopt import docopt

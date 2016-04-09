@@ -1,4 +1,5 @@
 import myhdl
+import myhdl_lib
 import pihdf
 from pihdf import MFDesign, StrBuilder, info, warn, err
 from pihdf.printers.dotty import print_dotty_file
@@ -245,13 +246,14 @@ class CommandHandler():
 
 
     def on_webdoc(self):
-        webbrowser.open_new_tab("http://hnikolov.github.io/pyhdf_doc")
+        webbrowser.open_new_tab("http://hnikolov.github.io/pihdf_doc")
 
 
     def on_version(self):
-        info("MyHDL:       " + myhdl.__version__)
-        info("MyFramework: " + pihdf.__version__)
-        info("module:      " + "0.01")
+        info("myhdl     : " + myhdl.__version__)
+        info("myhdl_lib : " + myhdl_lib.__version__)
+        info("pihdf     : " + pihdf.__version__)
+        info("module    : " + "0.1.1")
 
 
     # =======================================================================

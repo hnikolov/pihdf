@@ -9,7 +9,7 @@ def readme():
 
 
 setup( name                 = "pihdf",
-       version              = "0.1",
+       version              = "0.1.2",
        description          = 'Hardware Design Framework based on python and MyHDL',
        long_description     = readme(),
        classifiers          = [
@@ -34,12 +34,12 @@ setup( name                 = "pihdf",
            'myhdl_lib',
            'simplejson',
            'coverage',
-           'nose',
+           'nose'
        ],
        test_suite           = 'nose.collector',
        tests_require        = ['nose', 'nose-cover3'],
        entry_points         = {
-           'console_scripts': ['module=pihdf.bin.command_line:main'],
+           'console_scripts': ['module=pihdf.bin.command_line:main']
        },
        include_package_data = True,
        zip_safe             = False
