@@ -11,13 +11,7 @@ addons:
 
 # command to install dependencies
 install:
-  - pip install myhdl simplejson coverage nose
-
-  # myhdl_lib
-  - git clone https://github.com/nkavaldj/myhdl_lib.git
-  - cd myhdl_lib
-  - python setup.py install
-  - cd ..
+  - pip install myhdl myhdl_lib simplejson coverage nose
 
   # pihdf and to make use of the command-line tool 'module'
   - python setup.py develop
