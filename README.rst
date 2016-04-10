@@ -6,29 +6,41 @@ pihdf: Python Hardware Design Framework based on MyHDL
 
 A very preliminary documentation (work-in-progress) is available at: http://hnikolov.github.io/pihdf_doc/
 
-Install ``pihdf`` 
------------------
 
-To install ``pihdf`` in editable mode: ::
+Install `pihdf` using pip
+-------------------------
 
-    $ sudo python setup.py develop
+You can install the latest release of `pihdf` from pypi: ::
 
-``pihdf`` depends on the following python packages: **myhdl, simplejson, coverage, nose**. 
-These will be installed during the installation of `pihdf` if not present on your system. 
+	$ sudo pip install pihdf
+
+**Note:** If you do not have `pip` installed: ::
+
+	$ sudo apt-get install python-pip python-dev build-essential 
+	$ sudo pip install --upgrade pip 
+
+
+Install `pihdf` from source
+---------------------------
+
+If you plan to contribute to `pihdf`, then install it from source: ::
+
+	$ git clone https://github.com/hnikolov/pihdf
+	$ cd pihdf
+	$ sudo python setup.py develop
+
+Option `develop` installs `pyhdf` in *editable* mode. 
+This is very convenient because your changes are immediately reflected into the installed `pihdf` package.
+This means that you do not need to re-install `pihdf` in order your changes to take effect.
+
+
+Dependences on Python packages
+------------------------------
+
+`pihdf` requires the following python packages: **myhdl, myhdl_lib, simplejson, coverage, nose**. 
+These packages will be installed during the installation of `pihdf` if not present on your system. 
 
 **Note:** These packages will **not** be un-installed if you un-install `pyhdf`. 
-
-
-Un-install ``pihdf``
---------------------
-
-To un-install ``pihdf``: ::
-
-    $ sudo python setup.py develop --uninstall
-
-Then, remove the command-line script ``module`` from its location: ::
-
-    $ which module | xargs sudo rm
 
 
 Co-simulation, waveform and dotty viewers
@@ -42,19 +54,40 @@ For co-simulations, `pihdf` uses the **Icarus iverilog** simulator. **GTKWave** 
 Create `myhdl.vpi`
 ------------------
 
-For co-simuations, myhdl uses a `.vpi` interface. To create the `myhdl.vpi` file used with Icarus, download the source of myhdl. Then, ::
+For co-simuations, myhdl uses a `.vpi` interface. To create the `myhdl.vpi` file used with __Icarus__, you need the source of `myhdl`: ::
 
-    $ cd [myhdl-folder]/cosimulation/icarus/
-    $ make 
- 
+	$ git clone https://github.com/jandecaluwe/myhdl
+	$ make -C myhdl/cosimulation/icarus
+	$ sudo mkdir /.pihdf
+	$ sudo cp myhdl/cosimulation/icarus/myhdl.vpi /.pihdf
 
-Make sure that file ``myhdl.vpi`` is copied to directory ``/.pihdf``!
+**Note:** `pihdf` expects file `myhdl.vpi` to be in folder `/.pihdf`
 
 
-Notes
------
+Un-install
+----------
 
-``pihdf`` requiers ``myhdl_lib`` (https://github.com/nkavaldj/myhdl_lib) 
+Un-installing `pihdf` (should you decide to do so) is easy. Depending on how you installed it, you can:
+
+Un-install `pihdf` using pip ::
+
+	$ sudo pip uninstall pihdf
+
+Or, un-install `pihdf` if installed from source ::
+
+	$ cd pihdf
+	$ sudo python setup.py develop --uninstall
+
+
+Remove `module`
+---------------
+
+To remove the command-line tool `module` from its location: ::
+
+	$ which module | xargs sudo rm
+
+
+Note
+----
 
 The command-line tool ``module`` makes use of the very convenient package ``docopt`` (https://github.com/docopt/docopt), which is copied in the ``pihdf`` repository.
-
