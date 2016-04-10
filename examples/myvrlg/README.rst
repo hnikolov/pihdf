@@ -37,7 +37,7 @@ Design steps:
           |--- src
                 |--- compile_list.txt
 
-- Start testing with the provided 3 test cases:
+- Create tests. Start with the provided 3 test cases:
 
     - ``test_001`` tests the behavior model by using test data generated within the ``utest_myvrlg.py`` file. In addition, it uses option ``fdump`` to trigger generation of test-vector files during the execution of the test. Test vector files are generated in directory: ::
 
@@ -48,6 +48,6 @@ Design steps:
     - ``test_002`` tests the Verilog design by using test data generated within the ``utest_myvrlg.py`` file
     - ``test_003`` tests the Verilog defing by using the generated test-vector files (during ``test_001``) for stimuli and reference data
 
-- Run all the tests by: ::
+- Run all tests by: ::
 
     $ module myvrlg test
