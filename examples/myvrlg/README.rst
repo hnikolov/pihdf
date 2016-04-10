@@ -3,7 +3,7 @@
 
 This example illustrates how to use ``pihdf`` for developing HW modules in **Verilog**. 
 In addition, although not the main purpose of this example, it illustrates the generation and the usage of test vector files for testing the design.
-For brevity, we use just a ``pass-through`` behavior, i.e., input data is propagatede to the output, respecting the handshake synchronization mechanism of ``pihdf``.
+For brevity, we use just a ``pass-through`` behavior, i.e., input data is propagated to the output, respecting the handshake synchronization mechanism of ``pihdf``.
 
 Design steps:
 -------------
@@ -17,7 +17,7 @@ Design steps:
 
     $ module myvrlg new
 
-  This command creates the HW module directory structure and generates required files. This includes file ``myvrlg_beh.py`, a wrapper file ``myvrlg_wrp.py``, and an empty implementation file ``myvrlg.v``, all located in directory ``src``. The ``_beh.py`` file is used to specify functional behavior in pure python. For the simple pass-through example, it looks like: ::
+  This command creates the HW module directory structure and generates required files. This includes file ``myvrlg_beh.py``, a wrapper file ``myvrlg_wrp.py``, and an empty implementation file ``myvrlg.v``, all located in directory ``src``. The ``_beh.py`` file is used to specify functional behavior in pure python. For the simple pass-through example, it looks like: ::
 
     if rx_hs.hasPacket():
         data = rx_hs.get()
@@ -37,7 +37,7 @@ Design steps:
           |--- src
                 |--- compile_list.txt
 
-- Note/Use the provided 3 test cases:
+- Start testing with the provided 3 test cases:
 
     - ``test_001`` tests the behavior model by using test data generated within the ``utest_myvrlg.py`` file. In addition, it uses option ``fdump`` to trigger generation of test-vector files during the execution of the test. Test vector files are generated in directory: ::
 
@@ -48,6 +48,6 @@ Design steps:
     - ``test_002`` tests the Verilog design by using test data generated within the ``utest_myvrlg.py`` file
     - ``test_003`` tests the Verilog defing by using the generated test-vector files (during ``test_001``) for stimuli and reference data
 
-- Run all test by: ::
+- Run all the tests by: ::
 
     $ module myvrlg test
