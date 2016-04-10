@@ -1,0 +1,18 @@
+[dumpfile] "myvrlg/myvrlg/out/myvrlg_top.vcd"
+[savefile] "myvrlg/myvrlg/test/myvrlg_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_myvrlg_top.
+[sst_expanded] 1
+myvrlg_top.rst
+myvrlg_top.clk
+-
+-RX_HS (IN)
+myvrlg_top.rtl.rx_hs_ready
+myvrlg_top.rtl.rx_hs_valid
+myvrlg_top.rtl.rx_hs_data[63:0]
+-
+-TX_HS (OUT)
+myvrlg_top.rtl.tx_hs_ready
+myvrlg_top.rtl.tx_hs_valid
+myvrlg_top.rtl.tx_hs_data[63:0]
