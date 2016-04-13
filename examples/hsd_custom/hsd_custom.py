@@ -2,7 +2,7 @@ from myhdl import *
 from pihdf import Convertible
 from pihdf.interfaces import *
 
-from interfaces import *
+from imp.interfaces import *
 
 from src.hsd_custom_beh import *
 from src.hsd_custom_rtl import *

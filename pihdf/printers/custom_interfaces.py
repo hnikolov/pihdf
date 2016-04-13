@@ -3,11 +3,32 @@ import os
 
 from .. import mylog
 
-import sys, imp
+import os, sys, imp
+
+import shutil
+
+def copy_custom_interfaces(mfdo):
+    '''|
+    | Copy the specified custom interfaces to module/imp/ directory.
+    |________'''
+    if mfdo.custom_interfaces == []: return
+
+    m_path = mfdo.c_path + '/imp/'
+
+    if os.path.exists( m_path ): # In case of command 'update'
+        shutil.rmtree(m_path, ignore_errors=True)
+
+    os.makedirs( m_path )
+    StrBuilder().write(m_path + '__init__.py', overwrite=True)
+
+    for p in mfdo.custom_interfaces:
+        pfile = mfdo.c_path + '/' + p['file']
+        shutil.copy(pfile, m_path + p['name'] + '.py')
+
 
 def print_custom_interfaces_file(mfdo):
     '''|
-    | Create 'interfaces.py' file containing custom fields interfaces defined in the .json file.
+    | TODO: OBSOLETE. Create 'interfaces.py' file containing custom fields interfaces defined in the .json file.
     | Comand 'update' modifies this file as well.
     |________'''
     if mfdo.custom_interfaces == []: return
@@ -46,3 +67,4 @@ def print_custom_interfaces_file(mfdo):
             sys._getframe(1).f_globals[iname] = itype
 
 
+#    locals()['my_module'] = __import__(mfdo.c_path + '/interfaces.py')

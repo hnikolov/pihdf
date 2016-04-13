@@ -1,22 +1,7 @@
 {
     "custom_interfaces":
     [
-	{
-	    "name": "my_port_fields",
-	    "fields":
-	    [
-		{ "name": "cmd" , "type": "bool(0)"       },
-		{ "name": "port", "type": "intbv(0)[16:]" }
-	    ]
-	},
-	{
-	    "name": "other_fields",
-	    "fields":
-	    [
-		{ "name": "fld1", "type": "intbv(2, min=-128, max=256)"       },
-		{ "name": "fld2", "type": "intbv(0)[8:]" }
-	    ]
-	}
+	{ "name": "interfaces", "file": "../common/interfaces.py" }
     ],
 
     "design":

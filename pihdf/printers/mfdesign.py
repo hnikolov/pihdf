@@ -4,7 +4,7 @@ from myhdl import *
 import inspect
 import re
 
-import os, sys
+import os, sys, imp
 import fileinput
 from time import gmtime, strftime
 import shutil
@@ -20,7 +20,7 @@ from ..           import mylog
 from str_builder import StrBuilder
 
 from top_class import print_module_class_file
-from custom_interfaces import print_custom_interfaces_file
+from custom_interfaces import print_custom_interfaces_file, copy_custom_interfaces
 from btest_class import print_btest_file
 from utest_class import print_utest_file
 
@@ -213,17 +213,19 @@ class MFDesign(object):
             sys.exit(1)
         f.close()
 
-        self.interfaces = []
-        self.parameter = []
-        self.local_interfaces = []
-        self.local_parameter = []
-        self.modules = []
+        self.interfaces        = []
+        self.parameter         = []
+        self.local_interfaces  = []
+        self.custom_interfaces = []
+        self.local_parameter   = []
+        self.modules           = []
         
         head, tail = os.path.split(filename)
         self.c_path = head
         
-        # Note: custom interfaces processed in "print_custom_interfaces_file()"
-        self.custom_interfaces = json_struct['custom_interfaces'] if 'custom_interfaces' in json_struct else []
+        if 'custom_interfaces' in json_struct:
+            self.custom_interfaces = json_struct['custom_interfaces']
+            self.load_custom_interfaces(self.custom_interfaces)
 
         jdesign  = json_struct['design']    if 'design'    in json_struct else None
         jimplmn  = json_struct['structure'] if 'structure' in json_struct else None
@@ -350,6 +352,20 @@ class MFDesign(object):
                 sub_modules.append(module)
             
         return sub_modules   
+
+
+    def load_custom_interfaces(self, package_list):
+        '''|
+        | Make the custom interfaces specified in the .json file visible in pihdf
+        |________'''
+        for p in package_list:
+            pfile = self.c_path + '/' + p['file']
+	    custom_interfaces = imp.load_source(p['name'], pfile)
+
+	    for iname in dir(custom_interfaces):
+	        itype = getattr(custom_interfaces, iname)
+	        if isinstance(itype, list):
+	            sys._getframe(0).f_globals[iname] = itype
         
 
     def generate(self, module_name):
@@ -372,8 +388,7 @@ class MFDesign(object):
         StrBuilder().write(self.c_path + '/' + self.out_path + '/.gitignore', overwrite=True)  
         StrBuilder().write(self.c_path + '/' + self.test_path + '/vectors/.gitignore', overwrite=True)
 
-        # print files
-        print_custom_interfaces_file(self)
+        copy_custom_interfaces(self)
         print_module_class_file(self)
         print_btest_file(self)
         print_utest_file(self)
@@ -407,7 +422,7 @@ class MFDesign(object):
         
         self.overwrite = True
         
-        print_custom_interfaces_file(self)
+        copy_custom_interfaces(self)
         print_module_class_file(self)
         print_btest_file(self)
         print_compile_list_file(self)
