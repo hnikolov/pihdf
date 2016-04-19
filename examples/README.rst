@@ -9,7 +9,7 @@ and to help you get started with ``pihdf``.
 ``hsd``: Data communication in ``pihdf`` using Hand-Shake-Data interfaces
 -------------------------------------------------------------------------
 
-_TODO_: Add the example.
+*TODO*: Add the example.
 Data communication between HW modules, and between HW module and the tests bench in ``pihdf`` 
 is based on hand-shake synchronization. Hand-shake is _native_ part of ``pihdf`` and the data interfaces it supports.
 This is the first example you should start with. 
