@@ -82,7 +82,6 @@ class CtrlClass:
             tmpFile.write(s)
             tmpFile.close()
 
-
     def create_reg_file(self, rst, clk, wd_if, ra, rd, filename):
         ''' Creates a reg file from all interfaces stored in self._ls'''
 
@@ -116,6 +115,15 @@ class CtrlClass:
             addr_hi = addr_lo + num_words
             ls_addr.append(range(addr_lo, addr_hi))
             addr_lo = addr_hi
+
+        # Print a dict "reg":addr into a py file
+        addr = {}
+        for i,addr_list in enumerate(ls_addr):
+            hier_name = self._ls[i]["iname"]
+            simple_name = hier_name[0:hier_name.find("@")] # Temporary use reg simple name, not hierarchical name, until we fix hierarchy
+            addr[simple_name] = addr_list[0]
+        with open("mem_map.py", 'w') as theFile:
+            theFile.write("addr = " + str(addr))
 
 #         print ls_addr
 
