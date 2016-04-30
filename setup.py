@@ -9,7 +9,7 @@ def readme():
 
 
 setup( name                 = "pihdf",
-       version              = "0.1.2",
+       version              = "0.1.3",
        description          = 'Hardware Design Framework based on python and MyHDL',
        long_description     = readme(),
        classifiers          = [
