@@ -1,0 +1,13 @@
+{
+    "design":
+    {
+        "name": "hsd_inc",
+        "interfaces":
+        [
+            { "name": "rst", "type": "Reset", "active": "1" },
+            { "name": "clk", "type": "Clock"                },
+            { "name": "rxd", "type": "HSD",   "data": "16",   "direction": "IN"  },  
+            { "name": "txd", "type": "HSD",   "data": "16",   "direction": "OUT" }
+        ]       
+    }
+}

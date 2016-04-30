@@ -1,0 +1,18 @@
+[dumpfile] "examples/hsd_inc/hsd_inc/out/hsd_inc_top_cosim.vcd"
+[savefile] "examples/hsd_inc/hsd_inc/test/hsd_inc_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_hsd_inc_top.
+[sst_expanded] 1
+tb_hsd_inc_top.dut.rst
+tb_hsd_inc_top.dut.clk
+-
+-RXD (IN)
+tb_hsd_inc_top.dut.rxd_ready
+tb_hsd_inc_top.dut.rxd_valid
+tb_hsd_inc_top.dut.rxd_data[15:0]
+-
+-TXD (OUT)
+tb_hsd_inc_top.dut.txd_ready
+tb_hsd_inc_top.dut.txd_valid
+tb_hsd_inc_top.dut.txd_data[15:0]
