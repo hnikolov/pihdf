@@ -7,12 +7,12 @@ This directory contains several HW module designs. The purpose of these designs 
 and to help you get started with ``pihdf``. 
 
 
-`hsd_inc <https://github.com/hnikolov/pihdf/tree/master/examples/hsd_custom>`_: Synchronization, Hand-Shake Data interface
+`hsd_inc <https://github.com/hnikolov/pihdf/tree/master/examples/hsd_inc>`_: Synchronization, Hand-Shake Data interface
 --------------------------------------------------------------------------------------------------------------------------
 
 Data communication between HW modules, and between HW module and the tests bench in ``pihdf`` 
 is based on hand-shake synchronization. Hand-shake is *native* in ``pihdf`` and the data interfaces it supports.
-This is the first example you should start with. 
+Illustrated with a simple incrementor in **Behavior** and **RTL** models. This is the first example you should start with. 
 
 
 `hsd_custom <https://github.com/hnikolov/pihdf/tree/master/examples/hsd_custom>`_: User-defined data-fields interfaces
