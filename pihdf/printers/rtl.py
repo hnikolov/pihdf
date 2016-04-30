@@ -11,7 +11,6 @@ def print_rtl_file(mfdo):
     filename = mfdo.c_path + '/' + mfdo.src_path + '/' + mfdo.module_name + "_rtl.py"
 
     s += 'from myhdl import *\n'
-    s += 'import pihdf\n'
     s += 'from pihdf import *\n'
     s += 'from myhdl_lib import *\n\n'
 

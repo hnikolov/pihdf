@@ -1,5 +1,4 @@
 from myhdl import *
-import pihdf
 from pihdf import *
 from myhdl_lib import *
 
