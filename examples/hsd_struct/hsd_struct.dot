@@ -1,0 +1,11 @@
+digraph hsd_struct {
+    bgcolor=white
+    rankdir=LR;
+    node [shape=doublecircle, style=filled, color=lightgray]; IN OUT;
+    node [shape=ellipse]; IN OUT;
+    IN -> mIncr [ label = "mode_1\n" ];
+    IN -> mOut [ label = "mode_2\n" ];
+    mOut -> OUT [ label = "LEDs\nLED_rdy_out\n" ];
+    mIncr -> OUT [ label = "LED_rdy_en\nLED_rdy_buff\n" ];
+    mIncr -> mOut [ label = "buff\n" ];
+    }

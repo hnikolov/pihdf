@@ -1,0 +1,15 @@
+{
+    "design":
+    {
+        "name": "TIncr",
+        "interfaces":
+        [
+            {"name": "rst", "type": "Reset", "active": "1"},
+            {"name": "clk", "type": "Clock"},
+            {"name": "mode", "type": "HSD", "data": "1", "direction": "IN"},
+            {"name": "inc_out", "type": "HSD", "data": "2", "buf_size": "18", "direction": "OUT"},
+            {"name": "rdy_en", "type": "HSD", "data": "1", "direction": "OUT"},
+            {"name": "rdy_buff", "type": "HSD", "data": "1", "direction": "OUT"}
+        ]
+    }
+}

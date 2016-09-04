@@ -1,0 +1,28 @@
+[dumpfile] "de0_nano_1/src/modules/TOut/TOut/out/TOut_top.vcd"
+[savefile] "de0_nano_1/src/modules/TOut/TOut/test/TOut_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_TOut_top.
+[sst_expanded] 1
+TOut_top.rst
+TOut_top.clk
+-
+-MODE (IN)
+TOut_top.rtl.mode_ready
+TOut_top.rtl.mode_valid
+TOut_top.rtl.mode_data[1:0]
+-
+-INC_IN (IN)
+TOut_top.rtl.inc_in_ready
+TOut_top.rtl.inc_in_valid
+TOut_top.rtl.inc_in_data[1:0]
+-
+-LEDS (OUT)
+TOut_top.rtl.LEDs_ready
+TOut_top.rtl.LEDs_valid
+TOut_top.rtl.LEDs_data[4:0]
+-
+-RDY_OUT (OUT)
+TOut_top.rtl.rdy_out_ready
+TOut_top.rtl.rdy_out_valid
+TOut_top.rtl.rdy_out_data

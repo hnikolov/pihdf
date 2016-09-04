@@ -1,0 +1,28 @@
+[dumpfile] "de0_nano_1/src/modules/TIncr/TIncr/out/TIncr_top_cosim.vcd"
+[savefile] "de0_nano_1/src/modules/TIncr/TIncr/test/TIncr_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_TIncr_top.
+[sst_expanded] 1
+tb_TIncr_top.dut.rst
+tb_TIncr_top.dut.clk
+-
+-MODE (IN)
+tb_TIncr_top.dut.mode_ready
+tb_TIncr_top.dut.mode_valid
+tb_TIncr_top.dut.mode_data
+-
+-INC_OUT (OUT)
+tb_TIncr_top.dut.inc_out_ready
+tb_TIncr_top.dut.inc_out_valid
+tb_TIncr_top.dut.inc_out_data[1:0]
+-
+-RDY_EN (OUT)
+tb_TIncr_top.dut.rdy_en_ready
+tb_TIncr_top.dut.rdy_en_valid
+tb_TIncr_top.dut.rdy_en_data
+-
+-RDY_BUFF (OUT)
+tb_TIncr_top.dut.rdy_buff_ready
+tb_TIncr_top.dut.rdy_buff_valid
+tb_TIncr_top.dut.rdy_buff_data

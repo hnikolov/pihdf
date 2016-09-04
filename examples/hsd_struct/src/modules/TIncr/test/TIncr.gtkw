@@ -1,0 +1,28 @@
+[dumpfile] "de0_nano_1/src/modules/TIncr/TIncr/out/TIncr_top.vcd"
+[savefile] "de0_nano_1/src/modules/TIncr/TIncr/test/TIncr_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_TIncr_top.
+[sst_expanded] 1
+TIncr_top.rst
+TIncr_top.clk
+-
+-MODE (IN)
+TIncr_top.rtl.mode_ready
+TIncr_top.rtl.mode_valid
+TIncr_top.rtl.mode_data
+-
+-INC_OUT (OUT)
+TIncr_top.rtl.inc_out_ready
+TIncr_top.rtl.inc_out_valid
+TIncr_top.rtl.inc_out_data[1:0]
+-
+-RDY_EN (OUT)
+TIncr_top.rtl.rdy_en_ready
+TIncr_top.rtl.rdy_en_valid
+TIncr_top.rtl.rdy_en_data
+-
+-RDY_BUFF (OUT)
+TIncr_top.rtl.rdy_buff_ready
+TIncr_top.rtl.rdy_buff_valid
+TIncr_top.rtl.rdy_buff_data

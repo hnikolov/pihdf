@@ -1,0 +1,38 @@
+[dumpfile] "hsd_struct/hsd_struct/out/hsd_struct_top.vcd"
+[savefile] "hsd_struct/hsd_struct/test/hsd_struct_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_hsd_struct_top.
+[sst_expanded] 1
+hsd_struct_top.rst
+hsd_struct_top.clk
+-
+-MODE_1 (IN)
+hsd_struct_top.rtl.mode_1_ready
+hsd_struct_top.rtl.mode_1_valid
+hsd_struct_top.rtl.mode_1_data
+-
+-MODE_2 (IN)
+hsd_struct_top.rtl.mode_2_ready
+hsd_struct_top.rtl.mode_2_valid
+hsd_struct_top.rtl.mode_2_data[1:0]
+-
+-LEDS (OUT)
+hsd_struct_top.rtl.LEDs_ready
+hsd_struct_top.rtl.LEDs_valid
+hsd_struct_top.rtl.LEDs_data[4:0]
+-
+-LED_RDY_EN (OUT)
+hsd_struct_top.rtl.LED_rdy_en_ready
+hsd_struct_top.rtl.LED_rdy_en_valid
+hsd_struct_top.rtl.LED_rdy_en_data
+-
+-LED_RDY_BUFF (OUT)
+hsd_struct_top.rtl.LED_rdy_buff_ready
+hsd_struct_top.rtl.LED_rdy_buff_valid
+hsd_struct_top.rtl.LED_rdy_buff_data
+-
+-LED_RDY_OUT (OUT)
+hsd_struct_top.rtl.LED_rdy_out_ready
+hsd_struct_top.rtl.LED_rdy_out_valid
+hsd_struct_top.rtl.LED_rdy_out_data

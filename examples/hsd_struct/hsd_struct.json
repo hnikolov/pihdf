@@ -1,0 +1,55 @@
+{
+    "design":
+    {
+        "name": "hsd_struct",
+        "interfaces":
+        [
+            { "name": "rst", "type": "Reset", "active": "1" },
+            { "name": "clk", "type": "Clock" },
+            { "name": "mode_1", "type": "HSD", "data": "1", "direction": "IN" },
+            { "name": "mode_2", "type": "HSD", "data": "2", "direction": "IN", "push": "True" },
+            { "name": "LEDs", "type": "HSD", "data": "5", "direction": "OUT" },
+            { "name": "LED_rdy_en", "type": "HSD", "data": "1", "direction": "OUT" },
+            { "name": "LED_rdy_buff", "type": "HSD", "data": "1", "direction": "OUT" },
+            { "name": "LED_rdy_out", "type": "HSD", "data": "1", "direction": "OUT" }
+        ]
+    },
+
+    "structure":
+    {
+        "local_interfaces":
+        [
+            { "name":"buff","type":"HSD","data":"2","buf_size":"18" }
+        ],
+        "design_modules":
+        [
+            {
+                "name": "mIncr", "type": "TIncr",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst", "connect_to":"rst" },
+                    { "direction": "IN",  "local_name": "clk", "connect_to":"clk" },
+                    { "direction": "IN",  "local_name": "mode",  "connect_to":"mode_1" },
+                    { "direction": "OUT", "local_name": "inc_out",  "connect_to":"buff" },
+                    { "direction": "OUT", "local_name": "rdy_en",  "connect_to":"LED_rdy_en" },
+                    { "direction": "OUT", "local_name": "rdy_buff",  "connect_to":"LED_rdy_buff" }
+                ]
+            },
+            {
+                "name": "mOut", "type": "TOut",
+                "path": "",
+                "connections":
+                [
+                    { "direction":"IN",  "local_name": "rst", "connect_to":"rst" },
+                    { "direction":"IN",  "local_name": "clk", "connect_to":"clk" },
+                    { "direction":"IN",  "local_name": "mode", "connect_to":"mode_2" },
+                    { "direction": "IN", "local_name": "inc_in",  "connect_to":"buff" },
+                    { "direction":"OUT", "local_name": "LEDs", "connect_to":"LEDs" },
+                    { "direction": "OUT", "local_name": "rdy_out",  "connect_to":"LED_rdy_out" }
+                ]
+            }
+        ]
+    }
+}
+
