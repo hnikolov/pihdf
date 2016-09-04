@@ -389,11 +389,11 @@ class Convertible(object):
         |________'''
         filename = self.module_name + self.top_suffix
         for file in os.listdir('.'):
-        
+            
             if os.path.isfile(file):
                 if file == filename + '.o':
                     os.remove(file)
-                if (file == filename + '.vcd') or (file == filename + '.v') or (file == filename + '.vhd') or (file == 'tb_' + filename + '.v'):
+                if (file == filename + '.vcd') or (file == filename + '.v') or (file == filename + '.vhd') or (file == 'tb_' + filename + '.v') or (file == 'pck_myhdl_090.vhd'):
                     shutil.move(file, self.c_path + '/' + self.out_path + '/' + file)
 
 
