@@ -36,7 +36,10 @@ class TIncr(Convertible):
             HSD(direction=self.OUT, name="rdy_buff", data=1, filedump=fdump)
         ]
 
-        self.parameters = []
+        # no lambda here
+        self.parameters = [
+            Parameter("DELAY_BITS", value=24)            
+        ]
 
         # register implementations used in Convertible.gen()
         self.funcdict = {
@@ -51,7 +54,8 @@ class TIncr(Convertible):
             mode_ready,mode_valid,mode_data,
             inc_out_ready,inc_out_valid,inc_out_data,
             rdy_en_ready,rdy_en_valid,rdy_en_data,
-            rdy_buff_ready,rdy_buff_valid,rdy_buff_data):
+            rdy_buff_ready,rdy_buff_valid,rdy_buff_data,
+            DELAY_BITS):
         '''|
         | Provides flat interface to the top-level implementation. This
         | function is given to MyHDL.toVerilog() and MyHDL.toVHDL()
@@ -70,6 +74,6 @@ if __name__ == "__main__":
     pihdf.info("Using MyFramework version %s" % pihdf.__version__)
 
     dn = TIncr(IMPL=1)
-    dn.convert(hdl="verilog")
-    dn.convert(hdl="vhdl")
+    dn.convert(hdl="verilog", params={"DELAY_BITS":24})
+    dn.convert(hdl="vhdl", params={"DELAY_BITS":24})
     dn.clean()

@@ -105,7 +105,7 @@ class t_hsd_struct(Testable):
         self.check_config("hsd_struct")
 
         hsd_struct_dut = hsd_struct(IMPL=self.models)
-        hsd_struct_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose)
+        hsd_struct_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose, dut_params=self.dut_params)
         hsd_struct_dut.clean()
 
         self.check_results()

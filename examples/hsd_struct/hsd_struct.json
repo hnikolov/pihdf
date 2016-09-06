@@ -12,6 +12,10 @@
             { "name": "LED_rdy_en", "type": "HSD", "data": "1", "direction": "OUT" },
             { "name": "LED_rdy_buff", "type": "HSD", "data": "1", "direction": "OUT" },
             { "name": "LED_rdy_out", "type": "HSD", "data": "1", "direction": "OUT" }
+        ],
+        "parameters":
+        [
+            {"name":"DELAY_BITS","value":"24"}
         ]
     },
 
@@ -33,7 +37,8 @@
                     { "direction": "IN",  "local_name": "mode",  "connect_to":"mode_1" },
                     { "direction": "OUT", "local_name": "inc_out",  "connect_to":"buff" },
                     { "direction": "OUT", "local_name": "rdy_en",  "connect_to":"LED_rdy_en" },
-                    { "direction": "OUT", "local_name": "rdy_buff",  "connect_to":"LED_rdy_buff" }
+                    { "direction": "OUT", "local_name": "rdy_buff",  "connect_to":"LED_rdy_buff" },
+                    { "local_name":"DELAY_BITS", "connect_to":"DELAY_BITS"}
                 ]
             },
             {

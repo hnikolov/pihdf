@@ -1,4 +1,4 @@
-def TIncr_beh(mode, inc_out, rdy_en, rdy_buff):
+def TIncr_beh(mode, inc_out, rdy_en, rdy_buff, DELAY_BITS):
     '''|
     | Specify the behavior, describe data processing; there is no notion
     | of clock. Access the in/out interfaces via get() and append()

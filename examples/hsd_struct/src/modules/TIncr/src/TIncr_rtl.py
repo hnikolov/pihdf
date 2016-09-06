@@ -5,7 +5,7 @@ from myhdl_lib import *
 #--- Custom code begin ---#
 #--- Custom code end   ---#
 
-def TIncr_rtl(rst, clk, mode, inc_out, rdy_en, rdy_buff):
+def TIncr_rtl(rst, clk, mode, inc_out, rdy_en, rdy_buff, DELAY_BITS):
     '''|
     | Top-level MyHDL description. This is converted to RTL velilog...
     |________'''
@@ -18,28 +18,40 @@ def TIncr_rtl(rst, clk, mode, inc_out, rdy_en, rdy_buff):
 
     #--- Custom code begin ---#
 
+    sl_vld, sl_vld_out = [Signal(bool(0)) for _ in range(2)] 
     hsd_en = Signal(bool(0))
 
-    hsd_en_inst = mode.enable(rst, clk, inc_out_ready, inc_out_valid, hsd_en)
+    hsd_en_inst = mode.enable(rst, clk, inc_out_ready, sl_vld, hsd_en)
 
-    count = Signal(modbv(0, min=0, max=2**32)) # should have full bit vector range
+    delay_cnt = Signal(modbv(0, min=0, max=2**DELAY_BITS)) # should have full bit vector range
+    count     = Signal(modbv(0, min=0, max=2**2))
 
     @always_seq(clk.posedge, reset=rst)
-    def clk_prcs_hs():
+    def clk_prcs_dly():
         if hsd_en:           
-#            count.next = (inc_out_data + 1) % 3 # in case of custom range
-            count.next = count + 1
+            delay_cnt.next = delay_cnt + 1
 
             if mode_data == 1:
-#                count.next = (inc_out_data + 2) % 3
-                count.next = count + 2         
+                delay_cnt.next = delay_cnt + 2    
+ 
+
+    @always_comb
+    def vld_prcs():
+        sl_vld_out.next = (delay_cnt == 0) and sl_vld
+
+
+    @always_seq(clk.posedge, reset=rst)
+    def clk_prcs_cnt():
+        if sl_vld_out:           
+            count.next = count + 1
+
 
     @always_comb
     def out_prcs():
         rdy_en_data.next   = mode_valid
         rdy_buff_data.next = inc_out_ready
-        inc_out_data.next  = count[2:0]
-#        inc_out_data.next  = count[26:24] # for synthesis
+        inc_out_data.next  = count
+        inc_out_valid.next = sl_vld_out
 
     #--- Custom code end   ---#
 

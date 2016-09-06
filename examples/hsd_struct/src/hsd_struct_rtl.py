@@ -8,7 +8,7 @@ from modules.TOut.TOut import TOut
 #--- Custom code begin ---#
 #--- Custom code end   ---#
 
-def hsd_struct_rtl(rst, clk, mode_1, mode_2, LEDs, LED_rdy_en, LED_rdy_buff, LED_rdy_out, IMPL, FDUMP):
+def hsd_struct_rtl(rst, clk, mode_1, mode_2, LEDs, LED_rdy_en, LED_rdy_buff, LED_rdy_out, DELAY_BITS, IMPL, FDUMP):
     '''|
     | Top-level MyHDL description. This is converted to RTL velilog...
     |________'''
@@ -32,7 +32,7 @@ def hsd_struct_rtl(rst, clk, mode_1, mode_2, LEDs, LED_rdy_en, LED_rdy_buff, LED
         mOut_impl = IMPL
 
     """ Components """
-    mIncr = TIncr(mIncr_impl).gen(clk=clk, inc_out=buff, rdy_en=LED_rdy_en, mode=mode_1, rdy_buff=LED_rdy_buff, rst=rst)
+    mIncr = TIncr(mIncr_impl).gen(clk=clk, inc_out=buff, rdy_en=LED_rdy_en, DELAY_BITS=DELAY_BITS, mode=mode_1, rdy_buff=LED_rdy_buff, rst=rst)
     mOut = TOut(mOut_impl).gen(inc_in=buff, LEDs=LEDs, clk=clk, rdy_out=LED_rdy_out, mode=mode_2, rst=rst)
 
     #--- Custom code begin ---#

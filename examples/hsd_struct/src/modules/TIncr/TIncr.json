@@ -10,6 +10,10 @@
             {"name": "inc_out", "type": "HSD", "data": "2", "buf_size": "18", "direction": "OUT"},
             {"name": "rdy_en", "type": "HSD", "data": "1", "direction": "OUT"},
             {"name": "rdy_buff", "type": "HSD", "data": "1", "direction": "OUT"}
+        ],
+        "parameters":
+        [
+            {"name": "DELAY_BITS", "value": "24"}
         ]
     }
 }

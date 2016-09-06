@@ -87,7 +87,7 @@ class t_TIncr(Testable):
         self.check_config("TIncr")
 
         TIncr_dut = TIncr(IMPL=self.models)
-        TIncr_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose)
+        TIncr_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose, dut_params=self.dut_params)
         TIncr_dut.clean()
 
         self.check_results()
