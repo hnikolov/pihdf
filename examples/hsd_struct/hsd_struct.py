@@ -49,7 +49,8 @@ class hsd_struct(Convertible):
 
         # no lambda here
         self.parameters = [
-            Parameter("DELAY_BITS", value=24)            
+            Parameter("DELAY_BITS", value=24),
+            Parameter("BUFFER_SIZE", value=18)            
         ]
 
         # register implementations used in Convertible.gen()
@@ -68,7 +69,7 @@ class hsd_struct(Convertible):
             LED_rdy_en_ready,LED_rdy_en_valid,LED_rdy_en_data,
             LED_rdy_buff_ready,LED_rdy_buff_valid,LED_rdy_buff_data,
             LED_rdy_out_ready,LED_rdy_out_valid,LED_rdy_out_data,
-            DELAY_BITS):
+            DELAY_BITS, BUFFER_SIZE):
         '''|
         | Provides flat interface to the top-level implementation. This
         | function is given to MyHDL.toVerilog() and MyHDL.toVHDL()
@@ -87,6 +88,6 @@ if __name__ == "__main__":
     pihdf.info("Using MyFramework version %s" % pihdf.__version__)
 
     dn = hsd_struct(IMPL=1)
-    dn.convert(hdl="verilog", params={"DELAY_BITS":24})
-    dn.convert(hdl="vhdl", params={"DELAY_BITS":24})
+    dn.convert(hdl="verilog", params={"DELAY_BITS":24, "BUFFER_SIZE":18})
+    dn.convert(hdl="vhdl", params={"DELAY_BITS":24, "BUFFER_SIZE":18})
     dn.clean()

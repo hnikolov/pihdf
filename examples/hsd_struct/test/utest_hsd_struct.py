@@ -23,8 +23,6 @@ class Test_hsd_struct(t_hsd_struct):
 
     # Initialise data, duplicate output
     def init_data_dupl(self):
-        self.dut_params = {"DELAY_BITS":2}
-
         for i in range(0, 32): # 8 * 2**2 data samples
             self.stim_mode_1.append({ "data": 0 })
 
@@ -44,9 +42,9 @@ class Test_hsd_struct(t_hsd_struct):
     def test_001(self):
         """ >>>>>> TEST_001: Counting, duplicated output """
 
-        self.models = {"top":self.RTL}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0}
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":7 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0 }
 
         self.init_data_dupl()
         self.run_it()
@@ -56,9 +54,9 @@ class Test_hsd_struct(t_hsd_struct):
     def test_002(self):
         """ >>>>>> TEST_002: Counting, duplicated output """
 
-        self.models = {"top":self.RTL}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":2, "ipgo":0}
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":7 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":2, "ipgo":0 }
 
         self.init_data_dupl()
         self.run_it()
@@ -68,9 +66,9 @@ class Test_hsd_struct(t_hsd_struct):
     def test_003(self):
         """ >>>>>> TEST_003: Counting, duplicated output """
 
-        self.models = {"top":self.RTL}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":True, "fdump":False, "ipgi":0, "ipgo":4}
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":7 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":True, "fdump":False, "ipgi":0, "ipgo":4 }
 
         self.init_data_dupl()
         self.run_it()
@@ -80,9 +78,59 @@ class Test_hsd_struct(t_hsd_struct):
     def test_004(self):
         """ >>>>>> TEST_004: Counting, duplicated output """
 
-        self.models = {"top":self.RTL}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":1, "ipgo":3}
+        self.models =     { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":7 }
+        self.tb_config =  { "simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":1, "ipgo":3 }
+
+        self.init_data_dupl()
+        self.run_it()
+
+    # ----------------------------------------------------------------------------
+    # Testing without a FIFO buffer
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_001_1(self):
+        """ >>>>>> TEST_001_1: Counting, duplicated output """
+
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":0 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0 }
+
+        self.init_data_dupl()
+        self.run_it()
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_002_1(self):
+        """ >>>>>> TEST_002_1: Counting, duplicated output """
+
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":0 }
+        self.tb_config  = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":2, "ipgo":0 }
+
+        self.init_data_dupl()
+        self.run_it()
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_003_1(self):
+        """ >>>>>> TEST_003_1: Counting, duplicated output """
+
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":0 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":True, "fdump":False, "ipgi":0, "ipgo":4 }
+
+        self.init_data_dupl()
+        self.run_it()
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_004_1(self):
+        """ >>>>>> TEST_004_1: Counting, duplicated output """
+
+        self.models =     { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":0 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":True, "fdump":False, "ipgi":1, "ipgo":3 }
 
         self.init_data_dupl()
         self.run_it()
@@ -92,12 +140,11 @@ class Test_hsd_struct(t_hsd_struct):
     def test_005(self):
         """ >>>>>> TEST_005: Running light, left """
 
-        self.models = {"top":self.RTL}
-        self.dut_params = {"DELAY_BITS":3}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0}
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":3, "BUFFER_SIZE":7 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0 }
 
-        for i in range(0, 64): # 8 * 2**3 data samples
+        for i in range(0, 64): # 8 * 2**DELAY_BITS data samples
             self.stim_mode_1.append({ "data": 0 })
 
         self.stim_mode_2.append({ "data": 1 }) # Registered in TOut
@@ -118,12 +165,11 @@ class Test_hsd_struct(t_hsd_struct):
     def test_006(self):
         """ >>>>>> TEST_006: Running light, right """
 
-        self.models = {"top":self.RTL}
-        self.dut_params = {"DELAY_BITS":2}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":200, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2 }
+        self.tb_config  = { "simulation_time":200, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0 }
 
-        for i in range(0, 40): # 10 * 2**2 data samples
+        for i in range(0, 40): # 10 * 2**DELAY_BITS data samples
             self.stim_mode_1.append({ "data": 0 })
 
         self.stim_mode_2.append({ "data": 2 }) # Registered in TOut
@@ -146,23 +192,22 @@ class Test_hsd_struct(t_hsd_struct):
     def test_007(self):
         """ >>>>>> TEST_007: static pattern. """
 
-        self.models = {"top":self.RTL}
-        self.dut_params = {"DELAY_BITS":2}
-        # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":2}
+        self.models     = { "top":self.RTL }
+        self.dut_params = { "DELAY_BITS":2, "BUFFER_SIZE":12 }
+        self.tb_config  = { "simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":2 }
 
         self.stim_mode_2.append({ "data": 3  })
 
-        for i in range(0, 4): # 1 * 2**2 data samples
+        for i in range(0, 4): # 1 * 2**DELAY_BITS data samples
             self.stim_mode_1.append({ "data": 0 })
 
         self.ref_LEDs.append(   { "data": 21 })
 
-        for i in range(0, 4): # 1 * 2**2 data samples
+        for i in range(0, 4): # 1 * 2**DELAY_BITS data samples
             self.stim_mode_1.append({ "data": 1 })
 
         self.ref_LEDs.append(   { "data": 21 })
-        self.ref_LEDs.append(   { "data": 21 }) # Extra sample because we count 2x faster
+        self.ref_LEDs.append(   { "data": 21 }) # Extra sample because we count 2x faster (mode==1)
 
         self.run_it()
 

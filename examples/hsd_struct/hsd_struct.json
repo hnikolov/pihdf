@@ -15,7 +15,8 @@
         ],
         "parameters":
         [
-            {"name":"DELAY_BITS","value":"24"}
+            {"name":"DELAY_BITS","value":"24"},
+            {"name":"BUFFER_SIZE","value":"18"}
         ]
     },
 
