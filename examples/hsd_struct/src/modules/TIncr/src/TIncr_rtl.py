@@ -28,12 +28,9 @@ def TIncr_rtl(rst, clk, mode, inc_out, rdy_en, rdy_buff, DELAY_BITS):
 
     @always_seq(clk.posedge, reset=rst)
     def clk_prcs_dly():
-        if hsd_en:           
-            delay_cnt.next = delay_cnt + 1
+        if hsd_en:         
+            delay_cnt.next = delay_cnt + 1 if mode_data == 0 else delay_cnt + 2
 
-            if mode_data == 1:
-                delay_cnt.next = delay_cnt + 2    
- 
 
     @always_comb
     def vld_prcs():
