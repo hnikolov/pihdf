@@ -24,7 +24,7 @@
     {
         "local_interfaces":
         [
-            { "name":"buff","type":"HSD","data":"2","buf_size":"18" }
+            { "name":"buff","type":"HSD","data":"2","buf_size":"BUFFER_SIZE" }
         ],
         "design_modules":
         [

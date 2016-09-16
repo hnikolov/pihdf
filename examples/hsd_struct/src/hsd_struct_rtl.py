@@ -22,7 +22,7 @@ def hsd_struct_rtl(rst, clk, mode_1, mode_2, LEDs, LED_rdy_en, LED_rdy_buff, LED
     LED_rdy_out_ready, LED_rdy_out_valid, LED_rdy_out_data = LED_rdy_out.get_src_signals() # produce data
 
     """ Local interfaces """
-    buff = HSD(data=2, buf_size=18, filedump=FDUMP)
+    buff = HSD(data=2, buf_size=BUFFER_SIZE, filedump=FDUMP)
 
     if isinstance(IMPL, dict):
         mIncr_impl = IMPL["mIncr"] if "mIncr" in IMPL else IMPL["top"]

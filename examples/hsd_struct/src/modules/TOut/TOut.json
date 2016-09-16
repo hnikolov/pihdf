@@ -7,7 +7,7 @@
             {"name": "rst", "type": "Reset", "active": "1"},
             {"name": "clk", "type": "Clock"},
             {"name": "mode", "type": "HSD", "data": "2", "direction": "IN", "push": "True"},
-            {"name": "inc_in", "type": "HSD", "data": "2", "buf_size": "18", "direction": "IN"},
+            {"name": "inc_in", "type": "HSD", "data": "2", "buf_size": "BUFFER_SIZE", "direction": "IN"},
             {"name": "LEDs", "type": "HSD", "data": "5", "direction": "OUT"},
             {"name": "rdy_out", "type": "HSD", "data": "1", "direction": "OUT"}
         ]
