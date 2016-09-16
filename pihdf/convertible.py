@@ -368,17 +368,19 @@ class Convertible(object):
         top_kwargs.update(self.get_all_parameters(params, verbose))
 
         str_params = ''
-        for parameter in self.get_parameters():
-            str_params += parameter.inst_name + ' = ' + str(parameter.value) + ', '
+        for parameter, value in self.get_all_parameters(params, verbose).iteritems():
+            str_params += parameter + ' = ' + str(value) + ', '
             
-        if str_params != '':
+        if verbose and str_params != '':
             mylog.infob('Parameters: {}'.format(str_params[:-2]))
 
         # Add flatten interface signals to top interface
         for x in self.get_all_interfaces().itervalues():
             top_kwargs.update(x.get_all_signals())
 
-        if verbose: mylog.infob('Converting to {}...'.format(hdl))
+        if verbose:
+            mylog.infob('Converting to {}...'.format(hdl))
+            
         if hdl.lower()=='verilog':
             toVerilog.name = self.get_name() + self.top_suffix
             toVerilog(self.top, **top_kwargs)
