@@ -18,6 +18,7 @@ def print_design(mfdo, s):
         s += simplejson.dumps(mfdo.Clock) + ',\n'
 
     for i in mfdo.interfaces:
+        i.pop('buf_size', None) # remove if present
         s += simplejson.dumps(i) + ',\n'
 
     s = s-2 + (s.noIndent() + '\n')
