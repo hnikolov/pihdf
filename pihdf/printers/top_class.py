@@ -29,8 +29,8 @@ def print_module_class_file(mfdo):
                 bflg += 1
             elif not p["path"] in p_dict:
                 # TODO: Not clear how to deal with the import paths!!!
-                s += 'lib_path = os.path.abspath(module_path + "/../' +  p["path"] + '")\n'
-                s += 'sys.path.append(lib_path)\n'
+#                s += 'lib_path = os.path.abspath(module_path + "/../' +  p["path"] + '")\n'
+#                s += 'sys.path.append(lib_path)\n'
                 p_dict[p["path"]] = 1
         s.newLine()
         if bflg > 1:
