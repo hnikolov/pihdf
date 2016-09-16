@@ -367,12 +367,12 @@ class Convertible(object):
         top_kwargs.update(self.get_all_resets())
         top_kwargs.update(self.get_all_parameters(params, verbose))
 
-        params = ''
+        str_params = ''
         for parameter in self.get_parameters():
-            params += parameter.inst_name + ' = ' + str(parameter.value) + ', '
+            str_params += parameter.inst_name + ' = ' + str(parameter.value) + ', '
             
-        if params != '':
-            mylog.infob('Parameters: {}'.format(params[:-2]))
+        if str_params != '':
+            mylog.infob('Parameters: {}'.format(str_params[:-2]))
 
         # Add flatten interface signals to top interface
         for x in self.get_all_interfaces().itervalues():
