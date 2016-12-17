@@ -1,0 +1,36 @@
+[dumpfile] "/home/nikolov/Projects/git/ourhdl/designs/fmwk/tsched/tsched/out/tsched_top_cosim.vcd"
+[savefile] "/home/nikolov/Projects/git/ourhdl/designs/fmwk/tsched/tsched/test/tsched_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_tsched_top.
+[sst_expanded] 1
+tb_tsched_top.dut.rst
+tb_tsched_top.dut.clk
+-
+-RX_PORT (IN)
+tb_tsched_top.dut.rx_port_ready
+tb_tsched_top.dut.rx_port_valid
+tb_tsched_top.dut.rx_port_cmd
+tb_tsched_top.dut.rx_port_port[15:0]
+-
+-TX_PORT (OUT)
+tb_tsched_top.dut.tx_port_ready
+tb_tsched_top.dut.tx_port_valid
+tb_tsched_top.dut.tx_port_cmd
+tb_tsched_top.dut.tx_port_port[15:0]
+-
+-RX (IN)
+tb_tsched_top.dut.rx_ready
+tb_tsched_top.dut.rx_valid
+tb_tsched_top.dut.rx_sop
+tb_tsched_top.dut.rx_eop
+tb_tsched_top.dut.rx_empty[2:0]
+tb_tsched_top.dut.rx_data[63:0]
+-
+-TX (OUT)
+tb_tsched_top.dut.tx_ready
+tb_tsched_top.dut.tx_valid
+tb_tsched_top.dut.tx_sop
+tb_tsched_top.dut.tx_eop
+tb_tsched_top.dut.tx_empty[2:0]
+tb_tsched_top.dut.tx_data[63:0]

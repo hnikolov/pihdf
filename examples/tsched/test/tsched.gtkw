@@ -1,0 +1,66 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Wed Dec 14 21:07:59 2016
+[*]
+[dumpfile] "/home/hristo/git/pihdf/examples/tsched/out/tsched_top.vcd"
+[dumpfile_mtime] "Wed Dec 14 21:02:19 2016"
+[dumpfile_size] 11138
+[savefile] "/home/hristo/git/pihdf/examples/tsched/test/tsched.gtkw"
+[timestart] 0
+[size] 1855 951
+[pos] -856 -324
+*-6.122087 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tsched_top.
+[sst_width] 225
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 284
+@28
+tsched_top.rst
+tsched_top.clk
+@200
+-
+-RX_PORT (IN)
+@28
+tsched_top.rtl.rx_port_cmd
+@22
+tsched_top.rtl.rx_port_port[15:0]
+@28
+tsched_top.rtl.rx_port_ready
+tsched_top.rtl.rx_port_valid
+@200
+-
+-TX_PORT (OUT)
+@28
+tsched_top.rtl.tx_port_cmd
+@22
+tsched_top.rtl.tx_port_port[15:0]
+@28
+tsched_top.rtl.tx_port_ready
+tsched_top.rtl.tx_port_valid
+@200
+-
+-RX (IN)
+@22
+tsched_top.rtl.rx_data[63:0]
+@28
+tsched_top.rtl.rx_empty[2:0]
+tsched_top.rtl.rx_sop
+tsched_top.rtl.rx_eop
+tsched_top.rtl.rx_err
+tsched_top.rtl.rx_ready
+tsched_top.rtl.rx_valid
+@200
+-
+-TX (OUT)
+@22
+tsched_top.rtl.tx_data[63:0]
+@28
+tsched_top.rtl.tx_empty[2:0]
+tsched_top.rtl.tx_sop
+tsched_top.rtl.tx_eop
+tsched_top.rtl.tx_err
+tsched_top.rtl.tx_ready
+tsched_top.rtl.tx_valid
+[pattern_trace] 1
+[pattern_trace] 0
