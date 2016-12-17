@@ -191,7 +191,24 @@ class Test_tsched(t_tsched):
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_005(self):
-        """ >>>>>> TEST_005: Schedule every rx_port stimuli after every 3 rx stimuli. 1st stimuli after reset. The last X rx_port stimuli are driven w/o conditions """
+        """ >>>>>> TEST_005: Schedule every rx_port stimuli after every 3 rx stimuli. The last X rx_port stimuli are driven w/o conditions """
+        self.models = {"top":self.RTL}
+        # Set fdump to True in order to generate test vector files for the global interfaces
+        self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
+
+        # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
+        self.cond_rx_port += [(0,("rx",2)),
+                              (1,("rx",5)),
+                              (2,("rx",8))]
+
+        # schedule("rx_port").after_every("rx").stimuli(3)
+
+        self.use_data_set_1()
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_006(self):
+        """ >>>>>> TEST_006: Schedule every rx_port stimuli after every 3 rx stimuli. 1st stimuli after reset. The last X rx_port stimuli are driven w/o conditions """
         self.models = {"top":self.RTL}
         # Set fdump to True in order to generate test vector files for the global interfaces
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
@@ -201,14 +218,14 @@ class Test_tsched(t_tsched):
                               (2,("rx",5)),
                               (3,("rx",8))]
                               
-        # schedule("rx_port").after_every("rx").stimuli(3) //.start_at(0) ?
+        # schedule("rx_port").after_every("rx").stimuli(3).start_at(0) ?
 
         self.use_data_set_1()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
-    def test_006(self):
-        """ >>>>>> TEST_006: Schedule every rx_port stimuli after every 2 rx stimuli, starting after stimuli 3 of rx. The last X rx_port stimuli are driven w/o conditions """
+    def test_007(self):
+        """ >>>>>> TEST_007: Schedule every rx_port stimuli after every 2 rx stimuli, starting after stimuli 3 of rx. The last X rx_port stimuli are driven w/o conditions """
         self.models = {"top":self.RTL}
         # Set fdump to True in order to generate test vector files for the global interfaces
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
@@ -225,7 +242,7 @@ class Test_tsched(t_tsched):
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
-    def test_007(self):
+    def test_008(self):
         """ >>>>>> TEST_008: Schedule rx stimuli 1, 2, and 3 after rx_port stimuli 4 and 8, and 9 """
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
@@ -242,8 +259,8 @@ class Test_tsched(t_tsched):
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
-    def test_008(self):
-        """ >>>>>> TEST_008: Schedule rx stimuli 3, 5, and 8 after rx_port stimuli 2, 5, and 9 """
+    def test_009(self):
+        """ >>>>>> TEST_009: Schedule rx stimuli 3, 5, and 8 after rx_port stimuli 2, 5, and 9 """
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
                
