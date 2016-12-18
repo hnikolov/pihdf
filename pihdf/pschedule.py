@@ -148,6 +148,11 @@ class Config(object):
         print '   with_gaps',       self._with_gaps     
         print ''
 
+    # TODO: Basic consistemcy check of a configuration
+    def check(self):
+        pass
+        
+    # TODO: Get/generate the list of conditions as expected by the pihdf stimuli scheduler
     def get_cond_list(self):
         pass
         
