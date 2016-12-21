@@ -72,6 +72,9 @@ class Scheduler(object):
         for config in self.configs:
             config.print_configuration()
 
+    def get_cond_list(self, i):
+        self.configs[i].get_cond_list()
+        
 
 class Config(object):
     """
@@ -98,21 +101,21 @@ class Config(object):
             
         return "NO NAME FOUND"         
 
-    def after_every(self, stimuli):
+    def after_every(self, stimuli_list):
         if self._after is not None:
             print 'In "after_every": Use either "after_every" or "after"'
             exit()
             
-        self._after_every = stimuli
+        self._after_every = stimuli_list
         self._name_after = self.find_name_after('every(', lo=-3)
         return self
 
-    def after(self, stimuli):
+    def after(self, stimuli_list):
         if self._after_every is not None:
             print 'In "after": Use either "after_every" or "after"'
             exit()
 
-        self._after = stimuli
+        self._after = stimuli_list
         self._name_after = self.find_name_after('after(', lo=-3)
         return self
 
@@ -149,7 +152,32 @@ class Config(object):
         print ''
 
     def get_cond_list(self):
-        pass
+        cond_list = []
+        
+        # test 4
+        if self._start_at > 0 and self._after is not None:
+            cond_list.append( (0, (self._name_after, self._start_at-1) ) )
+        else:
+            # TODO: Check the shorter list and limit the generation
+            for i in range(len(self._stimuli_list)): 
+                sample     = i # test 2
+                src_sample = i
+                
+                if self._start_at > 0 and self._stimuli is None: # test 3
+                    sample = (self._start_at - 1) + i
+                elif self._stimuli > 0: 
+                    if self._start_at == 0: # test 6
+                        src_sample = i + 1
+                        sample = (self._stimuli - 1) + i*self._stimuli
+                    elif self._start_at > 0: # test 7
+                        sample = (self._start_at - 1) + i*self._stimuli
+                    else: # test 5
+                        sample = (self._stimuli - 1) + i*self._stimuli
+                
+                cond_list.append( (src_sample, (self._name_after, sample) ) )
+        
+        print cond_list
+        
         
 # The following methods are shortcuts for not having to
 # create a Scheduler instance:
@@ -172,6 +200,9 @@ def clear_configurations():
 def print_configurations():
     default_scheduler.print_configurations()
 
+def get_cond_list(i):
+    default_scheduler.get_cond_list(i)
+
 
 if __name__ == '__main__':
     stim_rx_1 = [1, 3, 5, 7,  9]
@@ -181,7 +212,7 @@ if __name__ == '__main__':
     
 #    drive(stim_rx_2).after_every(stim_rx_1).after(stim_rx_1) # Detect ERROR
 #    drive(stim_rx_2).after(stim_rx_1).start_at(5).after_every(stim_rx_1) # Detect ERROR
-    drive(stim_rx_2).after_every(stim_rx_1)
+    drive(stim_rx_2).after_every(stim_rx_1)    
     drive(stim_rx_2).after_every(stim_rx_1).start_at(3)
     drive(stim_rx_2).after(stim_rx_1).start_at(5) # Enable after 5
     drive(stim_rx_2).after_every(stim_rx_1).stimuli(3)
@@ -198,6 +229,15 @@ if __name__ == '__main__':
     # ---------
     
     print_configurations()
+    
+    get_cond_list(0)
+    get_cond_list(1)
+    get_cond_list(2)
+    get_cond_list(3)
+    get_cond_list(4)
+    get_cond_list(5)
+
+
     clear_configurations()
     print_configurations()
     

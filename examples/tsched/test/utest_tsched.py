@@ -136,16 +136,16 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
-        self.cond_rx_port += [(0,("rx",0)),
-                              (1,("rx",1)),
-                              (2,("rx",2)),
-                              (3,("rx",3)),
-                              (4,("rx",4)),
-                              (5,("rx",5)),
-                              (6,("rx",6)),
-                              (7,("rx",7)),
-                              (8,("rx",8)),
-                              (9,("rx",9))]
+        self.cond_rx_port = [(0,("rx",0)),
+                             (1,("rx",1)),
+                             (2,("rx",2)),
+                             (3,("rx",3)),
+                             (4,("rx",4)),
+                             (5,("rx",5)),
+                             (6,("rx",6)),
+                             (7,("rx",7)),
+                             (8,("rx",8)),
+                             (9,("rx",9))]
                               
         # schedule("stim_rx_port").after_every("stim_rx")
 
@@ -160,14 +160,14 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
-        self.cond_rx_port += [(0,("rx",2)),
-                              (1,("rx",3)),
-                              (2,("rx",4)),
-                              (3,("rx",5)),
-                              (4,("rx",6)),
-                              (5,("rx",7)),
-                              (6,("rx",8)),
-                              (7,("rx",9))]
+        self.cond_rx_port = [(0,("rx",2)),
+                             (1,("rx",3)),
+                             (2,("rx",4)),
+                             (3,("rx",5)),
+                             (4,("rx",6)),
+                             (5,("rx",7)),
+                             (6,("rx",8)),
+                             (7,("rx",9))]
                               
         # schedule("rx_port").after_every("rx").start_at(3)
 
@@ -182,7 +182,7 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
-        self.cond_rx_port += [(0,("rx",4))]
+        self.cond_rx_port = [(0,("rx",4))]
                               
         # schedule("rx_port").after("rx").start_at(5)
 
