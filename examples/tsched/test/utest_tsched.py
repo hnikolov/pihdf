@@ -218,7 +218,7 @@ class Test_tsched(t_tsched):
                               (2,("rx",5)),
                               (3,("rx",8))]
                               
-        # schedule("rx_port").after_every("rx").stimuli(3).start_at(0) ?
+        # schedule("rx_port").after_every("rx").stimuli(3).start_at(0)
 
         self.use_data_set_1()
 

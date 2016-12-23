@@ -59,9 +59,16 @@ class Scheduler(object):
         self.configs.append( config )
         return config
 
-    def clear(self):
+    def clear_configs(self):
         self.configs = []
         
+    def clear_schedules(self):
+        """
+        Clear all derived schedules
+        """
+        for config in self.configs:
+            config.cond_list = []
+
     def print_configurations(self):
         """
         Prints the configurations of all stimuli
@@ -71,9 +78,12 @@ class Scheduler(object):
 
         for config in self.configs:
             config.print_configuration()
-
-    def get_cond_list(self, i):
-        self.configs[i].get_cond_list()
+        
+    def determine_schedule(self, i):
+        self.configs[i].determine_schedule()
+        
+    def print_schedule(self, i):
+        self.configs[i].print_cond_list()
         
 
 class Config(object):
@@ -90,6 +100,8 @@ class Config(object):
         self._samples       = None
         self._samples_after = None
         self._with_gaps     = None
+        
+        self.cond_list      = []
 
     def find_name_after(self, sname, lo):
         (filename,line_number,function_name,text)=traceback.extract_stack()[lo]
@@ -151,39 +163,102 @@ class Config(object):
         print '   with_gaps',       self._with_gaps     
         print ''
 
+    def print_cond_list(self):
+        print self.cond_list
+        
     # TODO: Basic consistemcy check of a configuration
     def check(self):
+        # after + samples; after_every + !samples
+        # len samples == len samples_after
         pass
-        
-    # TODO: Get/generate the list of conditions as expected by the pihdf stimuli scheduler
-    def get_cond_list(self):
-        cond_list = []
-        
-        # test 4
+                
+
+    def determine_schedule(self):
+        # TODO
+        if self._with_gaps is not None:
+            return
+            
         if self._start_at > 0 and self._after is not None:
-            cond_list.append( (0, (self._name_after, self._start_at-1) ) )
-        else:
-            # TODO: Check the shorter list and limit the generation
-            for i in range(len(self._stimuli_list)): 
-                sample     = i # test 2
-                src_sample = i
+            # drive(stim_rx_2).after(stim_rx_1).start_at(5)
+            self.sch_3()
+            
+        else:            
+            if self._start_at == 0 and self._stimuli is None:
+                # drive(stim_rx_2).after_every(stim_rx_1).start_at(0)
+                self.sch_9()
                 
-                if self._start_at > 0 and self._stimuli is None: # test 3
-                    sample = (self._start_at - 1) + i
-                elif self._stimuli > 0: 
-                    if self._start_at == 0: # test 6
-                        src_sample = i + 1
-                        sample = (self._stimuli - 1) + i*self._stimuli
-                    elif self._start_at > 0: # test 7
-                        sample = (self._start_at - 1) + i*self._stimuli
-                    else: # test 5
-                        sample = (self._stimuli - 1) + i*self._stimuli
+            elif self._start_at > 0 and self._stimuli is None:
+                # drive(stim_rx_2).after_every(stim_rx_1).start_at(3)
+                self.sch_2()
+
+            elif self._stimuli > 0:                 
+                if self._start_at == 0:
+                    # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3).start_at(0)
+                    self.sch_5()
+                        
+                elif self._start_at > 0:
+                    # drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3)
+                    self.sch_6()
+                                
+                else:
+                    # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3)
+                    self.sch_4()
+                    
+            elif self._samples is None and self._samples_after is not None:
+                # drive(stim_rx_2).after(stim_rx_1).samples([4, 8, 9])
+                self.sch_7()
                 
-                cond_list.append( (src_sample, (self._name_after, sample) ) )
+            elif self._samples is not None and self._samples_after is not None:
+                # drive(stim_rx_2).samples([3, 5, 8]).after(stim_rx_1).samples([2, 5, 9])
+                self.sch_8()
+                
+            else:
+                # drive(stim_rx_2).after_every(stim_rx_1)                
+                self.sch_1()    
+                
+
+    # TODO: Check the shorter list and limit the generation
+    def sch_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
+        for i in range(len(self._stimuli_list)):
+            self.cond_list.append( (i, (self._name_after, i) ) )
+
+    def sch_2(self): # drive(stim_rx_2).after_every(stim_rx_1).start_at(3) t3
+        for i in range(len(self._stimuli_list)):
+            sample = (self._start_at - 1) + i
+            self.cond_list.append( (i, (self._name_after, sample ) ) )
+            
+    def sch_3(self): # drive(stim_rx_2).after(stim_rx_1).start_at(5) t4 
+        self.cond_list.append( (0, (self._name_after, self._start_at-1) ) )
         
-        print cond_list
-        
-        
+    def sch_4(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3) t5
+        for i in range(len(self._stimuli_list)):
+            sample = (self._stimuli - 1) + (i * self._stimuli)
+            self.cond_list.append( (i, (self._name_after, sample) ) )
+            
+    def sch_5(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3).start_at(0) t6
+        for i in range(len(self._stimuli_list)):
+            src_sample = i + 1
+            sample = (self._stimuli - 1) + (i * self._stimuli)
+            self.cond_list.append( (src_sample, (self._name_after, sample) ) )
+            
+    def sch_6(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3) t7
+        for i in range(len(self._stimuli_list)):
+            sample = (self._start_at - 1) + (i * self._stimuli)    
+            self.cond_list.append( (i, (self._name_after, sample) ) )
+            
+    def sch_7(self): # drive(stim_rx_2).after(stim_rx_1).samples([4, 8, 9]) t8
+        for i, s in enumerate(self._samples_after):
+            self.cond_list.append( (i, (self._name_after, s) ) )
+            
+    def sch_8(self): # drive(stim_rx_2).samples([3, 5, 8]).after(stim_rx_1).samples([2, 5, 9]) t9
+        for i, s in zip(self._samples, self._samples_after):
+            self.cond_list.append( (i, (self._name_after, s) ) )
+            
+    def sch_9(self): # drive(stim_rx_2).after_every(stim_rx_1).start_at(0) t10
+        for i in range(1, len(self._stimuli_list)):
+            self.cond_list.append( (i, (self._name_after, i-1) ) )
+            
+            
 # The following methods are shortcuts for not having to
 # create a Scheduler instance:
 
@@ -200,14 +275,23 @@ def drive( stimuli ): # TODO: Should be the same for 'drive' and 'capture'
     return default_scheduler.add( stimuli )
 
 def clear_configurations():
-    default_scheduler.clear()
+    default_scheduler.clear_configs()
+    
+def clear_schedules():
+    default_scheduler.clear_schedules()
     
 def print_configurations():
     default_scheduler.print_configurations()
 
-def get_cond_list(i):
-    default_scheduler.get_cond_list(i)
+def get_schedule(i):
+    default_scheduler.determine_schedule(i)
+    default_scheduler.print_schedule(i)
 
+def print_schedules():
+    default_scheduler.clear_schedules()
+    for i in range(len(default_scheduler.configs)):
+        default_scheduler.determine_schedule(i)
+        default_scheduler.print_schedule(i)
 
 if __name__ == '__main__':
     stim_rx_1 = [1, 3, 5, 7,  9]
@@ -217,14 +301,14 @@ if __name__ == '__main__':
     
 #    drive(stim_rx_2).after_every(stim_rx_1).after(stim_rx_1) # Detect ERROR
 #    drive(stim_rx_2).after(stim_rx_1).start_at(5).after_every(stim_rx_1) # Detect ERROR
-    drive(stim_rx_2).after_every(stim_rx_1)    
-    drive(stim_rx_2).after_every(stim_rx_1).start_at(3)
-    drive(stim_rx_2).after(stim_rx_1).start_at(5) # Enable after 5
-    drive(stim_rx_2).after_every(stim_rx_1).stimuli(3)
-    drive(stim_rx_2).after_every(stim_rx_1).stimuli(3).start_at(0) # 1st sample after reset
-    drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3)
-    drive(stim_rx_2).after(stim_rx_1).samples([4, 8, 9]) # 1 after 4, 2 after 8, 3 after 9
-    drive(stim_rx_2).samples([3, 5, 8]).after(stim_rx_1).samples([2, 5, 9]) # 3 after 2, 5 after 5, 8 after 9
+    drive(stim_rx_2).after_every(stim_rx_1)                                     # test_002
+    drive(stim_rx_2).after_every(stim_rx_1).start_at(3)                         # test_003
+    drive(stim_rx_2).after(stim_rx_1).start_at(5)                               # test_004 (Enable after 5)
+    drive(stim_rx_2).after_every(stim_rx_1).stimuli(3)                          # test_005
+    drive(stim_rx_2).after_every(stim_rx_1).stimuli(3).start_at(0)              # test_006 (1st sample after reset)
+    drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3)              # test_007
+    drive(stim_rx_2).after(stim_rx_1).samples([3, 7, 8])                        # test_008 (1 after 3, 2 after 7, 3 after 8)
+    drive(stim_rx_2).samples([2, 4, 7]).after(stim_rx_1).samples([1, 4, 8])     # test_009 (2 after 1, 4 after 4, 7 after 8)
 
     drive(stim_rx_2).with_gaps(4)
     
@@ -235,14 +319,8 @@ if __name__ == '__main__':
     
     print_configurations()
     
-    get_cond_list(0)
-    get_cond_list(1)
-    get_cond_list(2)
-    get_cond_list(3)
-    get_cond_list(4)
-    get_cond_list(5)
-
-
+    print_schedules()    
+    
     clear_configurations()
     print_configurations()
     
