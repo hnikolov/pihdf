@@ -1,4 +1,6 @@
-import unittest
+#import unittest # imported but not used
+
+from pihdf import pschedule
 
 from myhdl_lib import *
 
@@ -75,6 +77,7 @@ class Test_tsched(t_tsched):
     # Automatically executed BEFORE every TestCase
     def setUp(self):
         t_tsched.setUp(self)
+        pschedule.clear_configurations() # TODO: Is this needed?
 
     # Automatically executed AFTER every TestCase
     def tearDown(self):
@@ -94,7 +97,7 @@ class Test_tsched(t_tsched):
             self.stim_rx.append({"payload":i})
             self.ref_tx.append({"payload":i})
         
-        self.run_it()
+ #       self.run_it()
 
     def use_data_set_2(self):
         payload = stream_gen_string(3*3*[80])
@@ -118,6 +121,7 @@ class Test_tsched(t_tsched):
         self.models = {"top":self.BEH}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":False, "fdump":False}
         self.use_data_set_1()
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -126,6 +130,7 @@ class Test_tsched(t_tsched):
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":1, "ipgo":1}
         self.use_data_set_1()
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -136,6 +141,7 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
+        '''
         self.cond_rx_port += [(0,("rx",0)),
                               (1,("rx",1)),
                               (2,("rx",2)),
@@ -146,10 +152,16 @@ class Test_tsched(t_tsched):
                               (7,("rx",7)),
                               (8,("rx",8)),
                               (9,("rx",9))]
-                              
+        '''                              
         # schedule("stim_rx_port").after_every("stim_rx")
 
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).get()
+#        pschedule.print_configurations()
+#        pschedule.print_schedules()
+        
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -160,6 +172,7 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
+        '''
         self.cond_rx_port += [(0,("rx",2)),
                               (1,("rx",3)),
                               (2,("rx",4)),
@@ -168,10 +181,14 @@ class Test_tsched(t_tsched):
                               (5,("rx",7)),
                               (6,("rx",8)),
                               (7,("rx",9))]
-                              
+        '''                      
         # schedule("rx_port").after_every("rx").start_at(3)
 
         self.use_data_set_1()
+
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(3).get()
+
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -182,11 +199,15 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
-        self.cond_rx_port += [(0,("rx",4))]
+        #self.cond_rx_port += [(0,("rx",4))]
                               
         # schedule("rx_port").after("rx").start_at(5)
-
+                              
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after(self.stim_rx).start_at(5).get()
+        
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -197,13 +218,18 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
+        '''
         self.cond_rx_port += [(0,("rx",2)),
                               (1,("rx",5)),
                               (2,("rx",8))]
-
+        '''
         # schedule("rx_port").after_every("rx").stimuli(3)
 
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3).get()
+        
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -214,13 +240,18 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
+        '''        
         self.cond_rx_port += [(1,("rx",2)),
                               (2,("rx",5)),
                               (3,("rx",8))]
-                              
+        '''                      
         # schedule("rx_port").after_every("rx").stimuli(3).start_at(0)
 
         self.use_data_set_1()
+
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3).start_at(0).get()
+        
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -231,14 +262,19 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
 
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
+        '''        
         self.cond_rx_port += [(0,("rx",2)),
                               (1,("rx",4)),
                               (2,("rx",6)),
                               (3,("rx",8))]
-                              
+        '''                      
         # schedule("rx_port").after_every("rx").stimuli(2).start_at(3)
 
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(2).start_at(3).get()
+        
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -248,13 +284,18 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
                
         # Specify only iterations in which check has to be done
+        '''       
         self.cond_rx_port += [(0,("rx",3)),
                               (1,("rx",7)),
                               (2,("rx",8))]
-                              
+        '''                      
         # schedule("rx_port").after("rx").samples([4, 8, 9]) # 1 after 4, 2 after 8, 3 after 9
                                                             
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after(self.stim_rx).samples([4, 8, 9]).get()
+        
+        self.run_it()
 
 
     # ----------------------------------------------------------------------------
@@ -265,13 +306,18 @@ class Test_tsched(t_tsched):
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
                
         # Specify only iterations in which check has to be done
+        '''        
         self.cond_rx_port += [(2,("rx",1)),
                               (4,("rx",4)),
                               (7,("rx",8))]
-                              
+        '''                      
         # schedule("rx_port").samples([3, 5, 8]).after("rx").samples([2, 5, 9]) # 3 after 2, 5 after 5, 8 after 9
                                                             
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).samples([3, 5, 8]).after(self.stim_rx).samples([2, 5, 9]).get()
+        
+        self.run_it()
 
 
     # ----------------------------------------------------------------------------
@@ -284,6 +330,7 @@ class Test_tsched(t_tsched):
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
 
         #              iteration(== #packet-1),[Conditions == "interface", #packet]
+        '''        
         self.cond_rx_port += [(1,("rx",0)),
                               (2,("rx",1)),
                               (3,("rx",2)),
@@ -304,11 +351,16 @@ class Test_tsched(t_tsched):
                          (7,("rx_port",7)),
                          (8,("rx_port",8)),
                          (9,("rx_port",9))]
-
+        '''
         # schedule("rx_port").after_every("rx").start_at(0) # start_at(0) == drive first sample after reset w/o condition
         # schedule("rx").after_every("rx_port")
 
         self.use_data_set_1()
+        
+        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(0).get()
+        self.cond_rx      += pschedule.drive(self.stim_rx).after_every(self.stim_rx_port).get()        
+        
+        self.run_it()
 
 
     # ----------------------------------------------------------------------------
@@ -363,6 +415,7 @@ class Test_tsched(t_tsched):
         # schedule("rx").after_every("rx_port").start_at(0) # start_at(0) == drive first sample w/o condition
 
         self.use_data_set_1()
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -377,6 +430,7 @@ class Test_tsched(t_tsched):
         # schedule("rx").after("rx_port").samples(6) # Enable rx after 6 samples of rx_port
 
         self.use_data_set_1()
+        self.run_it()
 
 
     # ----------------------------------------------------------------------------
@@ -401,6 +455,7 @@ class Test_tsched(t_tsched):
         # schedule("rx_port").after_every("tx_port" and "tx") ???
         
         self.use_data_set_1()
+        self.run_it()
 
 
     # ----------------------------------------------------------------------------
@@ -411,6 +466,7 @@ class Test_tsched(t_tsched):
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":150, "cosimulation":True, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
         self.use_data_set_1()
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -420,6 +476,7 @@ class Test_tsched(t_tsched):
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
         self.use_data_set_1()
+        self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -428,3 +485,4 @@ class Test_tsched(t_tsched):
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":150, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":4}
         self.use_data_set_1()
+        self.run_it()
