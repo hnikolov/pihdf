@@ -1,6 +1,7 @@
 import myhdl
 import pihdf
 from pihdf import Testable
+from pihdf import pschedule
 
 import os, sys
 
@@ -66,6 +67,8 @@ class t_tsched(Testable):
         self.res_tx = []
         self.ref_tx = []
 
+        pschedule.clear_configurations()
+
     # Data has been previously generated and written to files
     def use_data_from_files(self):
         self.stim_rx_port.append({"file" : self.test_path + "/vectors/rx_port.tvr"})
@@ -75,12 +78,18 @@ class t_tsched(Testable):
         self.res_tx.append({"file" : self.test_path + "/vectors/my_tx.tvr"})
         self.ref_tx.append({"file" : self.test_path + "/vectors/tx.tvr"})
 
+        # TODO: condition lists?
+
         self.checkfiles = True
         self.run_it()
 
     # Run the simulation and check the results
     def run_it(self, checkfiles=False):
         self.check_config("tsched")
+
+        # Update condition lists if initialized in tests
+        self.cond_rx_port += pschedule.get('rx_port')
+        self.cond_rx      += pschedule.get('rx')
 
         tsched_dut = tsched(IMPL=self.models)
         tsched_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose)

@@ -103,6 +103,8 @@ class Config(object):
         
         self.cond_list      = []
 
+        self._name = self._remove_prefix( self._name, 'self.stim_' )
+
     def find_name_after(self, sname, lo):
         (filename,line_number,function_name,text)=traceback.extract_stack()[lo]
         idx = text.find(sname)
@@ -113,8 +115,9 @@ class Config(object):
             
         return "NO NAME FOUND"
         
-    def remove_prefix(self, prefix):
-        self._name_after = self._name_after[len(prefix):] if self._name_after.startswith(prefix) else self._name_after
+    def _remove_prefix(self, sname, prefix):
+        #TODO: sname = sname[len(prefix):] if sname.startswith(prefix) else sname
+        return sname[len(prefix):] if sname.startswith(prefix) else sname
 
     def after_every(self, stimuli_list):
         if self._after is not None:
@@ -123,10 +126,8 @@ class Config(object):
             
         self._after_every = stimuli_list
         self._name_after = self.find_name_after('every(', lo=-3)        
-        # remove self. if present
-        self.remove_prefix('self.')
-        # remove stim_ if present
-        self.remove_prefix('stim_')
+        # remove self.stim_ if present
+        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
         
         return self
 
@@ -137,10 +138,8 @@ class Config(object):
 
         self._after = stimuli_list
         self._name_after = self.find_name_after('after(', lo=-3)
-        # remove self. if present
-        self.remove_prefix('self.')
-        # remove stim_ if present
-        self.remove_prefix('stim_')
+        # remove self.stim_ if present
+        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
 
         return self
 
@@ -178,7 +177,7 @@ class Config(object):
 
     def print_cond_list(self):
         print self.cond_list
-        
+
     def get(self):
         if self.cond_list == []:
             self.determine_schedule()
@@ -288,10 +287,10 @@ class Config(object):
             self.cond_list.append( (i, (self._name_after, i-1) ) )
             
             
-# The following methods are shortcuts for not having to
-# create a Scheduler instance:
+# ----------------------------------------------------------------------------------
+# The following methods are shortcuts for not having to create a Scheduler instance
+# ----------------------------------------------------------------------------------
 
-#: Default :class:`Scheduler <Scheduler>` object
 default_scheduler = Scheduler()
 
 
@@ -302,6 +301,15 @@ def drive( stimuli ): # TODO: Should be the same for 'drive' and 'capture'
     :return: The default :obj:`Scheduler` instance
     """
     return default_scheduler.add( stimuli )
+
+def get( name ):
+    for config in default_scheduler.configs:
+        if name == config._name:
+            return config.get()
+    return []
+
+def _get( idx ):
+    return default_scheduler.configs[idx].get()
 
 def clear_configurations():
     default_scheduler.clear_configs()
@@ -322,6 +330,8 @@ def print_schedules():
         default_scheduler.determine_schedule(i)
         default_scheduler.print_schedule(i)
 
+
+# Some usage examples
 if __name__ == '__main__':
     stim_rx_1 = [1, 3, 5, 7,  9]
     stim_rx_2 = [2, 4, 6, 8, 10]
@@ -352,4 +362,3 @@ if __name__ == '__main__':
     
     clear_configurations()
     print_configurations()
-    

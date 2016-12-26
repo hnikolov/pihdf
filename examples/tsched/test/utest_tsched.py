@@ -77,7 +77,6 @@ class Test_tsched(t_tsched):
     # Automatically executed BEFORE every TestCase
     def setUp(self):
         t_tsched.setUp(self)
-        pschedule.clear_configurations() # TODO: Is this needed?
 
     # Automatically executed AFTER every TestCase
     def tearDown(self):
@@ -97,7 +96,6 @@ class Test_tsched(t_tsched):
             self.stim_rx.append({"payload":i})
             self.ref_tx.append({"payload":i})
         
- #       self.run_it()
 
     def use_data_set_2(self):
         payload = stream_gen_string(3*3*[80])
@@ -111,8 +109,6 @@ class Test_tsched(t_tsched):
                 pld = payload.pop(0)
                 self.stim_rx.append({"payload":pld})
                 self.ref_tx.append({"payload":pld})
-        
-        self.run_it()
         
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -153,11 +149,10 @@ class Test_tsched(t_tsched):
                               (8,("rx",8)),
                               (9,("rx",9))]
         '''                              
-        # schedule("stim_rx_port").after_every("stim_rx")
 
         self.use_data_set_1()
         
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).get()
+        pschedule.drive(self.stim_rx_port).after_every(self.stim_rx)
 #        pschedule.print_configurations()
 #        pschedule.print_schedules()
         
@@ -182,11 +177,10 @@ class Test_tsched(t_tsched):
                               (6,("rx",8)),
                               (7,("rx",9))]
         '''                      
-        # schedule("rx_port").after_every("rx").start_at(3)
 
         self.use_data_set_1()
 
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(3).get()
+        pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(3)
 
         self.run_it()
 
@@ -201,11 +195,9 @@ class Test_tsched(t_tsched):
         # NOTE: If rx_port[0] not in the list, then rx_port is driven immediately after reset
         #self.cond_rx_port += [(0,("rx",4))]
                               
-        # schedule("rx_port").after("rx").start_at(5)
-                              
         self.use_data_set_1()
         
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after(self.stim_rx).start_at(5).get()
+        pschedule.drive(self.stim_rx_port).after(self.stim_rx).start_at(5)
         
         self.run_it()
 
@@ -223,11 +215,10 @@ class Test_tsched(t_tsched):
                               (1,("rx",5)),
                               (2,("rx",8))]
         '''
-        # schedule("rx_port").after_every("rx").stimuli(3)
 
         self.use_data_set_1()
         
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3).get()
+        pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3)
         
         self.run_it()
 
@@ -245,11 +236,10 @@ class Test_tsched(t_tsched):
                               (2,("rx",5)),
                               (3,("rx",8))]
         '''                      
-        # schedule("rx_port").after_every("rx").stimuli(3).start_at(0)
 
         self.use_data_set_1()
 
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3).start_at(0).get()
+        pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3).start_at(0)
         
         self.run_it()
 
@@ -268,11 +258,10 @@ class Test_tsched(t_tsched):
                               (2,("rx",6)),
                               (3,("rx",8))]
         '''                      
-        # schedule("rx_port").after_every("rx").stimuli(2).start_at(3)
 
         self.use_data_set_1()
         
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(2).start_at(3).get()
+        pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(2).start_at(3)
         
         self.run_it()
 
@@ -289,11 +278,10 @@ class Test_tsched(t_tsched):
                               (1,("rx",7)),
                               (2,("rx",8))]
         '''                      
-        # schedule("rx_port").after("rx").samples([4, 8, 9]) # 1 after 4, 2 after 8, 3 after 9
                                                             
         self.use_data_set_1()
         
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after(self.stim_rx).samples([4, 8, 9]).get()
+        pschedule.drive(self.stim_rx_port).after(self.stim_rx).samples([4, 8, 9])
         
         self.run_it()
 
@@ -311,11 +299,10 @@ class Test_tsched(t_tsched):
                               (4,("rx",4)),
                               (7,("rx",8))]
         '''                      
-        # schedule("rx_port").samples([3, 5, 8]).after("rx").samples([2, 5, 9]) # 3 after 2, 5 after 5, 8 after 9
                                                             
         self.use_data_set_1()
         
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).samples([3, 5, 8]).after(self.stim_rx).samples([2, 5, 9]).get()
+        pschedule.drive(self.stim_rx_port).samples([3, 5, 8]).after(self.stim_rx).samples([2, 5, 9])
         
         self.run_it()
 
@@ -352,25 +339,23 @@ class Test_tsched(t_tsched):
                          (8,("rx_port",8)),
                          (9,("rx_port",9))]
         '''
-        # schedule("rx_port").after_every("rx").start_at(0) # start_at(0) == drive first sample after reset w/o condition
-        # schedule("rx").after_every("rx_port")
-
         self.use_data_set_1()
-        
-        self.cond_rx_port += pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(0).get()
-        self.cond_rx      += pschedule.drive(self.stim_rx).after_every(self.stim_rx_port).get()        
-        
+
+        pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(0)
+        pschedule.drive(self.stim_rx).after_every(self.stim_rx_port)
+
         self.run_it()
 
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
-    def test_104(self):
-        """ >>>>>> TEST_004: Schedule - rx_port stimuli (index) 1 after rx stimuli (index) 1, rx_port stimuli (index) 2 after rx stimuli (index) 5; rx stimuli (index) 2 after rx_port stimuli (index) 1, rx stimuli (index) 6 after rx_port stimuli (index) 2 (all with 1 clk cycle delay) """
+    def test_011(self):
+        """ >>>>>> TEST_011: Schedule - rx_port stimuli 2 after rx stimuli 2, rx_port stimuli 3 after rx stimuli 6; rx stimuli 3 after rx_port stimuli 2, rx stimuli 7 after rx_port stimuli 3 """
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
                
         # Specify only iterations in which check has to be done
+        '''
         self.cond_rx_port += [(1,("rx",1)),
                               (2,("rx",5))]
                               
@@ -379,48 +364,19 @@ class Test_tsched(t_tsched):
         #              iteration,[Conditions] (Considered True for omitted iterations)
         self.cond_rx      += [(2,("rx_port",1)),
                               (6,("rx_port",2))]
-                              
+        '''
         self.use_data_set_2()
 
-    # ----------------------------------------------------------------------------
-    # @unittest.skip("")
-    def test_105(self):
-        """ >>>>>> TEST_005: Pink-Ponk Schedule - rx[i] after rx_port[i], rx_port[i] after rx[i-1] (with 'ipg' clk cycles delay) """
-        self.models = {"top":self.RTL}
-        self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":3}
+        pschedule.drive(self.stim_rx_port).samples([2, 3]).after(self.stim_rx).samples([2, 6])
+        pschedule.drive(self.stim_rx).samples([3, 7]).after(self.stim_rx_port).samples([2, 3])
 
-        #              iteration(== #packet-1),[Conditions == "interface", #packet]
-        self.cond_rx_port += [(1,("rx",0)),
-                              (2,("rx",1)),
-                              (3,("rx",2)),
-                              (4,("rx",3)),
-                              (5,("rx",4)),
-                              (6,("rx",5)),
-                              (7,("rx",6)),
-                              (8,("rx",7)),
-                              (9,("rx",8))]
-
-        self.cond_rx += [(0,("rx_port",0)),
-                         (1,("rx_port",1)),
-                         (2,("rx_port",2)),
-                         (3,("rx_port",3)),
-                         (4,("rx_port",4)),
-                         (5,("rx_port",5)),
-                         (6,("rx_port",6)),
-                         (7,("rx_port",7)),
-                         (8,("rx_port",8)),
-                         (9,("rx_port",9))]
-
-        # schedule("rx_port").after_every("rx")
-        # schedule("rx").after_every("rx_port").start_at(0) # start_at(0) == drive first sample w/o condition
-
-        self.use_data_set_1()
         self.run_it()
+
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_106(self):
-        """ >>>>>> TEST_006: Schedule - rx starts after rx_port stimuli (index) 6 (with 'ipg' clk cycles delay). There is inter-packet gap (ipgi) between the packets """
+        """ >>>>>> TEST_106: Schedule - rx starts after rx_port stimuli (index) 6 (with 'ipg' clk cycles delay). There is inter-packet gap (ipgi) between the packets """
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":5}
 
@@ -436,7 +392,7 @@ class Test_tsched(t_tsched):
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_103(self):
-        """ >>>>>> TEST_003: Schedule - rx_port stimuli (index) 1 after tx_port and tx packets 0 (with 1 clk delay), and so on """
+        """ >>>>>> TEST_103: Schedule - rx_port stimuli (index) 1 after tx_port and tx packets 0 (with 1 clk delay), and so on """
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
             
@@ -461,17 +417,17 @@ class Test_tsched(t_tsched):
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_107(self):
-        """ >>>>>> TEST_007: Free running - NO inter-packet gaps """
+        """ >>>>>> TEST_107: Free running - NO inter-packet gaps """
         self.verbose = True
         self.models = {"top":self.RTL}
-        self.tb_config = {"simulation_time":150, "cosimulation":True, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
+        self.tb_config = {"simulation_time":150, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
         self.use_data_set_1()
         self.run_it()
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_108(self):
-        """ >>>>>> TEST_008: Free running - Inter-packet gaps = 0, Get overriden to IPG=1 """
+        """ >>>>>> TEST_108: Free running - Inter-packet gaps = 0, Get overriden to IPG=1 """
         self.verbose = True
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
@@ -481,7 +437,7 @@ class Test_tsched(t_tsched):
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_109(self):
-        """ >>>>>> TEST_009: Inter-packet gaps at the output in order to push-back"""
+        """ >>>>>> TEST_109: Inter-packet gaps at the output in order to push-back"""
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":150, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":4}
         self.use_data_set_1()
