@@ -90,8 +90,9 @@ class Config(object):
     """
     """
     def __init__(self, stimuli_list):
-        self._stimuli_list  = stimuli_list   
-        self._name          = self.find_name_after('drive(', lo=-5)
+        self._stimuli_list  = stimuli_list
+        # Find name after 'drive(' and 'capture(', i.e., after the first '('
+        self._name          = self.find_name_after('(', lo=-5)
         self._name_after    = None
         self._after_every   = None
         self._after         = None
@@ -103,7 +104,8 @@ class Config(object):
         
         self.cond_list      = []
 
-        self._name = self._remove_prefix( self._name, 'self.stim_' )
+#        self._name = self._remove_prefix( self._name, 'self.stim_' )
+#        self._name = self._remove_prefix( self._name, 'self.res_' )
 
     def find_name_after(self, sname, lo):
         (filename,line_number,function_name,text)=traceback.extract_stack()[lo]
@@ -111,7 +113,11 @@ class Config(object):
 
         if idx != -1:
             text = text[idx:]
-            return text[len(sname):text.find(')')].strip()
+            tmp_txt = text[len(sname):text.find(')')].strip()
+            # remove self.stim_ and self.res_ if present
+            tmp_txt = self._remove_prefix( tmp_txt, 'self.stim_')
+            return    self._remove_prefix( tmp_txt, 'self.res_')
+
             
         return "NO NAME FOUND"
         
@@ -127,7 +133,8 @@ class Config(object):
         self._after_every = stimuli_list
         self._name_after = self.find_name_after('every(', lo=-3)        
         # remove self.stim_ if present
-        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
+#        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
+#        self._name_after = self._remove_prefix( self._name_after, 'self.res_')
         
         return self
 
@@ -139,7 +146,8 @@ class Config(object):
         self._after = stimuli_list
         self._name_after = self.find_name_after('after(', lo=-3)
         # remove self.stim_ if present
-        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
+#        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
+#        self._name_after = self._remove_prefix( self._name_after, 'self.res_')
 
         return self
 
@@ -188,6 +196,7 @@ class Config(object):
     def check(self):
         # after + samples; after_every + !samples
         # len samples == len samples_after
+        # TODO: in case of 'res_if', len=0
         # samples start from 1
         pass
                 
@@ -237,7 +246,6 @@ class Config(object):
                 self.sch_1()    
                 
 
-    # TODO: Check the shorter list and limit the generation
     def sch_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
         for i in range(len(self._stimuli_list)):
             self.cond_list.append( (i, (self._name_after, i) ) )
@@ -300,6 +308,9 @@ def drive( stimuli ): # TODO: Should be the same for 'drive' and 'capture'
 
     :return: The default :obj:`Scheduler` instance
     """
+    return default_scheduler.add( stimuli )
+
+def capture( stimuli ): # TODO: Should be the same for 'drive' and 'capture'
     return default_scheduler.add( stimuli )
 
 def get( name ):

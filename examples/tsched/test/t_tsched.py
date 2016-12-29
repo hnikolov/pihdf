@@ -90,6 +90,8 @@ class t_tsched(Testable):
         # Update condition lists if initialized in tests
         self.cond_rx_port += pschedule.get('rx_port')
         self.cond_rx      += pschedule.get('rx')
+        self.cond_tx_port += pschedule.get('tx_port')
+        self.cond_tx      += pschedule.get('tx')
 
         tsched_dut = tsched(IMPL=self.models)
         tsched_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose)

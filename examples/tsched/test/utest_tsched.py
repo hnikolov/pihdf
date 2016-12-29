@@ -128,6 +128,10 @@ class Test_tsched(t_tsched):
         self.use_data_set_1()
         self.run_it()
 
+# --------------------------------------------------------------------------------
+# Schedule input interfaces stimuli data
+# --------------------------------------------------------------------------------
+
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_002(self):
@@ -359,8 +363,6 @@ class Test_tsched(t_tsched):
         self.cond_rx_port += [(1,("rx",1)),
                               (2,("rx",5))]
                               
-        # schedule("rx_port").after("rx").samples([1, 5]) # 1 after 1, 2 after 5
-                              
         #              iteration,[Conditions] (Considered True for omitted iterations)
         self.cond_rx      += [(2,("rx_port",1)),
                               (6,("rx_port",2))]
@@ -372,6 +374,42 @@ class Test_tsched(t_tsched):
 
         self.run_it()
 
+# --------------------------------------------------------------------------------
+# Schedule capturing output interfaces
+# --------------------------------------------------------------------------------
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_023(self):
+        """ >>>>>> TEST_023: Start capturing tx_port data after 4rd rx stimuli """
+        self.models = {"top":self.RTL}
+        self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
+
+        self.use_data_set_1()
+
+        pschedule.capture(self.res_tx_port).after(self.stim_rx).start_at(4)
+#        pschedule.print_configurations()
+#        pschedule.print_schedules()
+
+        self.run_it()
+
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_029(self):
+        """ >>>>>> TEST_029: Capture tx results data 3, 5, and 8 after rx_port stimuli 2, 5, and 9 """
+        self.models = {"top":self.RTL}
+        self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
+
+        self.use_data_set_1()
+
+        pschedule.capture(self.res_tx_port).samples([3, 5, 8]).after(self.stim_rx).samples([2, 5, 9])
+
+        self.run_it()
+
+# -------
+# TODOs
+#--------
 
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
@@ -383,7 +421,7 @@ class Test_tsched(t_tsched):
         #              iteration(== #packet-1),[Conditions == "interface", #packet-1]
         self.cond_rx += [(0,("rx_port",6))]
         
-        # schedule("rx").after("rx_port").samples(6) # Enable rx after 6 samples of rx_port
+#        pschedule.drive(self.stim_rx).after(self.stim_rx_port).with_gaps(5) # Enable rx after 6 samples of rx_port with ipg=5
 
         self.use_data_set_1()
         self.run_it()
@@ -392,7 +430,7 @@ class Test_tsched(t_tsched):
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_103(self):
-        """ >>>>>> TEST_103: Schedule - rx_port stimuli (index) 1 after tx_port and tx packets 0 (with 1 clk delay), and so on """
+        """ >>>>>> TEST_103: Schedule - rx_port stimuli (index) 1 after (tx_port AND tx packets) 0 (with 1 clk delay), and so on """
         self.models = {"top":self.RTL}
         self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False}
             
@@ -408,7 +446,7 @@ class Test_tsched(t_tsched):
                               (8,[("tx_port",7),("tx",7)]),
                               (9,[("tx_port",8),("tx",8)])]
 
-        # schedule("rx_port").after_every("tx_port" and "tx") ???
+#        pschedule.drive(self.stim_rx_port).after_every([self.res_tx_port, self.res_tx])
         
         self.use_data_set_1()
         self.run_it()
