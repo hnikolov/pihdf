@@ -11,39 +11,40 @@ Inspired by Addam Wiggins' article "Rethinking Cron" [1] and the
 Features:
     - 
 
-Usage:
-    >>> import schedule
-    >>> import time
-
-    >>> def job(message='stuff'):
-    >>>     print("I'm working on:", message)
-
-    >>> schedule.every(10).minutes.do(job)
-    >>> schedule.every().hour.do(job, message='things')
-    >>> schedule.every().day.at("10:30").do(job)
-
-    >>> while True:
-    >>>     schedule.run_pending()
-    >>>     time.sleep(1)
-
-"""
-
-import traceback
-import os, sys
-
-""" Keywords:
+Keywords:
+    - drive
+    - capture
     - after_every
     - after
     - stimuli
     - start_at
     - samples
     - with_gaps
+    
+Usage (in other python modules):
+    import pschedule
+
+    stim_rx_1 = [1, 3, 5, 7,  9]
+    stim_rx_2 = [2, 4, 6, 8, 10]
+    
+    pschedule.drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3)
+    pschedule.drive(stim_rx_2).samples([2, 4, 7]).after(stim_rx_1).samples([1, 4, 8])    
+    
+    print pschedule.get('rx_1')
+    print pschedule.get('rx_2')
+    # or
+    pschedule.print_schedules()    
+
+    pschedule.print_configurations()
+    pschedule.clear_configurations()
 """
+
+import traceback
+
 
 class Scheduler(object):
     """
-    Objects instantiated by the `Scheduler` are factories to create
-    jobs, keep record of scheduled jobs and handle their execution.
+    Objects instantiated by the `Scheduler` are factories to create configurations.
     """
     def __init__(self):
         self.configs = []
@@ -90,22 +91,19 @@ class Config(object):
     """
     """
     def __init__(self, stimuli_list):
-        self._stimuli_list  = stimuli_list
+        self._stimuli_len     = len(stimuli_list)
         # Find name after 'drive(' and 'capture(', i.e., after the first '('
-        self._name          = self.find_name_after('(', lo=-5)
-        self._name_after    = None
-        self._after_every   = None
-        self._after         = None
-        self._stimuli       = None
-        self._start_at      = None
-        self._samples       = None
-        self._samples_after = None
-        self._with_gaps     = None
+        self._name               = self.find_name_after('(', lo=-5)
+        self._name_after         = None
+        self._after_every_len    = None
+        self._after_len          = None
+        self._stimuli            = None
+        self._start_at           = None
+        self._samples_list       = None
+        self._samples_after_list = None
+        self._with_gaps          = None
         
-        self.cond_list      = []
-
-#        self._name = self._remove_prefix( self._name, 'self.stim_' )
-#        self._name = self._remove_prefix( self._name, 'self.res_' )
+        self.cond_list           = []
 
     def find_name_after(self, sname, lo):
         (filename,line_number,function_name,text)=traceback.extract_stack()[lo]
@@ -126,28 +124,22 @@ class Config(object):
         return sname[len(prefix):] if sname.startswith(prefix) else sname
 
     def after_every(self, stimuli_list):
-        if self._after is not None:
-            print 'In "after_every": Use either "after_every" or "after"'
+        if self._after_len is not None:
+            print 'In "after_every": "after" not None. Use either "after_every" or "after"'
             exit()
             
-        self._after_every = stimuli_list
+        self._after_every_len = len(stimuli_list)
         self._name_after = self.find_name_after('every(', lo=-3)        
-        # remove self.stim_ if present
-#        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
-#        self._name_after = self._remove_prefix( self._name_after, 'self.res_')
         
         return self
 
     def after(self, stimuli_list):
-        if self._after_every is not None:
-            print 'In "after": Use either "after_every" or "after"'
+        if self._after_every_len is not None:
+            print 'In "after": "after_every" not None. Use either "after_every" or "after"'
             exit()
 
-        self._after = stimuli_list
+        self._after_len = len(stimuli_list)
         self._name_after = self.find_name_after('after(', lo=-3)
-        # remove self.stim_ if present
-#        self._name_after = self._remove_prefix( self._name_after, 'self.stim_')
-#        self._name_after = self._remove_prefix( self._name_after, 'self.res_')
 
         return self
 
@@ -160,10 +152,10 @@ class Config(object):
         return self
         
     def samples(self, list_of_samples):
-        if self._after is None:
-            self._samples = list_of_samples 
+        if self._name_after is None: # See examples sch 7 and 8
+            self._samples_list = list_of_samples 
         else:
-            self._samples_after = list_of_samples
+            self._samples_after_list = list_of_samples
         return self
         
     def with_gaps(self, ipg):
@@ -171,16 +163,16 @@ class Config(object):
         return self
         
     def print_configuration(self):
-        print '-- Interface name:', self._name, '--------------------------'        
-        print '   stimuli list:',   self._stimuli_list       
-        print '   name_after:',     self._name_after       
-        print '   after_every: ',   self._after_every   
-        print '   after: ',         self._after         
-        print '   stimuli: ',       self._stimuli       
-        print '   start_at:',       self._start_at      
-        print '   samples:',        self._samples       
-        print '   samples_after:',  self._samples_after 
-        print '   with_gaps',       self._with_gaps     
+        print '-- Interface name:',     self._name, '--------------------------'        
+        print '   stimuli length:',     self._stimuli_len       
+        print '   name_after:',         self._name_after       
+        print '   after_every_len: ',   self._after_every_len   
+        print '   after_len: ',         self._after_len         
+        print '   stimuli: ',           self._stimuli       
+        print '   start_at:',           self._start_at      
+        print '   samples_list:',       self._samples_list      
+        print '   samples_after_list:', self._samples_after_list
+        print '   with_gaps',           self._with_gaps     
         print ''
 
     def print_cond_list(self):
@@ -192,7 +184,7 @@ class Config(object):
             
         return self.cond_list
         
-    # TODO: Basic consistemcy check of a configuration
+    # TODO: Basic consistency check of a configuration
     def check(self):
         # after + samples; after_every + !samples
         # len samples == len samples_after
@@ -207,7 +199,7 @@ class Config(object):
             print "INFO: with_gaps not supported yet"
             return
             
-        if self._start_at > 0 and self._after is not None:
+        if self._start_at > 0 and self._after_len is not None:
             # drive(stim_rx_2).after(stim_rx_1).start_at(5)
             self.sch_3()
             
@@ -233,11 +225,11 @@ class Config(object):
                     # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3)
                     self.sch_4()
                     
-            elif self._samples is None and self._samples_after is not None:
+            elif self._samples_list is None and self._samples_after_list is not None:
                 # drive(stim_rx_2).after(stim_rx_1).samples([4, 8, 9])
                 self.sch_7()
                 
-            elif self._samples is not None and self._samples_after is not None:
+            elif self._samples_list is not None and self._samples_after_list is not None:
                 # drive(stim_rx_2).samples([3, 5, 8]).after(stim_rx_1).samples([2, 5, 9])
                 self.sch_8()
                 
@@ -247,51 +239,51 @@ class Config(object):
                 
 
     def sch_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
-        for i in range(len(self._stimuli_list)):
+        for i in range(self._stimuli_len):
             self.cond_list.append( (i, (self._name_after, i) ) )
 
     def sch_2(self): # drive(stim_rx_2).after_every(stim_rx_1).start_at(3) t3
-        for i in range(len(self._stimuli_list)):
+        for i in range(self._stimuli_len):
             sample = (self._start_at - 1) + i
             self.cond_list.append( (i, (self._name_after, sample ) ) )
-            if sample >= len(self._after_every) - 1:
+            if sample >= self._after_every_len - 1:
                 return
             
     def sch_3(self): # drive(stim_rx_2).after(stim_rx_1).start_at(5) t4 
         self.cond_list.append( (0, (self._name_after, self._start_at-1) ) )
         
     def sch_4(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3) t5
-        for i in range(len(self._stimuli_list)):
+        for i in range(self._stimuli_len):
             sample = (self._stimuli - 1) + (i * self._stimuli)
             self.cond_list.append( (i, (self._name_after, sample) ) )
-            if sample >= len(self._after_every) - self._stimuli:
+            if sample >= self._after_every_len - self._stimuli:
                 return
             
     def sch_5(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3).start_at(0) t6
-        for i in range(len(self._stimuli_list)):
+        for i in range(self._stimuli_len):
             src_sample = i + 1
             sample = (self._stimuli - 1) + (i * self._stimuli)
             self.cond_list.append( (src_sample, (self._name_after, sample) ) )
-            if sample >= len(self._after_every) - self._stimuli:
+            if sample >= self._after_every_len - self._stimuli:
                 return
             
     def sch_6(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3) t7
-        for i in range(len(self._stimuli_list)):
+        for i in range(self._stimuli_len):
             sample = (self._start_at - 1) + (i * self._stimuli)    
             self.cond_list.append( (i, (self._name_after, sample) ) )
-            if sample >= len(self._after_every) - self._stimuli:
+            if sample >= self._after_every_len - self._stimuli:
                 return
             
     def sch_7(self): # drive(stim_rx_2).after(stim_rx_1).samples([4, 8, 9]) t8
-        for i, s in enumerate(self._samples_after):
+        for i, s in enumerate(self._samples_after_list):
             self.cond_list.append( (i, (self._name_after, s-1) ) )
             
     def sch_8(self): # drive(stim_rx_2).samples([3, 5, 8]).after(stim_rx_1).samples([2, 5, 9]) t9
-        for i, s in zip(self._samples, self._samples_after):
+        for i, s in zip(self._samples_list, self._samples_after_list):
             self.cond_list.append( (i-1, (self._name_after, s-1) ) )
             
     def sch_9(self): # drive(stim_rx_2).after_every(stim_rx_1).start_at(0) t10
-        for i in range(1, len(self._stimuli_list)):
+        for i in range(1, self._stimuli_len):
             self.cond_list.append( (i, (self._name_after, i-1) ) )
             
             
