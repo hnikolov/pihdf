@@ -1,0 +1,16 @@
+{
+    "design":
+    {
+        "name": "psched",
+        "interfaces":
+        [
+            {"name": "rst",      "type": "Reset", "active": "1"},
+            {"name": "clk",      "type": "Clock"},
+            {"name": "rx_port",  "type": "HSD",    "direction": "IN",   "data": "port_fields", "push": "False" },
+            {"name": "tx_port",  "type": "HSD",    "direction": "OUT",  "data": "port_fields", "push": "False" },
+            {"name": "sequence", "type": "HSD",    "direction": "OUT",  "data":  "8"},
+            {"name": "rx",       "type": "STAvln", "direction": "IN",  "width": "64"},
+            {"name": "tx",       "type": "STAvln", "direction": "OUT", "width": "64"}
+        ]
+    }
+}

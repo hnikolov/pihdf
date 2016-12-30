@@ -1,0 +1,43 @@
+[dumpfile] "psched/psched/out/psched_top.vcd"
+[savefile] "psched/psched/test/psched_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_psched_top.
+[sst_expanded] 1
+psched_top.rst
+psched_top.clk
+-
+-RX_PORT (IN)
+psched_top.rtl.rx_port_ready
+psched_top.rtl.rx_port_valid
+psched_top.rtl.rx_port_cmd
+psched_top.rtl.rx_port_port[15:0]
+-
+-TX_PORT (OUT)
+psched_top.rtl.tx_port_ready
+psched_top.rtl.tx_port_valid
+psched_top.rtl.tx_port_cmd
+psched_top.rtl.tx_port_port[15:0]
+-
+-SEQUENCE (OUT)
+psched_top.rtl.sequence_ready
+psched_top.rtl.sequence_valid
+psched_top.rtl.sequence_data[7:0]
+-
+-RX (IN)
+psched_top.rtl.rx_ready
+psched_top.rtl.rx_valid
+psched_top.rtl.rx_sop
+psched_top.rtl.rx_eop
+psched_top.rtl.rx_empty[2:0]
+psched_top.rtl.rx_data[63:0]
+psched_top.rtl.rx_err
+-
+-TX (OUT)
+psched_top.rtl.tx_ready
+psched_top.rtl.tx_valid
+psched_top.rtl.tx_sop
+psched_top.rtl.tx_eop
+psched_top.rtl.tx_empty[2:0]
+psched_top.rtl.tx_data[63:0]
+psched_top.rtl.tx_err
