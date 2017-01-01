@@ -114,7 +114,7 @@ class Test_psched(t_psched):
         self.run_it()
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_001(self):
         """ >>>>>> TEST_001: Pass-through, using default schedule for rx_port and rx """
         self.models = {"top":self.RTL}
@@ -154,6 +154,12 @@ class Test_psched(t_psched):
 #        pschedule.print_configurations()
 #        pschedule.print_schedules()
         
+        # Expected sequence
+        for _ in range(10):
+            self.ref_sequence.append({"data":2})
+            self.ref_sequence.append({"data":1})
+
+        
         self.run_it()
 
     # ----------------------------------------------------------------------------
@@ -180,6 +186,19 @@ class Test_psched(t_psched):
 
         pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(3)
 
+        # Expected sequence
+        self.ref_sequence.append({"data":2})
+        self.ref_sequence.append({"data":2})
+        self.ref_sequence.append({"data":2})
+
+        for _ in range(7):
+            self.ref_sequence.append({"data":1})
+            self.ref_sequence.append({"data":2})
+
+        self.ref_sequence.append({"data":1})
+        self.ref_sequence.append({"data":1})
+        self.ref_sequence.append({"data":1})
+
         self.run_it()
 
     # ----------------------------------------------------------------------------
@@ -197,6 +216,21 @@ class Test_psched(t_psched):
         
         pschedule.drive(self.stim_rx_port).after(self.stim_rx).start_at(5)
         
+        # Expected sequence
+        for _ in range(5):
+            self.ref_sequence.append({"data":2})
+
+        for _ in range(2):
+            for _ in range(3):
+                self.ref_sequence.append({"data":1})
+            self.ref_sequence.append({"data":3})
+
+        self.ref_sequence.append({"data":1})
+        self.ref_sequence.append({"data":1})
+
+        for _ in range(3):
+            self.ref_sequence.append({"data":2})
+
         self.run_it()
 
     # ----------------------------------------------------------------------------
@@ -217,6 +251,20 @@ class Test_psched(t_psched):
         self.use_data_set_1()
         
         pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3)
+
+        # Expected sequence
+        for _ in range(3):
+            for _ in range(3):
+                self.ref_sequence.append({"data":2})
+            self.ref_sequence.append({"data":1})
+
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
+
+        self.ref_sequence.append({"data":3})
+        
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
         
         self.run_it()
 
@@ -238,6 +286,20 @@ class Test_psched(t_psched):
         self.use_data_set_1()
 
         pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(3).start_at(0)
+        
+        # Expected sequence
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
+            for _ in range(3):
+                self.ref_sequence.append({"data":2})
+
+        for _ in range(4):
+            self.ref_sequence.append({"data":1})
+
+        self.ref_sequence.append({"data":3})
+        self.ref_sequence.append({"data":1})
+        self.ref_sequence.append({"data":1})
+
         
         self.run_it()
 
@@ -261,6 +323,23 @@ class Test_psched(t_psched):
         
         pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).stimuli(2).start_at(3)
         
+        # Expected sequence
+        for _ in range(3):
+            self.ref_sequence.append({"data":2})
+
+
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
+            self.ref_sequence.append({"data":2})
+            self.ref_sequence.append({"data":2})
+
+        for _ in range(4):
+            self.ref_sequence.append({"data":1})
+
+        self.ref_sequence.append({"data":3})
+        self.ref_sequence.append({"data":1})
+        self.ref_sequence.append({"data":1})
+        
         self.run_it()
 
     # ----------------------------------------------------------------------------
@@ -280,6 +359,22 @@ class Test_psched(t_psched):
         self.use_data_set_1()
         
         pschedule.drive(self.stim_rx_port).after(self.stim_rx).samples([4, 8, 9])
+        
+        # Expected sequence
+        for _ in range(2):
+            for _ in range(4):
+                self.ref_sequence.append({"data":2})
+            self.ref_sequence.append({"data":1})
+
+        self.ref_sequence.append({"data":2})
+
+        for _ in range(4):
+            self.ref_sequence.append({"data":1})
+
+        self.ref_sequence.append({"data":3})
+
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
         
         self.run_it()
 
@@ -301,6 +396,26 @@ class Test_psched(t_psched):
         self.use_data_set_1()
         
         pschedule.drive(self.stim_rx_port).samples([3, 5, 8]).after(self.stim_rx).samples([2, 5, 9])
+
+        # Expected sequence
+        for _ in range(2):
+            self.ref_sequence.append({"data":1})
+            self.ref_sequence.append({"data":1})
+            self.ref_sequence.append({"data":2})
+            self.ref_sequence.append({"data":2})
+
+        self.ref_sequence.append({"data":2})
+
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
+
+        for _ in range(4):
+            self.ref_sequence.append({"data":2})
+
+        for _ in range(3):
+            self.ref_sequence.append({"data":1})
+
+        self.ref_sequence.append({"data":2})
         
         self.run_it()
 
@@ -342,6 +457,11 @@ class Test_psched(t_psched):
         pschedule.drive(self.stim_rx_port).after_every(self.stim_rx).start_at(0)
         pschedule.drive(self.stim_rx).after_every(self.stim_rx_port)
 
+        # Expected sequence
+        for _ in range(10):
+            self.ref_sequence.append({"data":1})
+            self.ref_sequence.append({"data":2})
+
         self.run_it()
 
 
@@ -366,6 +486,20 @@ class Test_psched(t_psched):
         pschedule.drive(self.stim_rx_port).samples([2, 3]).after(self.stim_rx).samples([2, 6])
         pschedule.drive(self.stim_rx).samples([3, 7]).after(self.stim_rx_port).samples([2, 3])
 
+        # Expected sequence
+        self.ref_sequence.append({"data":1})
+        self.ref_sequence.append({"data":2})
+        self.ref_sequence.append({"data":2})
+        self.ref_sequence.append({"data":1})
+        
+        for _ in range(4):
+            self.ref_sequence.append({"data":2})
+
+        self.ref_sequence.append({"data":1})
+        
+        for _ in range(3):
+            self.ref_sequence.append({"data":2})
+
         self.run_it()
 
 # --------------------------------------------------------------------------------
@@ -373,7 +507,7 @@ class Test_psched(t_psched):
 # --------------------------------------------------------------------------------
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_023(self):
         """ >>>>>> TEST_023: Start capturing tx_port data after 4rd rx stimuli """
         self.models = {"top":self.RTL}
@@ -389,7 +523,7 @@ class Test_psched(t_psched):
 
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_029(self):
         """ >>>>>> TEST_029: Capture tx results data 3, 5, and 8 after rx_port stimuli 2, 5, and 9 """
         self.models = {"top":self.RTL}
@@ -406,7 +540,7 @@ class Test_psched(t_psched):
 #--------
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_106(self):
         """ >>>>>> TEST_106: Schedule - rx starts after rx_port stimuli (index) 6 (with 'ipg' clk cycles delay). There is inter-packet gap (ipgi) between the packets """
         self.models = {"top":self.RTL}
@@ -422,7 +556,7 @@ class Test_psched(t_psched):
 
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_103(self):
         """ >>>>>> TEST_103: Schedule - rx_port stimuli (index) 1 after (tx_port AND tx packets) 0 (with 1 clk delay), and so on """
         self.models = {"top":self.RTL}
@@ -447,7 +581,7 @@ class Test_psched(t_psched):
 
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_107(self):
         """ >>>>>> TEST_107: Free running - NO inter-packet gaps """
         self.verbose = True
@@ -457,7 +591,7 @@ class Test_psched(t_psched):
         self.run_it()
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_108(self):
         """ >>>>>> TEST_108: Free running - Inter-packet gaps = 0, Get overriden to IPG=1 """
         self.verbose = True
@@ -467,7 +601,7 @@ class Test_psched(t_psched):
         self.run_it()
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("RTL needs parameters")
     def test_109(self):
         """ >>>>>> TEST_109: Inter-packet gaps at the output in order to push-back"""
         self.models = {"top":self.RTL}

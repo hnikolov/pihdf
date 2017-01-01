@@ -1,43 +1,82 @@
-[dumpfile] "psched/psched/out/psched_top.vcd"
-[savefile] "psched/psched/test/psched_top.gtkw"
-[timestart] 0
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Sun Jan  1 23:52:46 2017
+[*]
+[dumpfile] "/home/hristo/git/pihdf/examples/psched/out/psched_top.vcd"
+[dumpfile_mtime] "Sun Jan  1 23:52:23 2017"
+[dumpfile_size] 18214
+[savefile] "/home/hristo/git/pihdf/examples/psched/test/psched.gtkw"
+[timestart] 3
+[size] 1855 951
 [pos] -1 -1
-[treeopen] tb_psched_top.
+*-4.196582 53 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] psched_top.
+[sst_width] 225
+[signals_width] 174
 [sst_expanded] 1
+[sst_vpaned_height] 283
+@28
 psched_top.rst
 psched_top.clk
+@200
 -
 -RX_PORT (IN)
+@28
 psched_top.rtl.rx_port_ready
 psched_top.rtl.rx_port_valid
 psched_top.rtl.rx_port_cmd
+@24
 psched_top.rtl.rx_port_port[15:0]
+@200
 -
 -TX_PORT (OUT)
+@28
 psched_top.rtl.tx_port_ready
 psched_top.rtl.tx_port_valid
 psched_top.rtl.tx_port_cmd
+@22
 psched_top.rtl.tx_port_port[15:0]
--
--SEQUENCE (OUT)
-psched_top.rtl.sequence_ready
-psched_top.rtl.sequence_valid
-psched_top.rtl.sequence_data[7:0]
+@200
 -
 -RX (IN)
+@28
 psched_top.rtl.rx_ready
 psched_top.rtl.rx_valid
 psched_top.rtl.rx_sop
 psched_top.rtl.rx_eop
 psched_top.rtl.rx_empty[2:0]
+@22
 psched_top.rtl.rx_data[63:0]
+@28
 psched_top.rtl.rx_err
+@200
 -
 -TX (OUT)
+@28
 psched_top.rtl.tx_ready
 psched_top.rtl.tx_valid
 psched_top.rtl.tx_sop
 psched_top.rtl.tx_eop
 psched_top.rtl.tx_empty[2:0]
+@22
 psched_top.rtl.tx_data[63:0]
+@28
 psched_top.rtl.tx_err
+@200
+-
+-SEQUENCE (OUT)
+@28
+psched_top.rtl.sequence_ready
+psched_top.rtl.sequence_valid
+@23
+psched_top.rtl.sequence_data[7:0]
+@200
+-
+-EDGE DETECTION
+@28
+psched_top.rtl.edge_rx_port
+psched_top.rtl.edge_tx_port
+psched_top.rtl.edge_rx
+psched_top.rtl.edge_tx
+[pattern_trace] 1
+[pattern_trace] 0
