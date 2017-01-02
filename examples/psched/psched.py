@@ -37,7 +37,13 @@ class psched(Convertible):
             STAvln(data_width=64, direction=self.OUT, name="tx", filedump=fdump)
         ]
 
-        self.parameters = []
+        # no lambda here
+        self.parameters = [
+            Parameter("SEQ_RX", value=False),
+            Parameter("SEQ_RX_PORT", value=False),
+            Parameter("SEQ_TX", value=False),
+            Parameter("SEQ_TX_PORT", value=False)            
+        ]
 
         # register implementations used in Convertible.gen()
         self.funcdict = {
@@ -53,7 +59,8 @@ class psched(Convertible):
             tx_port_ready,tx_port_valid,tx_port_cmd,tx_port_port,
             sequence_ready,sequence_valid,sequence_data,
             rx_ready,rx_valid,rx_sop,rx_eop,rx_empty,rx_data,rx_err,
-            tx_ready,tx_valid,tx_sop,tx_eop,tx_empty,tx_data,tx_err):
+            tx_ready,tx_valid,tx_sop,tx_eop,tx_empty,tx_data,tx_err,
+            SEQ_RX, SEQ_RX_PORT, SEQ_TX, SEQ_TX_PORT):
         '''|
         | Provides flat interface to the top-level implementation. This
         | function is given to MyHDL.toVerilog() and MyHDL.toVHDL()
@@ -72,6 +79,6 @@ if __name__ == "__main__":
     pihdf.info("Using MyFramework version %s" % pihdf.__version__)
 
     dn = psched(IMPL=1)
-    dn.convert(hdl="verilog")
-    dn.convert(hdl="vhdl")
+    dn.convert(hdl="verilog", params={"SEQ_RX":False, "SEQ_RX_PORT":False, "SEQ_TX":False, "SEQ_TX_PORT":False})
+    dn.convert(hdl="vhdl", params={"SEQ_RX":False, "SEQ_RX_PORT":False, "SEQ_TX":False, "SEQ_TX_PORT":False})
     dn.clean()

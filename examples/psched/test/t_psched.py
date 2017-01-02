@@ -106,7 +106,7 @@ class t_psched(Testable):
         self.cond_sequence += pschedule.get('sequence')
 
         psched_dut = psched(IMPL=self.models)
-        psched_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose)
+        psched_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose, dut_params=self.dut_params)
         psched_dut.clean()
 
         self.check_results()

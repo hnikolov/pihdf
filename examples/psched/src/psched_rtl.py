@@ -5,7 +5,7 @@ from myhdl_lib import *
 #--- Custom code begin ---#
 #--- Custom code end   ---#
 
-def psched_rtl(rst, clk, rx_port, tx_port, sequence, rx, tx):
+def psched_rtl(rst, clk, rx_port, tx_port, sequence, rx, tx, SEQ_RX, SEQ_RX_PORT, SEQ_TX, SEQ_TX_PORT):
     '''|
     | Top-level MyHDL description. This is converted to RTL velilog...
     |________'''
@@ -23,16 +23,12 @@ def psched_rtl(rst, clk, rx_port, tx_port, sequence, rx, tx):
     edge_rx, prev_rx_eop             = [Signal(bool(0)) for _ in range(2)]
     edge_tx, prev_tx_eop             = [Signal(bool(0)) for _ in range(2)]
     
-    en_seq     = 1 # TODO: parameter
-    en_rx      = 1 # TODO: parameter
-    en_rx_port = 1 # TODO: parameter
-    en_tx      = 0 # TODO: parameter
-    en_tx_port = 0 # TODO: parameter
+    en_seq = SEQ_RX or SEQ_RX_PORT or SEQ_TX or SEQ_TX_PORT
     
-    port_en, st_en                   = [Signal(bool(0)) for _ in range(2)]
+    port_en, st_en = [Signal(bool(0)) for _ in range(2)]
 
-    port_en_inst = rx_port.enable(rst, clk, tx_port_ready, tx_port_valid, port_en)
-    st_en_inst = rx.enable(rst, clk, tx_ready, tx_valid, st_en)
+    port_en_inst   = rx_port.enable(rst, clk, tx_port_ready, tx_port_valid, port_en)
+    st_en_inst     = rx.enable(rst, clk, tx_ready, tx_valid, st_en)
 
 
     # Port fields interface
@@ -74,10 +70,11 @@ def psched_rtl(rst, clk, rx_port, tx_port, sequence, rx, tx):
     # Out schedule sequecne
     @always_comb
     def prcs_sequence():
-        sequence_data.next[0] = edge_rx_port and en_rx_port
-        sequence_data.next[1] = edge_rx      and en_rx
-        sequence_data.next[2] = edge_tx_port and en_tx_port
-        sequence_data.next[3] = edge_tx      and en_tx
+        sequence_data.next    = 0
+        sequence_data.next[0] = edge_rx_port and SEQ_RX_PORT
+        sequence_data.next[1] = edge_rx      and SEQ_RX
+        sequence_data.next[2] = edge_tx_port and SEQ_TX_PORT
+        sequence_data.next[3] = edge_tx      and SEQ_TX
         
         #print sequence_data
         

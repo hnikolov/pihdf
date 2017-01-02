@@ -11,6 +11,13 @@
             {"name": "sequence", "type": "HSD",    "direction": "OUT",  "data":  "8"},
             {"name": "rx",       "type": "STAvln", "direction": "IN",  "width": "64"},
             {"name": "tx",       "type": "STAvln", "direction": "OUT", "width": "64"}
+        ],
+        "parameters":
+        [
+            {"name":"SEQ_RX",      "value":"False"},
+            {"name":"SEQ_RX_PORT", "value":"False"},
+            {"name":"SEQ_TX",      "value":"False"},
+            {"name":"SEQ_TX_PORT", "value":"False"}
         ]
     }
 }

@@ -1,4 +1,4 @@
-def psched_beh(rx_port, tx_port, sequence, rx, tx):
+def psched_beh(rx_port, tx_port, sequence, rx, tx, SEQ_RX, SEQ_RX_PORT, SEQ_TX, SEQ_TX_PORT):
     '''|
     | Specify the behavior, describe data processing; there is no notion
     | of clock. Access the in/out interfaces via get() and append()
