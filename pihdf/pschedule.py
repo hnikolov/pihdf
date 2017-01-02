@@ -14,8 +14,8 @@ Features:
 Keywords:
     - drive
     - capture
-    - after_every
     - after
+    - after_every
     - stimuli
     - start_at
     - samples
@@ -43,19 +43,19 @@ import traceback
 
 
 class Scheduler(object):
-    """
-    Objects instantiated by the `Scheduler` are factories to create configurations.
-    """
+    '''|
+    | Objects instantiated by the `Scheduler` are factories to create configurations.
+    |________'''
     def __init__(self):
         self.configs = []
 
 
     def add(self, stimuli):
-        """
-        Add a new configuration.
-
-        :return: An empty config
-        """
+        '''|
+        | Add a new configuration.
+        |
+        | return: An empty config
+        |________'''
         config = Config( stimuli )
         self.configs.append( config )
         return config
@@ -64,16 +64,16 @@ class Scheduler(object):
         self.configs = []
         
     def clear_schedules(self):
-        """
-        Clear all derived schedules
-        """
+        '''|
+        | Clear all derived schedules
+        |________'''
         for config in self.configs:
             config.cond_list = []
 
     def print_configurations(self):
-        """
-        Prints the configurations of all stimuli
-        """
+        '''|
+        | Prints the configurations of all stimuli
+        |________'''
         if self.configs == []:
             print "Nothing to print"
 
@@ -88,8 +88,9 @@ class Scheduler(object):
         
 
 class Config(object):
-    """
-    """
+    '''|
+    |
+    |________'''
     def __init__(self, stimuli_list):
         self._stimuli_len     = len(stimuli_list)
         # Find name after 'drive(' and 'capture(', i.e., after the first '('
@@ -112,11 +113,12 @@ class Config(object):
         if idx != -1:
             text = text[idx:]
             tmp_txt = text[len(sname):text.find(')')].strip()
-            # remove self.stim_ and self.res_ if present
-            tmp_txt = self._remove_prefix( tmp_txt, 'self.stim_')
-            return    self._remove_prefix( tmp_txt, 'self.res_')
+            # remove self.stim_, self.res_ and self.ref_ if present
+            tmp_txt = self._remove_prefix( tmp_txt, 'self.')
+            tmp_txt = self._remove_prefix( tmp_txt, 'stim_')
+            tmp_txt = self._remove_prefix( tmp_txt, 'res_')
+            return    self._remove_prefix( tmp_txt, 'ref_')
 
-            
         return "NO NAME FOUND"
         
     def _remove_prefix(self, sname, prefix):
