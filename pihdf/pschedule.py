@@ -108,6 +108,8 @@ class Config(object):
         
         self.schedule_type       = None # Set by determine_schedule()
         
+        self.my_handle = "empty"
+        
         self.handle = {
             'sch_gen_1' : self.sch_gen_1,
             'sch_gen_2' : self.sch_gen_2,
@@ -119,11 +121,18 @@ class Config(object):
             'sch_gen_8' : self.sch_gen_8,
             'sch_gen_9' : self.sch_gen_9
         }
-
+        
+        
 
     def condition_generator(self):
-        if self.schedule_type is not None:
-            return self.handle[ self.schedule_type ]()
+        self.determine_schedule()
+        print self.schedule_type
+        #if self.schedule_type is not None:
+        print self.handle[ self.schedule_type ]()
+        return self.handle[ self.schedule_type ]()
+#        print self.my_handle()
+#        return self.my_handle()
+        
 
     
     def isPresent(self):
@@ -209,7 +218,7 @@ class Config(object):
             self.determine_schedule()
             
         return self.cond_list 
-        # TODO return self.condition_generator()
+        # TODO: return self.condition_generator()
         
     # TODO: Basic consistency check of a configuration
     def check(self):
@@ -241,6 +250,8 @@ class Config(object):
                 # drive(stim_rx_2).after_every(stim_rx_1).start_at(3)
                 self.sch_2()
                 self.schedule_type = 'sch_gen_2'
+                self.my_handle = self.sch_gen_2
+                print '@@@@@@@@@', self.my_handle()
 
             elif self._stimuli > 0:                 
                 if self._start_at == 0:
@@ -272,6 +283,9 @@ class Config(object):
                 # drive(stim_rx_2).after_every(stim_rx_1)                
                 self.sch_1()
                 self.schedule_type = 'sch_gen_1'
+                self.my_handle = self.sch_gen_1
+                print '*********', self.my_handle()
+                
                 
 
     def sch_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
@@ -325,12 +339,12 @@ class Config(object):
 #-- Generators -----------------------------------------------------------------------------
     def sch_gen_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
         for i in range(self._stimuli_len): # TODO: Can be infinite
-            yield (i, (self._name_after, i) )
+            yield (i, (self._name_after, i))
 
     def sch_gen_2(self): # drive(stim_rx_2).after_every(stim_rx_1).start_at(3) t3
         for i in range(self._stimuli_len):
             sample = (self._start_at - 1) + i
-            self.cond_list.append( (i, (self._name_after, sample ) ) )
+            yield (i, (self._name_after, sample))
             if sample >= self._after_every_len - 1:
                 break
             
@@ -340,7 +354,7 @@ class Config(object):
     def sch_gen_4(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(3) t5  
         for i in range(self._stimuli_len):
             sample = (self._stimuli - 1) + (i * self._stimuli)
-            self.cond_list.append( (i, (self._name_after, sample) ) )
+            yield (i, (self._name_after, sample))
             if sample >= self._after_every_len - self._stimuli:
                 break
             
@@ -348,14 +362,14 @@ class Config(object):
         for i in range(self._stimuli_len):
             src_sample = i + 1
             sample = (self._stimuli - 1) + (i * self._stimuli)
-            self.cond_list.append( (src_sample, (self._name_after, sample) ) )
+            yield (src_sample, (self._name_after, sample))
             if sample >= self._after_every_len - self._stimuli:
                 break
             
     def sch_gen_6(self): # drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3) t7
         for i in range(self._stimuli_len):
             sample = (self._start_at - 1) + (i * self._stimuli)    
-            self.cond_list.append( (i, (self._name_after, sample) ) )
+            yield (i, (self._name_after, sample))
             if sample >= self._after_every_len - self._stimuli:
                 break
             
@@ -442,86 +456,6 @@ def use_generator():
     else:
         print "Generator is None"
 
-# -- Testing the schedule conditions generators --
-def set_stimuli():
-    stim_rx_1 = [1, 3, 5, 7,  9]
-    stim_rx_2 = [2, 4, 6, 8, 10]
-
-def check_test_results(i = 0):
-    default_scheduler.determine_schedule(i)
-
-    c    = default_scheduler.configs[i].condition_generator()
-    cond = default_scheduler.configs[i].cond_list
-    
-    for g, c in zip(c, cond):
-        assert g == c, "Generator schedule condition != condition list"
-    print "OK"
-
-# -----------------------------------------------
-
-def utest_generator_t002():
-    print "Test schedule type 2...",
-    set_stimuli()
-    drive(stim_rx_2).after_every(stim_rx_1) # test_002   
-    check_test_results()
-    
-def utest_generator_t003():
-    print "Test schedule type 3...",
-    set_stimuli()
-    drive(stim_rx_2).after_every(stim_rx_1).start_at(3) # test_003
-    check_test_results()
-
-def utest_generator_t004():
-    print "Test schedule type 4...",
-    set_stimuli()
-    drive(stim_rx_2).after(stim_rx_1).start_at(5) # test_004 (Enable after 5)
-    check_test_results()
-
-def utest_generator_t005():
-    print "Test schedule type 5...",
-    set_stimuli()
-    drive(stim_rx_2).after_every(stim_rx_1).stimuli(3) # test_005
-    check_test_results()
-
-def utest_generator_t006():
-    print "Test schedule type 6...",
-    set_stimuli()
-    drive(stim_rx_2).after_every(stim_rx_1).stimuli(3).start_at(0) # test_006 (1st sample after reset)
-    check_test_results()
-
-def utest_generator_t007():
-    print "Test schedule type 7...",
-    set_stimuli()
-    drive(stim_rx_2).after_every(stim_rx_1).stimuli(2).start_at(3) # test_007
-    check_test_results()
-
-def utest_generator_t008():
-    print "Test schedule type 8...",
-    set_stimuli()
-    drive(stim_rx_2).after(stim_rx_1).samples([3, 7, 8]) # test_008 (1 after 3, 2 after 7, 3 after 8)
-    check_test_results()
-
-def utest_generator_t009():
-    print "Test schedule type 9...",
-    set_stimuli()
-    drive(stim_rx_2).samples([2, 4, 7]).after(stim_rx_1).samples([1, 4, 8]) # test_009 (2 after 1, 4 after 4, 7 after 8)
-    check_test_results()
-
-def utest_generator_with_gaps():
-    print "Test schedule type with gaps (not supported yet)...",
-    set_stimuli()
-    drive(stim_rx_2).with_gaps(4)
-    check_test_results()
-    
-def utest_generator_pink_ponk():
-    print "Test schedule type ping_pong...",
-    set_stimuli()
-    drive(stim_rx_2).after_every(stim_rx_1).start_at(0) # start_at(0) == drive first sample after reset w/o condition
-    drive(stim_rx_1).after_every(stim_rx_2)
-    check_test_results(0)
-    check_test_results(1)
-
-# -----------------------------------------------
 
 # Some usage examples, tests
 if __name__ == '__main__':
@@ -556,16 +490,4 @@ if __name__ == '__main__':
     print_configurations()
     
     use_generator()
-    
-    # Tests
-    utest_generator_t002()
-    utest_generator_t003()
-    utest_generator_t004()
-    utest_generator_t005()
-    utest_generator_t006()
-    utest_generator_t007()
-    utest_generator_t008()
-    utest_generator_t009()
-    utest_generator_with_gaps()
-    utest_generator_pink_ponk()
     
