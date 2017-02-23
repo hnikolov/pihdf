@@ -107,9 +107,7 @@ class Config(object):
         self.cond_list           = []
         
         self.schedule_type       = None # Set by determine_schedule()
-        
-        self.my_handle = "empty"
-        
+                
         self.handle = {
             'sch_gen_1' : self.sch_gen_1,
             'sch_gen_2' : self.sch_gen_2,
@@ -125,15 +123,10 @@ class Config(object):
         
 
     def condition_generator(self):
-        self.determine_schedule()
-        print self.schedule_type
-        #if self.schedule_type is not None:
-        print self.handle[ self.schedule_type ]()
+        if self.schedule_type is None:
+            self.determine_schedule()
         return self.handle[ self.schedule_type ]()
-#        print self.my_handle()
-#        return self.my_handle()
         
-
     
     def isPresent(self):
         return self.schedule_type != None
@@ -250,8 +243,6 @@ class Config(object):
                 # drive(stim_rx_2).after_every(stim_rx_1).start_at(3)
                 self.sch_2()
                 self.schedule_type = 'sch_gen_2'
-                self.my_handle = self.sch_gen_2
-                print '@@@@@@@@@', self.my_handle()
 
             elif self._stimuli > 0:                 
                 if self._start_at == 0:
@@ -283,10 +274,7 @@ class Config(object):
                 # drive(stim_rx_2).after_every(stim_rx_1)                
                 self.sch_1()
                 self.schedule_type = 'sch_gen_1'
-                self.my_handle = self.sch_gen_1
-                print '*********', self.my_handle()
-                
-                
+                                
 
     def sch_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
         for i in range(self._stimuli_len):
@@ -337,6 +325,7 @@ class Config(object):
             self.cond_list.append( (i, (self._name_after, i-1) ) )
             
 #-- Generators -----------------------------------------------------------------------------
+
     def sch_gen_1(self): # drive(stim_rx_2).after_every(stim_rx_1) t2
         for i in range(self._stimuli_len): # TODO: Can be infinite
             yield (i, (self._name_after, i))
@@ -410,6 +399,12 @@ def get( name ):
         if name == config._name:
             return config.get()
     return []
+
+def get_condition_generator( name ):
+    for config in default_scheduler.configs:
+        if name == config._name:
+            return config.condition_generator()
+
 
 def _get( idx ):
     return default_scheduler.configs[idx].get()
