@@ -450,6 +450,9 @@ def use_generator():
         print "Generator is None"
 
 
+
+
+
 class SchedBuilder():
     def __init__(self, tb):
         assert isinstance(tb, Testable), "Class SomeScheduler must be initialized with a testbench instance"
@@ -581,6 +584,8 @@ class SchedBuilder():
 
 
 # Some usage examples, tests
+>>>>>>> 9010e8c8066c78d4d8b299e0442ba3f9be320641
+>>>>>>> d33f0ff7849912fc51498881f4bd06a50f707c66
 if __name__ == '__main__':
     stim_rx_1 = [1, 3, 5, 7,  9]
     stim_rx_2 = [2, 4, 6, 8, 10]
