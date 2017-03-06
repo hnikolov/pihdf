@@ -478,7 +478,7 @@ class HSD(object):
 
 
     #========================================================================
-    def enable(self, rst, clk, tx_ready, tx_valid, enable):
+    def enable(self, rst, clk, tx_ready, tx_valid, en):
         '''|
         | Enable unit: Respects the handshake protocol. Data processing can be performed when enable is '1'
         |        tx_ready, tx_valid   - handshake of the output interface
@@ -486,23 +486,23 @@ class HSD(object):
         |
         |        self.snk_ready, self.snk_valid   - handshake of this interface used as an input
         |________'''
+
         state = Signal(bool(0))
 
         @always_comb
-        def rdy():
+        def rdy_cmb():
             self.snk_ready.next = 0
-            enable.next   = 0
+            en.next             = 0
 
             if state == 0 or tx_ready:
                 self.snk_ready.next = 1
-                enable.next   = self.snk_valid
+                en.next             = self.snk_valid
 
         @always_seq(clk.posedge, reset=rst)
         def clk_prcs():
             if self.snk_ready:
                 state.next    = self.snk_valid
                 tx_valid.next = self.snk_valid
-
         return instances()
 
     """

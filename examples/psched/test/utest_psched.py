@@ -799,3 +799,25 @@ class Test_psched(t_psched):
 #        pschedule.capture(self.res_tx_port).with_gaps(5)
         
         self.run_it()
+
+
+    # ----------------------------------------------------------------------------
+    # @unittest.skip("")
+    def test_110(self):
+        """ >>>>>> TEST_110: Experiment with SchedBuilder """
+        self.models     = {"top":self.RTL}
+        self.dut_params = {"SEQ_RX":False, "SEQ_RX_PORT":False, "SEQ_TX":False, "SEQ_TX_PORT":False}
+        self.tb_config  = {"simulation_time":150, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
+        self.use_data_set_1()
+
+        x = pschedule.SchedBuilder(self)
+
+        for i in range(9):
+            x.drive("tx", i).gap(3+i).end();
+            x.drive("rx_port", i).after("tx", i).end()
+            x.drive("tx_port", i).after("rx_port", i).gap(3).end();
+            x.drive("rx", i+1).after("tx", i).after("rx_port", i).after("tx_port", i).end();
+
+        print x
+
+        self.run_it()
