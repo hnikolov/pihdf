@@ -40,7 +40,7 @@ Usage (in other python modules):
 """
 
 import traceback
-
+from pihdf import Testable
 
 class Scheduler(object):
     '''|
@@ -428,16 +428,14 @@ def print_schedules():
         default_scheduler.determine_schedule(i)
         default_scheduler.print_schedule(i)
 
-
-
 def use_generator():
     stim_rx_1 = [1, 3, 5, 7,  9]
     stim_rx_2 = [2, 4, 6, 8, 10]
 
     drive(stim_rx_2).after_every(stim_rx_1) # test_002
-      
+
     default_scheduler.determine_schedule(0)
-    
+
     c = default_scheduler.configs[0].condition_generator()
     if c is not None:
         condition = 'None'
@@ -447,12 +445,147 @@ def use_generator():
             except StopIteration:
                 pass
 
-            print condition # Iterations 6 and 7 print the last (valid) condition 
+            print condition # Iterations 6 and 7 print the last (valid) condition
     else:
         print "Generator is None"
 
 
+
+
+
+class SchedBuilder():
+    def __init__(self, tb):
+        assert isinstance(tb, Testable), "Class SomeScheduler must be initialized with a testbench instance"
+        self.testbench = tb
+
+        self.iface = None
+        self.index = None
+        self.cond = []
+        self.delay = None
+
+    def _get_conditions(self, iface_name, index):
+        """ Finds the cond_* list that will to be updated """
+        cond_list = self.testbench.tst_data.get("cond_" + iface_name)
+        assert cond_list is not None, 'Interface "{}" not found. Available interfaces: {}'.format(iface_name, self.testbench.tst_data.keys())
+        self.iface = cond_list
+        self.index = index
+        return self
+
+    drive = _get_conditions
+    capture = _get_conditions
+
+    def after(self, iface_name, index):
+        """ Adds another condition to the current condition term """
+        self.cond.append((iface_name, index))
+        return self
+
+    def gap(self, clock_cycles):
+        """ Adds gap to the current condition term """
+        self.delay = clock_cycles
+        return self
+
+    def end(self):
+        """ Constructs a condition tuple and adds it the the cond_* list"""
+        # This can be also a object deleter
+        if self.delay is None:
+            self.iface.append((self.index, self.cond))
+        else:
+            self.iface.append((self.index, self.cond, self.delay))
+        self.iface = None
+        self.index = None
+        self.cond = []
+        self.delay = None
+
+    def __str__(self):
+        """ Attempt for a schedule printer"""
+        td = self.testbench.tst_data
+        rd = self.testbench.ref_data
+
+        # Dictionary : all_cond[port_name] = cond_*
+        all_cond = {s[len("cond_"):]:td[s] for s in td.keys() if s.startswith("cond_")}
+        del all_cond["sim_end"]
+        # Dictionary: all_lengths[port_name] = len(stim_* | ref_*)
+        all_lengths = {s[len("stim_"):]:len(td[s]) for s in td.keys() if s.startswith("stim_")}
+        all_lengths.update({s:len(rd[s][0]) for s in rd.keys()})
+        # Crosscheck
+        assert set(all_cond.keys()) == set(all_lengths.keys())
+        # Just to always use the names in the same order
+        names = all_cond.keys() # TODO: ordered dict ?
+        max_len = max(all_lengths.values())
+        all_cntr = dict(zip(names, len(names)*[0]))
+
+        fmt_str = "{:>6}   " + "".join(["{:>15}   " for n in names]) + "\n"
+        s = ""
+        s += fmt_str.format("", *len(names)*["-----"])
+        s += fmt_str.format("", *names)
+        s += fmt_str.format("", *[all_lengths[n] for n in names])
+        s += fmt_str.format("", *len(names)*["-----"])
+
+        class CondProcessor():
+            def __init__(self, name, counters, conditions, lengths):
+                self.my_name = name
+                self.my_length = lengths[name]
+                self.counters = counters
+                self.conditions = conditions
+                self.lengths = lengths
+                self.increment = False
+                self.done = False
+
+            def evaluate(self):
+                for condition in self.conditions[self.my_name]:
+                    self.increment = False
+                    my_index = condition[0]
+                    my_cond = condition[1]
+                    my_gap = condition[2] if len(condition) > 2 else None
+                    while self.counters[self.my_name] < my_index:
+                        self.increment = True
+                        yield self.counters[self.my_name]
+                    if self.counters[self.my_name] > my_index:
+                        continue
+                    for cond in my_cond:
+                        if_name  = cond[0]
+                        if_index = cond[1]
+                        while self.counters[if_name] <= if_index:
+                            self.increment = False
+                            yield "?{:}[{:}]".format(if_name, if_index)
+                    if my_gap is not None:
+                        self.increment = False
+                        yield "?gap({:})".format(my_gap)
+                    self.increment = True
+                    yield self.counters[self.my_name]
+                while self.counters[self.my_name] < self.my_length:
+                    self.increment = True
+                    yield self.counters[self.my_name]
+                self.done = True
+                self.increment = False
+                while True:
+                    yield "."
+
+            def update(self):
+                if self.increment:
+                    self.counters[self.my_name] += 1
+
+            def is_done(self):
+                return self.done
+
+        procs = [CondProcessor(n, all_cntr, all_cond, all_lengths) for n in names]
+
+        gen = [x.evaluate() for x in procs]
+
+        for i in range(max_len*len(names)):
+            if all([x.is_done() for x in procs]):
+                break
+            ss = [x.next() for x in gen]
+            s += fmt_str.format(i, *ss)
+            for x in procs:
+                x.update()
+
+        return s.format(*names)
+
+
 # Some usage examples, tests
+>>>>>>> 9010e8c8066c78d4d8b299e0442ba3f9be320641
+>>>>>>> d33f0ff7849912fc51498881f4bd06a50f707c66
 if __name__ == '__main__':
     stim_rx_1 = [1, 3, 5, 7,  9]
     stim_rx_2 = [2, 4, 6, 8, 10]
