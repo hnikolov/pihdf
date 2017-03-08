@@ -33,15 +33,7 @@ class t_tsched(Testable):
         self.res_tx = []
         self.cond_sim_end = {}
 
-        self.tst_data = { "cond_rx_port":self.cond_rx_port,\
-                          "stim_rx_port":self.stim_rx_port,\
-                          "cond_tx_port":self.cond_tx_port,\
-                          "res_tx_port":self.res_tx_port,\
-                          "cond_rx":self.cond_rx,\
-                          "stim_rx":self.stim_rx,\
-                          "cond_tx":self.cond_tx,\
-                          "res_tx":self.res_tx,\
-                          "cond_sim_end": self.cond_sim_end }
+        self.assign_tst_data()
 
         self.ref_tx_port = []
         self.ref_tx = []
@@ -83,15 +75,27 @@ class t_tsched(Testable):
         self.checkfiles = True
         self.run_it()
 
+    def assign_tst_data(self):
+        self.tst_data = { "cond_rx_port":self.cond_rx_port,\
+                          "stim_rx_port":self.stim_rx_port,\
+                          "cond_tx_port":self.cond_tx_port,\
+                          "res_tx_port":self.res_tx_port,\
+                          "cond_rx":self.cond_rx,\
+                          "stim_rx":self.stim_rx,\
+                          "cond_tx":self.cond_tx,\
+                          "res_tx":self.res_tx,\
+                          "cond_sim_end": self.cond_sim_end }
+
     # Run the simulation and check the results
     def run_it(self, checkfiles=False):
         self.check_config("tsched")
 
-        # Update condition lists if initialized in tests
-        self.cond_rx_port += pschedule.get('rx_port')
-        self.cond_rx      += pschedule.get('rx')
-        self.cond_tx_port += pschedule.get('tx_port')
-        self.cond_tx      += pschedule.get('tx')
+        self.cond_rx_port = pschedule.get_condition_generator("rx_port")
+        self.cond_tx_port = pschedule.get_condition_generator("tx_port")
+        self.cond_rx = pschedule.get_condition_generator("rx")
+        self.cond_tx = pschedule.get_condition_generator("tx")
+
+        self.assign_tst_data()
 
         tsched_dut = tsched(IMPL=self.models)
         tsched_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose)

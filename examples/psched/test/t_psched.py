@@ -35,17 +35,7 @@ class t_psched(Testable):
         self.res_tx = []
         self.cond_sim_end = {}
 
-        self.tst_data = { "cond_rx_port":self.cond_rx_port,\
-                          "stim_rx_port":self.stim_rx_port,\
-                          "cond_tx_port":self.cond_tx_port,\
-                          "res_tx_port":self.res_tx_port,\
-                          "cond_sequence":self.cond_sequence,\
-                          "res_sequence":self.res_sequence,\
-                          "cond_rx":self.cond_rx,\
-                          "stim_rx":self.stim_rx,\
-                          "cond_tx":self.cond_tx,\
-                          "res_tx":self.res_tx,\
-                          "cond_sim_end": self.cond_sim_end }
+        self.assign_tst_data()
 
         self.ref_tx_port = []
         self.ref_sequence = []
@@ -75,7 +65,7 @@ class t_psched(Testable):
         self.cond_tx = []
         self.res_tx = []
         self.ref_tx = []
-        
+
         pschedule.clear_configurations()
 
     # Data has been previously generated and written to files
@@ -88,22 +78,36 @@ class t_psched(Testable):
         self.stim_rx.append({"file" : self.test_path + "/vectors/rx.tvr"})
         self.res_tx.append({"file" : self.test_path + "/vectors/my_tx.tvr"})
         self.ref_tx.append({"file" : self.test_path + "/vectors/tx.tvr"})
-        
+
         # TODO: condition lists?
 
         self.checkfiles = True
         self.run_it()
 
+    def assign_tst_data(self):
+        self.tst_data = { "cond_rx_port":self.cond_rx_port,\
+                          "stim_rx_port":self.stim_rx_port,\
+                          "cond_tx_port":self.cond_tx_port,\
+                          "res_tx_port":self.res_tx_port,\
+                          "cond_sequence":self.cond_sequence,\
+                          "res_sequence":self.res_sequence,\
+                          "cond_rx":self.cond_rx,\
+                          "stim_rx":self.stim_rx,\
+                          "cond_tx":self.cond_tx,\
+                          "res_tx":self.res_tx,\
+                          "cond_sim_end": self.cond_sim_end }
+
     # Run the simulation and check the results
     def run_it(self, checkfiles=False):
         self.check_config("psched")
 
-        # Update condition lists if initialized in tests
-        self.cond_rx_port  += pschedule.get('rx_port')
-        self.cond_rx       += pschedule.get('rx')
-        self.cond_tx_port  += pschedule.get('tx_port')
-        self.cond_tx       += pschedule.get('tx')
-        self.cond_sequence += pschedule.get('sequence')
+        self.cond_rx_port = pschedule.get_condition_generator("rx_port")
+        self.cond_tx_port = pschedule.get_condition_generator("tx_port")
+        self.cond_sequence = pschedule.get_condition_generator("sequence")
+        self.cond_rx = pschedule.get_condition_generator("rx")
+        self.cond_tx = pschedule.get_condition_generator("tx")
+
+        self.assign_tst_data()
 
         psched_dut = psched(IMPL=self.models)
         psched_dut.Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose, dut_params=self.dut_params)
