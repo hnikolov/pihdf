@@ -12,7 +12,8 @@ def print_btest_file(mfdo):
 
     s += 'import myhdl\n'
     s += 'import pihdf\n'
-    s += 'from pihdf import Testable\n\n'
+    s += 'from pihdf import Testable\n'
+    s += 'from pihdf import pschedule\n\n'
     s += 'import os, sys\n\n'
 
     s += 'sys.path.append(os.path.dirname(__file__) + "/../..")\n\n'
@@ -44,24 +45,7 @@ def print_btest_file(mfdo):
                 s += 'self.res_' + k.inst_name + ' = []\n'
     s += 'self.cond_sim_end = {}\n\n'                
 
-    first = True
-    pre = ''
-    tst_data_str = ''
-    for i in mfdo.interfaces:
-        j = mfdo.getInterfaceObj(i)
-        for k in j:
-            pre = '' if first else 26*' '
-            tst_data_str += pre + '"cond_' + k.inst_name + '":self.cond_' + k.inst_name + ',\\\n'
-            pre = 26*' '
-            if k.direction == 0: # IN
-                tst_data_str += pre + '"stim_' + k.inst_name + '":self.stim_' + k.inst_name + ',\\\n'
-            elif k.direction == 1: # OUT
-                tst_data_str += pre + '"res_' + k.inst_name + '":self.res_' + k.inst_name + ',\\\n'
-            first = False
-
-    tst_data_str += pre + '"cond_sim_end": self.cond_sim_end'
-
-    s += 'self.tst_data = { ' + tst_data_str  + ' }\n\n'
+    s += 'self.assign_tst_data()\n\n'
 
     ref_data_str = ''
     first = True
@@ -94,6 +78,7 @@ def print_btest_file(mfdo):
                 s += 'self.res_' + k.inst_name + ' = []\n'
                 s += 'self.ref_' + k.inst_name + ' = []\n'
     s.newLine()
+    s += 'pschedule.clear_configurations()\n\n'
 
     s += s.dedent() + '# Data has been previously generated and written to files\n'
     s += 'def use_data_from_files(self):\n'
@@ -107,12 +92,43 @@ def print_btest_file(mfdo):
                 s += 'self.res_' + k.inst_name + '.append({"file" : self.test_path + "/vectors/my_' + k.inst_name + '.tvr"})\n'
                 s += 'self.ref_' + k.inst_name + '.append({"file" : self.test_path + "/vectors/'    + k.inst_name + '.tvr"})\n'
     s.newLine()
+    s += '# TODO: condition lists?\n\n'
+
     s += 'self.checkfiles = True\n'
     s += 'self.run_it()\n\n'
+
+    first = True
+    pre = ''
+    tst_data_str = ''
+    for i in mfdo.interfaces:
+        j = mfdo.getInterfaceObj(i)
+        for k in j:
+            pre = '' if first else 26*' '
+            tst_data_str += pre + '"cond_' + k.inst_name + '":self.cond_' + k.inst_name + ',\\\n'
+            pre = 26*' '
+            if k.direction == 0: # IN
+                tst_data_str += pre + '"stim_' + k.inst_name + '":self.stim_' + k.inst_name + ',\\\n'
+            elif k.direction == 1: # OUT
+                tst_data_str += pre + '"res_' + k.inst_name + '":self.res_' + k.inst_name + ',\\\n'
+            first = False
+
+    tst_data_str += pre + '"cond_sim_end": self.cond_sim_end'
+
+    s += s.dedent() + 'def assign_tst_data(self):\n'
+    s += s.indent() + 'self.tst_data = { ' + tst_data_str  + ' }\n\n'
 
     s += s.dedent() + '# Run the simulation and check the results\n'
     s += 'def run_it(self, checkfiles=False):\n'
     s += s.indent() + 'self.check_config("' + mfdo.module_name + '")\n\n'
+
+    for i in mfdo.interfaces:
+        j = mfdo.getInterfaceObj(i)
+        for k in j:
+            s += 'self.cond_' + k.inst_name + ' = pschedule.get_condition_generator("' + k.inst_name + '")\n'
+
+    s.newLine()
+    s += 'self.assign_tst_data()\n\n'
+
     s += mfdo.module_name + '_dut = ' + mfdo.module_name + '(IMPL=self.models)\n'
     s += mfdo.module_name + '_dut.' + 'Simulate(tb_config=self.tb_config, tst_data=self.tst_data, verbose=self.verbose'
     if mfdo.parameters != []:

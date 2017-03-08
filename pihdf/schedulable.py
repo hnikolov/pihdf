@@ -48,10 +48,10 @@ class Schedulable():
         def enbl():
             yield start
 
-            # TODO: in case of cond_list is generator:
-            # if cond_list is not None
+            # In case cond_lst is generator:
+            if cond_lst is None:
             # default schedule with IPG in case of empty condition list
-            if len(cond_lst) == 0:
+            #if len(cond_lst) == 0:
                 i = 0
                 while True:
                     while not (cnt >= i):
@@ -65,9 +65,10 @@ class Schedulable():
                     i += 1
             #--------------------------------------------------
             i = 0
-            # TODO: in case of cond_list is generator:
-            # try: condition = cond_list.next() except StopIteration: pass
-            condition = cond_lst.pop(0)
+            # In case cond_lst is generator:
+            try: condition = cond_lst.next()
+            except StopIteration: pass
+            #condition = cond_lst.pop(0)
             while True:
                 while not (cnt == i):
                     yield cnt
@@ -81,10 +82,11 @@ class Schedulable():
                     if len(condition) > 2:
                         ipg_loc = condition[2]
 
-                    # TODO: in case of cond_list is generator:
-                    # try: condition = cond_list.next() except StopIteration: pass
-                    if len(cond_lst):
-                        condition = cond_lst.pop(0)
+                    # In case cond_lst is generator:
+                    try: condition = cond_lst.next()
+                    except StopIteration: pass
+                    #if len(cond_lst):
+                    #   condition = cond_lst.pop(0)
 
                 # Inter-Packet Gap
                 for _ in range(ipg_loc):
