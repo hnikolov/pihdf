@@ -1,0 +1,24 @@
+[dumpfile] "test/RegFile_tb/src/modules/C/C/out/C_top_cosim.vcd"
+[savefile] "test/RegFile_tb/src/modules/C/C/test/C_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_C_top.
+[sst_expanded] 1
+tb_C_top.dut.rst
+tb_C_top.dut.clk
+-
+-SBUS_SBUS_WA_WD (IN)
+tb_C_top.dut.sbus_sbus_wa_wd_ready
+tb_C_top.dut.sbus_sbus_wa_wd_valid
+tb_C_top.dut.sbus_sbus_wa_wd_addr[7:0]
+tb_C_top.dut.sbus_sbus_wa_wd_data[31:0]
+-
+-SBUS_SBUS_RADDR (IN)
+tb_C_top.dut.sbus_sbus_raddr_ready
+tb_C_top.dut.sbus_sbus_raddr_valid
+tb_C_top.dut.sbus_sbus_raddr_data[7:0]
+-
+-SBUS_SBUS_RDATA (OUT)
+tb_C_top.dut.sbus_sbus_rdata_ready
+tb_C_top.dut.sbus_sbus_rdata_valid
+tb_C_top.dut.sbus_sbus_rdata_data[31:0]

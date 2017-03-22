@@ -1,0 +1,58 @@
+{
+    "design":
+    {
+        "name": "SimpleBusRegFile",
+        "interfaces":
+        [
+            { "name": "rst",        "type": "Reset",       "active": "1"  },
+            { "name": "clk",        "type": "Clock"                       },
+            { "name": "simple_bus", "type": "SimpleBus", "interfaces": "SBUS", "reg_file":"True" }
+        ]
+    },
+    "structure":
+    {
+        "design_modules":
+        [
+            {
+                "name": "A1", "type": "A",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "simple_bus" }
+                 ]
+            },
+            {
+                "name": "A2", "type": "A",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "simple_bus" }
+                 ]
+            },
+            {
+                "name": "B3", "type": "B",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "simple_bus" }
+                 ]
+            },
+            {
+                "name": "C4", "type": "C",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "simple_bus" }
+                 ]
+            }
+        ]
+    }
+}

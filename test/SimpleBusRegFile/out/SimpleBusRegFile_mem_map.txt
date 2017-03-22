@@ -1,0 +1,19 @@
+-----------
+Register list:
+-----------
+  0 : [32:] register@A1
+  1 : [32:] glob_reg
+  2 : [24:] small_reg@A1
+  3 : [32:] register@A2
+  4 : [24:] small_reg@A2
+  5 : [32:] register@B3.A1
+  6 : [24:] small_reg@B3.A1
+  7 : [32:] reg@B3
+  8 : [32:] w_reg@B3
+  9 : [32:] r_reg@B3
+ 10 : [32:] register@C4.B1.A1
+ 11 : [24:] small_reg@C4.B1.A1
+ 12 : [32:] reg@C4.B1
+ 13 : [32:] w_reg@C4.B1
+ 14 : [32:] r_reg@C4.B1
+-----------

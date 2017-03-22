@@ -1,0 +1,6 @@
+digraph SimpleBusRegFile {
+    bgcolor=white
+    rankdir=LR;
+    node [shape=doublecircle, style=filled, color=lightgray]; IN OUT;
+    node [shape=ellipse]; IN OUT;
+    }
