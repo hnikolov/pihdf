@@ -42,12 +42,12 @@ def A_rtl(rst, clk, sbus):
             g_reg.next = wdata_1
 
     small = 3*8
-    big = 10*8
+#    big = 10*8
     re_2, rdata_2, we_2, wdata_2 = reg_file.get_interface("rw", small, 'small_reg')
 #    re_3, rdata_3, we_3, wdata_3 = reg_file.get_interface("rw", big, 'big_reg')
 
     my_small_reg = Signal(intbv(0)[small:])
-    my_big_reg   = Signal(intbv(0)[big:])
+#    my_big_reg   = Signal(intbv(0)[big:])
 
     @always_seq(clk.posedge, reset=rst)
     def reg_prcs23():
