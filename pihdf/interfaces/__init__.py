@@ -1,5 +1,7 @@
 from Common      import Reset, Clock, Parameter
 from SimpleBus   import SimpleBus
+from AvlnSlave   import AvlnSlave
+from AXI4Slave   import AXI4Slave
 from Bus         import Bus
 from STAvln      import STAvln
 from HSD         import HSD
@@ -9,6 +11,8 @@ __all__ = ["Reset",
            "Clock",
            "Parameter",
            "SimpleBus",
+           "AvlnSlave",
+           "AXI4Slave",
            "Bus",
            "STAvln",
            "HSD",

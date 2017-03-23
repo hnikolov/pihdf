@@ -7,7 +7,7 @@ from DutFactory  import DutFactory
 from mylog       import info, infob, warn, err, head
 
 from pihdf       import interfaces
-from interfaces  import Reset, Clock, Parameter, STAvln, SimpleBus, Bus, HSD, net_fields, udp_fields, tcp_fields, ipv_fields, group_fields, port_fields, payload_fields, test_fields, AXI4LM, AXI4LS, wd_fields, SBUS
+from interfaces  import Reset, Clock, Parameter, STAvln, SimpleBus, AvlnSlave, AXI4Slave, Bus, HSD, net_fields, udp_fields, tcp_fields, ipv_fields, group_fields, port_fields, payload_fields, test_fields, AXI4LM, AXI4LS, wd_fields, SBUS
 
 from pihdf    import printers
 from printers import MFDesign, StrBuilder
@@ -26,6 +26,8 @@ __all__ = ["Convertible",
            "Clock",
            "Parameter",
            "SimpleBus",
+           "AvlnSlave",
+           "AXI4Slave",
            "Bus",
            "STAvln",
            "HSD",
