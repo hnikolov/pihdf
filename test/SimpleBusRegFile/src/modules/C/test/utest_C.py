@@ -36,7 +36,7 @@ class Test_C(t_C):
         fields_in = { 'addr': 1, 'data': 22 }
         self.stim_sbus_wa_wd.append( fields_in )
 
-        fields_in = { 'addr': 3, 'data': 33 }
+        fields_in = { 'addr': 4, 'data': 33 }
         self.stim_sbus_wa_wd.append( fields_in )
 
         self.cond_sbus_wa_wd += [(1,("sbus_raddr", 0)),
@@ -48,11 +48,11 @@ class Test_C(t_C):
 
         self.stim_sbus_raddr.append({"data": 0})
         self.stim_sbus_raddr.append({"data": 1})
-        self.stim_sbus_raddr.append({"data": 3})
+        self.stim_sbus_raddr.append({"data": 4})
 
         self.ref_sbus_rdata.append({"data": 11})
-        self.ref_sbus_rdata.append({"data": 0})
-        self.ref_sbus_rdata.append({"data": 0})
+        self.ref_sbus_rdata.append({"data": 0}) # Write only, read returns 0
+        self.ref_sbus_rdata.append({"data": 0}) # Write only, read returns 0
         
         self.run_it()
 
