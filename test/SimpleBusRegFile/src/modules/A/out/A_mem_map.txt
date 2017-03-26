@@ -4,5 +4,4 @@ Register list:
   0 : [32:] register
   1 : [32:] glob_reg
   2 : [24:] small_reg
-  3 : [80:] big_reg
 -----------

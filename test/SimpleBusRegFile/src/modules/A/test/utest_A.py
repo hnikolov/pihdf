@@ -37,8 +37,8 @@ class Test_A(t_A):
         self.stim_sbus_wa_wd.append( fields_in )
 
         #--- big_register --
-        fields_in = { 'addr': 3, 'data':1}
-        self.stim_sbus_wa_wd.append( fields_in )
+#        fields_in = { 'addr': 3, 'data':1}
+#        self.stim_sbus_wa_wd.append( fields_in )
 
         fields_in = { 'addr': 4, 'data': 2 }
         self.stim_sbus_wa_wd.append( fields_in )
@@ -60,14 +60,14 @@ class Test_A(t_A):
 
         self.stim_sbus_raddr.append({"data": 0})
         self.stim_sbus_raddr.append({"data": 0})
-        self.stim_sbus_raddr.append({"data": 3})
+#        self.stim_sbus_raddr.append({"data": 3})
         self.stim_sbus_raddr.append({"data": 4})
         self.stim_sbus_raddr.append({"data": 5})
         self.stim_sbus_raddr.append({"data": 13}) # WRONG ADDRESS: No response - no ref data assigned
 
         self.ref_sbus_rdata.append({"data": 11})
         self.ref_sbus_rdata.append({"data": 22})
-        self.ref_sbus_rdata.append({"data": 1})
+#        self.ref_sbus_rdata.append({"data": 1})
         self.ref_sbus_rdata.append({"data": 2})
         self.ref_sbus_rdata.append({"data": 3})
         self.ref_sbus_rdata.append({"data": 0xFFFFFFFF})
