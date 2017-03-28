@@ -21,66 +21,19 @@ class SimpleBus(Bus):
              
         sbus_ifs = lambda : [ HSD(direction = 0, name = "wa_wd", data = wd_fields),
                               HSD(direction = 0, name = "raddr", data =  8),
-                              HSD(direction = 1, name = "rdata", data = self.BUS_DWIDTH)]
+                              HSD(direction = 1, name = "rdata", data = self.BUS_DWIDTH) ]
                   
-        # invoke base class constructor
+        # Invoke base class constructor
         Bus.__init__(self, bus_type=sbus_ifs, name=name, reg_file=reg_file, filedump=filedump, lo=-3)
-        
-        # TODO: Part of RegFile
-        self.ls_addr = []
-        self._ls = []       
-
 
 # ----------------------------------------------------------------------------------------------------------------
-    def create_address_map(self, BUS_DWIDTH, filename):
-        ''' Creates an address map from all interfaces stored in self._ls'''
+    def create_rd_wr_logic(self, rst, clk, wd_if, ra, rd, ls, ls_addr, filename):
+        '''|
+        | Creates a reg file from all interfaces stored in ls
+        |________'''    
 
         self.ctrl.print_register_list(filename)
-
-        WBUS_WIDTH = BUS_DWIDTH
-
-        START_ADDRESS = 0
-        ls_addr = []
-        addr_lo = addr_hi = START_ADDRESS
-
-        # Map the registers into the address space
-        for r in self._ls:
-            num_words = int(math.ceil(float(r["width"])/WBUS_WIDTH))
-            addr_hi = addr_lo + num_words
-            ls_addr.append(range(addr_lo, addr_hi))
-            addr_lo = addr_hi
-
-        # Print a dict "reg":addr into a py file
-        addr = {}
-        for i,addr_list in enumerate(ls_addr):
-            hier_name = self._ls[i]["iname"]
-            simple_name = hier_name[0:hier_name.find("@")] # Temporary use reg simple name, not hierarchical name, until we fix hierarchy
-            addr[simple_name] = addr_list[0]
-            
-        with open("mem_map.py", 'w') as theFile:
-            theFile.write("addr = " + str(addr))
-
-#         print ls_addr
-
-        print "-----------"
-        print "Address map:"
-        print "-----------"
-        for i,al in enumerate(ls_addr):
-            for j,a in enumerate(al):
-                lo = j*WBUS_WIDTH
-                hi = min((j+1)*WBUS_WIDTH, self._ls[i]["width"])
-                print "{:3} : [{:3}:{:3}] {}".format(a, hi, lo, self._ls[i]["iname"])
-        print "-----------"
         
-        self.ls_addr = ls_addr
-
-# -------------------------------------------------------------------------------------------------------------------------------------------------
-
-    def create_rd_wr_logic(self, rst, clk, wd_if, ra, rd, ls_addr, filename):
-        ''' Creates a reg file from all interfaces stored in self._ls'''
-
-        self.ctrl.print_register_list(filename)
-
         wr_rdy, wr_vld, wr_addr, wr_data = wd_if.get_snk_signals() # consume data
         rd_rdy, rd_vld, rd_data = rd.get_src_signals() # produce data
         ra_rdy, ra_vld, ra_data = ra.get_snk_signals() # consume data
@@ -90,7 +43,7 @@ class SimpleBus(Bus):
         ls_re = []
         ls_rd = []
 
-        for i in self._ls:
+        for i in ls:
             ls_re.append(i["re"])
             ls_rd.append(i["rd"])
             ls_we.append(i["we"])
@@ -98,7 +51,7 @@ class SimpleBus(Bus):
 
 
         WBUS_WIDTH = len(wr_data)
-        NUM_REGS   = len(self._ls)
+        NUM_REGS   = len(ls)
     
         # Deser registers
         NUM_ADDR = sum([len(ls_addr_per_reg) for ls_addr_per_reg in ls_addr])
@@ -359,17 +312,10 @@ class SimpleBus(Bus):
     
 # -------------------------------------------------------------------------------------------------------------------------------------------------    
 
-#    def create_reg_file(self, rst, clk, filename=""):
-#        if self.reg_file:
-#            return self.ctrl.create_reg_file(rst, clk, self.interface_list[0], self.interface_list[1], self.interface_list[2], filename)
-#        else:
-#            return []
-
     def create_reg_file(self, rst, clk, filename=""):
         if self.reg_file:
-            self._ls = self.ctrl._ls
-            self.create_address_map(self.BUS_DWIDTH, filename)
-            return self.create_rd_wr_logic(rst, clk, self.interface_list[0], self.interface_list[1], self.interface_list[2], self.ls_addr, filename)
+            self.ctrl.create_address_map(self.BUS_DWIDTH, filename)
+            return self.create_rd_wr_logic(rst, clk, self.interface_list[0], self.interface_list[1], self.interface_list[2], self.ctrl.ls, self.ctrl.ls_addr, filename)
         else:
             return []
 

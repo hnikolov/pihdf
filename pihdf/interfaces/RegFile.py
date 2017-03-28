@@ -6,12 +6,18 @@ from myhdl_lib import pipeline_control
 
 
 class RegFile:
-    ''' '''
+    '''|
+    | TODO
+    |________'''    
+
     def __init__(self):
-        self._ls = []
+        self.ls = []
+        self.ls_addr = []
 
     def get_instance_name(self):
-        ''' Creates a unique name to be associated with an instantiated register '''
+        '''|
+        | Creates a unique name to be associated with an instantiated register
+        |________'''    
         name = []
         i = -4
 
@@ -35,7 +41,9 @@ class RegFile:
 
 
     def get_interface(self, tp, width, sname):
-        ''' Creates and returns interface signals. Stores the interface in self._ls '''
+        '''|
+        | Creates and returns interface signals. Stores the interface in self.ls
+        |________'''    
 
         # This name represents the instantiation hierarchy
         inst_name = self.get_instance_name()
@@ -47,15 +55,15 @@ class RegFile:
         wd = Signal(intbv(0)[width:])
 
         if tp == "wg":
-            for i in self._ls:
+            for i in self.ls:
                 if sname == i["iname"]:
                     we = i["we"]
                     wd = i["wd"]
                     break
             else:
-                self._ls.append({"iname": sname, "type":tp, "width":width, "re":re, "rd":rd, "we":we, "wd":wd})
+                self.ls.append({"iname": sname, "type":tp, "width":width, "re":re, "rd":rd, "we":we, "wd":wd})
         else:
-            self._ls.append({"iname": iname, "type":tp, "width":width, "re":re, "rd":rd, "we":we, "wd":wd})
+            self.ls.append({"iname": iname, "type":tp, "width":width, "re":re, "rd":rd, "we":we, "wd":wd})
 
         if tp == "ro":
             return re, rd
@@ -68,10 +76,13 @@ class RegFile:
 
 
     def print_register_list(self, filename):
+        '''|
+        | Print the list of registers
+        |________'''    
         s = "-----------\n"
         s += "Register list:\n"
         s += "-----------\n"
-        for i,j in enumerate(self._ls):
+        for i,j in enumerate(self.ls):
             s += "{:3} : [{}:] {}\n".format(i, j['width'], j['iname'])
         s += "-----------\n"
 
@@ -82,8 +93,52 @@ class RegFile:
             tmpFile.write(s)
             tmpFile.close()
 
+
+    def create_address_map(self, BUS_DWIDTH, filename):
+        '''|
+        | Creates an address map from all interfaces stored in self.ls
+        |________'''    
+
+        self.print_register_list(filename)
+
+        START_ADDRESS = 0
+        ls_addr = []
+        addr_lo = addr_hi = START_ADDRESS
+
+        # Map the registers into the address space
+        for r in self.ls:
+            num_words = int(math.ceil(float(r["width"])/BUS_DWIDTH))
+            addr_hi = addr_lo + num_words
+            ls_addr.append(range(addr_lo, addr_hi))
+            addr_lo = addr_hi
+
+        # Print a dict "reg":addr into a .py file
+        addr = {}
+        for i,addr_list in enumerate(ls_addr):
+            hier_name = self.ls[i]["iname"]
+            simple_name = hier_name[0:hier_name.find("@")] # Temporary use reg simple name, not hierarchical name, until we fix hierarchy
+            addr[simple_name] = addr_list[0]
+            
+        with open("mem_map.py", 'w') as theFile:
+            theFile.write("addr = " + str(addr))
+
+        print "------------"
+        print "Address map:"
+        print "------------"
+        for i,al in enumerate(ls_addr):
+            for j,a in enumerate(al):
+                lo = j*BUS_DWIDTH
+                hi = min((j+1)*BUS_DWIDTH, self.ls[i]["width"])
+                print "{:3} : [{:3}:{:3}] {}".format(a, hi, lo, self.ls[i]["iname"])
+        print "------------"
+        
+        self.ls_addr = ls_addr
+
+# ----------------------------------------------------------------------------------------------------------------
+# TODO: To be removed
+# ----------------------------------------------------------------------------------------------------------------
     def create_reg_file(self, rst, clk, wd_if, ra, rd, filename):
-        ''' Creates a reg file from all interfaces stored in self._ls'''
+        ''' Creates a reg file from all interfaces stored in self.ls'''
 
         self.print_register_list(filename)
 
@@ -96,21 +151,21 @@ class RegFile:
         ls_re = []
         ls_rd = []
 
-        for i in self._ls:
+        for i in self.ls:
             ls_re.append(i["re"])
             ls_rd.append(i["rd"])
             ls_we.append(i["we"])
             ls_wd.append(i["wd"])
 
         WBUS_WIDTH = len(wr_data)
-        NUM_REGS = len(self._ls)
+        NUM_REGS = len(self.ls)
 
         START_ADDRESS = 0
         ls_addr =[]
         addr_lo = addr_hi = START_ADDRESS
 
         # Map the registers into the address space
-        for r in self._ls:
+        for r in self.ls:
             num_words = int(math.ceil(float(r["width"])/WBUS_WIDTH))
             addr_hi = addr_lo + num_words
             ls_addr.append(range(addr_lo, addr_hi))
@@ -119,7 +174,7 @@ class RegFile:
         # Print a dict "reg":addr into a py file
         addr = {}
         for i,addr_list in enumerate(ls_addr):
-            hier_name = self._ls[i]["iname"]
+            hier_name = self.ls[i]["iname"]
             simple_name = hier_name[0:hier_name.find("@")] # Temporary use reg simple name, not hierarchical name, until we fix hierarchy
             addr[simple_name] = addr_list[0]
         with open("mem_map.py", 'w') as theFile:
@@ -133,8 +188,8 @@ class RegFile:
         for i,al in enumerate(ls_addr):
             for j,a in enumerate(al):
                 lo = j*WBUS_WIDTH
-                hi = min((j+1)*WBUS_WIDTH, self._ls[i]["width"])
-                print "{:3} : [{:3}:{:3}] {}".format(a, hi, lo, self._ls[i]["iname"])
+                hi = min((j+1)*WBUS_WIDTH, self.ls[i]["width"])
+                print "{:3} : [{:3}:{:3}] {}".format(a, hi, lo, self.ls[i]["iname"])
         print "-----------"
 
         # Deser registers
@@ -393,4 +448,3 @@ class RegFile:
         busser = bus_serializer(rst, clk, ra_rdy, ra_vld, ra_data, rd_rdy, rd_vld, rd_data, ls_re, ls_rd)
 
         return instances()
-
