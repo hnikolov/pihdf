@@ -30,6 +30,82 @@ class SimpleBus(Bus):
     def create_rd_wr_logic(self, rst, clk, wd_if, ra, rd, ls, ls_addr, filename):
         '''|
         | Creates a reg file from all interfaces stored in ls
+        |________'''
+        
+        self.ctrl.print_register_list(filename)
+        
+        wr_rdy, wr_vld, wr_addr, wr_data = wd_if.get_snk_signals() # consume data
+        ra_rdy, ra_vld, ra_data = ra.get_snk_signals() # consume data
+        rd_rdy, rd_vld, rd_data = rd.get_src_signals() # produce data
+
+        ls_we = []
+        ls_wd = []
+        ls_re = []
+        ls_rd = []
+
+        for i in ls:
+            ls_re.append(i["re"])
+            ls_rd.append(i["rd"])
+            ls_we.append(i["we"])
+            ls_wd.append(i["wd"])
+
+        NUM_ADDR = len(ls_addr)
+        
+        def bus_logic_write(rst, clk, wr_rdy, wr_vld, wr_addr, wr_data, ls_we, ls_wd):
+            '''|
+            | Creates a reg file from all interfaces stored in ls
+            |________'''
+#            @always_seq(clk.posedge, reset=rst)
+            @always_comb
+            def logic_wr():
+                wr_rdy.next = 1 # Simple Bus -> ready/valid not used
+                
+                for a in range(NUM_ADDR):
+                    ls_we[a].next = 0
+                    if( a == wr_addr ):
+                        ls_we[a].next = wr_vld
+                        bits = len(ls_wd[a])
+                        ls_wd[a].next = wr_data[bits:0]
+
+            return instances()
+        
+        bwrite = bus_logic_write(rst, clk, wr_rdy, wr_vld, wr_addr, wr_data, ls_we, ls_wd)
+        
+        
+        def bus_logic_read(rst, clk, ra_rdy, ra_vld, ra_data, rd_rdy, rd_vld, rd_data, ls_re, ls_rd):
+            '''|
+            | Creates a reg file from all interfaces stored in ls
+            |________'''
+#            @always_seq(clk.posedge, reset=rst)
+            @always_comb
+            def logic_rd():
+                ra_rdy.next = 1 # Simple Bus -> ready/valid not used
+                
+                rd_vld.next  = ra_vld
+                rd_data.next = 0xffffffff
+                
+                if( ra_vld == 1 ):
+                    for a in range(NUM_ADDR):
+                        ls_re[a].next = 0
+                        bits = len(ls_rd[a])
+                        if( a == ra_data ):
+#                            print "**************************************************", ls_rd[a]
+                            ls_re[a].next = 1 # Do we need this?
+#                            rd_data[bits:0].next = ls_rd[a]
+                            rd_data.next = ls_rd[a]
+                            
+            
+            return instances()
+
+        bread = bus_logic_read(rst, clk, ra_rdy, ra_vld, ra_data, rd_rdy, rd_vld, rd_data, ls_re, ls_rd)
+
+        return instances()
+
+    
+    #--------------------------------------------------------------------------------------------------------------
+    def create_rd_wr_logic_orig(self, rst, clk, wd_if, ra, rd, ls, ls_addr, filename):
+        '''|
+        | Creates a reg file from all interfaces stored in ls
         |________'''    
 
         self.ctrl.print_register_list(filename)
@@ -49,20 +125,16 @@ class SimpleBus(Bus):
             ls_we.append(i["we"])
             ls_wd.append(i["wd"])
 
-
         WBUS_WIDTH = len(wr_data)
         NUM_REGS   = len(ls)
     
         # Deser registers
         NUM_ADDR = sum([len(ls_addr_per_reg) for ls_addr_per_reg in ls_addr])
         MAX_REG_WRAP =  max([len(ls_addr_per_reg) for ls_addr_per_reg in ls_addr])
-#         print "MAX_REG_WRAP =", MAX_REG_WRAP
-#         ls_wreg = [Signal(intbv(0)[WBUS_WIDTH:]) for i in range(MAX_REG_WRAP)]
-#         wreg = ConcatSignal(*reversed(ls_wreg)) if (len(ls_wreg) > 1) else ls_wreg[0]
-
+                
         # Create deserialization index map (in which deser register to write: addr -> wreg_sel)
         ls_wreg_idx = tuple([idx for ls_addr_per_reg in ls_addr for idx in range(len(ls_addr_per_reg))])
-#         print "ls_wreg_idx  =", ls_wreg_idx
+#        print "ls_wreg_idx  =", ls_wreg_idx
 
         # Write enable map: at which addresses we have to generate we to the actual register (the last address of a register)
         ls_wreg_we = tuple([1 if idx==len(ls_addr_per_reg)-1 else 0 for ls_addr_per_reg in ls_addr for idx in range(len(ls_addr_per_reg))])
@@ -74,7 +146,7 @@ class SimpleBus(Bus):
 
         # Select map: to which register an address belongs
         ls_wreg_sel = tuple([i for i, ls_addr_per_reg in enumerate(ls_addr) for _ in ls_addr_per_reg])
-#         print "ls_wreg_sel  =", ls_wreg_sel
+#        print "ls_wreg_sel  =", ls_wreg_sel
 
 
         # Register address High

@@ -18,8 +18,8 @@ def A_rtl(rst, clk, sbus):
 
     #--- Custom code begin ---#
     reg_file = sbus.ctrl
+    
     re, rdata, we, wdata = reg_file.get_interface("rw", 4*8, 'register')
-
     my_reg = Signal(modbv(0)[4*8:])
 
     @always_seq(clk.posedge, reset=rst)
@@ -32,8 +32,8 @@ def A_rtl(rst, clk, sbus):
         rdata.next = my_reg
 
 
+        
     we_1, wdata_1 = reg_file.get_interface("wg", 4*8, 'glob_reg')
-
     g_reg = Signal(modbv(0)[4*8:])
 
     @always_seq(clk.posedge, reset=rst)
@@ -41,25 +41,19 @@ def A_rtl(rst, clk, sbus):
         if we_1:
             g_reg.next = wdata_1
 
-    small = 3*8
-#    big = 10*8
-    re_2, rdata_2, we_2, wdata_2 = reg_file.get_interface("rw", small, 'small_reg')
-#    re_3, rdata_3, we_3, wdata_3 = reg_file.get_interface("rw", big, 'big_reg')
 
+    small = 3*8
+    re_2, rdata_2, we_2, wdata_2 = reg_file.get_interface("rw", small, 'small_reg')
     my_small_reg = Signal(intbv(0)[small:])
-#    my_big_reg   = Signal(intbv(0)[big:])
 
     @always_seq(clk.posedge, reset=rst)
     def reg_prcs23():
         if we_2:
             my_small_reg.next = wdata_2
-#        if we_3:
-#            my_big_reg.next = wdata_3
 
     @always_comb
     def comb23():
         rdata_2.next = my_small_reg
-#        rdata_3.next = my_big_reg
 
     #--- Custom code end   ---#
 

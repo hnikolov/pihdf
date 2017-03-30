@@ -28,7 +28,7 @@ class Test_A(t_A):
 
         self.models = {"top":self.RTL}
         # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0}
+        self.tb_config = {"simulation_time":150, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
 
         fields_in = { 'addr': 0, 'data': 11 }
         self.stim_sbus_wa_wd.append( fields_in )

@@ -1,24 +1,69 @@
-[dumpfile] "test/RegFile_tb/src/modules/A/A/out/A_top.vcd"
-[savefile] "test/RegFile_tb/src/modules/A/A/test/A_top.gtkw"
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Thu Mar 30 20:04:44 2017
+[*]
+[dumpfile] "/home/hristo/git/pihdf/test/SimpleBusRegFile/src/modules/A/out/A_top.vcd"
+[dumpfile_mtime] "Thu Mar 30 20:04:26 2017"
+[dumpfile_size] 6392
+[savefile] "/home/hristo/git/pihdf/test/SimpleBusRegFile/src/modules/A/test/A.gtkw"
 [timestart] 0
+[size] 1855 951
 [pos] -1 -1
-[treeopen] tb_A_top.
+*-3.529758 22 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] A_top.
+[treeopen] A_top.ls_rf_0.
+[treeopen] A_top.ls_rf_0.ls_rf_0.
+[treeopen] A_top.rtl.
+[sst_width] 225
+[signals_width] 198
 [sst_expanded] 1
+[sst_vpaned_height] 283
+@28
 A_top.rst
 A_top.clk
+@200
 -
 -SBUS_SBUS_WA_WD (IN)
-A_top.rtl.sbus_sbus_wa_wd_ready
-A_top.rtl.sbus_sbus_wa_wd_valid
-A_top.rtl.sbus_sbus_wa_wd_addr[7:0]
-A_top.rtl.sbus_sbus_wa_wd_data[31:0]
 -
 -SBUS_SBUS_RADDR (IN)
-A_top.rtl.sbus_sbus_raddr_ready
-A_top.rtl.sbus_sbus_raddr_valid
-A_top.rtl.sbus_sbus_raddr_data[7:0]
 -
 -SBUS_SBUS_RDATA (OUT)
-A_top.rtl.sbus_sbus_rdata_ready
-A_top.rtl.sbus_sbus_rdata_valid
-A_top.rtl.sbus_sbus_rdata_data[31:0]
+@24
+A_top.ls_rf_0.ls_rf_0.bwrite.ls_wd(0)[31:0]
+@28
+A_top.ls_rf_0.ls_rf_0.bwrite.ls_we(0)
+@24
+A_top.rtl.my_reg[31:0]
+@25
+A_top.ls_rf_0.ls_rf_0.bwrite.ls_wd(1)[31:0]
+@28
+A_top.ls_rf_0.ls_rf_0.bwrite.ls_we(1)
+@24
+A_top.rtl.g_reg[31:0]
+A_top.ls_rf_0.ls_rf_0.bwrite.ls_wd(2)[23:0]
+@28
+A_top.ls_rf_0.ls_rf_0.bwrite.ls_we(2)
+@24
+A_top.rtl.my_small_reg[23:0]
+A_top.ls_rf_0.ls_rf_0.bwrite.wr_addr[7:0]
+A_top.ls_rf_0.ls_rf_0.bwrite.wr_data[31:0]
+@28
+A_top.ls_rf_0.ls_rf_0.bwrite.wr_rdy
+A_top.ls_rf_0.ls_rf_0.bwrite.wr_vld
+@200
+-
+@24
+A_top.ls_rf_0.ls_rf_0.bread.ls_rd(0)[31:0]
+A_top.ls_rf_0.ls_rf_0.bread.ls_rd(1)[31:0]
+A_top.ls_rf_0.ls_rf_0.bread.ls_rd(2)[23:0]
+A_top.ls_rf_0.ls_rf_0.bread.ls_re(0)
+A_top.ls_rf_0.ls_rf_0.bread.ls_re(1)
+A_top.ls_rf_0.ls_rf_0.bread.ls_re(2)
+A_top.ls_rf_0.ls_rf_0.bread.ra_data[7:0]
+A_top.ls_rf_0.ls_rf_0.bread.ra_vld
+A_top.ls_rf_0.ls_rf_0.bread.ra_rdy
+A_top.ls_rf_0.ls_rf_0.bread.rd_data[31:0]
+A_top.ls_rf_0.ls_rf_0.bread.rd_rdy
+A_top.ls_rf_0.ls_rf_0.bread.rd_vld
+[pattern_trace] 1
+[pattern_trace] 0
