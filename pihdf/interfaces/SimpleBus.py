@@ -16,11 +16,11 @@ class SimpleBus(Bus):
 
         self.BUS_DWIDTH = 32
                 
-        wd_fields = [("addr", intbv(0)[ 8:]),
+        wd_fields = [("addr", intbv(0)[8:]),
                      ("data", intbv(0)[self.BUS_DWIDTH:])]
              
         sbus_ifs = lambda : [ HSD(direction = 0, name = "wa_wd", data = wd_fields),
-                              HSD(direction = 0, name = "raddr", data =  8),
+                              HSD(direction = 0, name = "raddr", data = 8),
                               HSD(direction = 1, name = "rdata", data = self.BUS_DWIDTH) ]
                   
         # Invoke base class constructor
