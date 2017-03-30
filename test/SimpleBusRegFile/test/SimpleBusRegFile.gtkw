@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Wed Mar 29 21:10:55 2017
+[*] Thu Mar 30 20:41:45 2017
 [*]
 [dumpfile] "/home/hristo/git/pihdf/test/SimpleBusRegFile/out/SimpleBusRegFile_top.vcd"
-[dumpfile_mtime] "Wed Mar 29 21:08:30 2017"
-[dumpfile_size] 15315
+[dumpfile_mtime] "Thu Mar 30 20:37:31 2017"
+[dumpfile_size] 25179
 [savefile] "/home/hristo/git/pihdf/test/SimpleBusRegFile/test/SimpleBusRegFile.gtkw"
 [timestart] 0
 [size] 1855 951
 [pos] -1 -1
-*-3.549709 40 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-3.549709 32 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] SimpleBusRegFile_top.
 [treeopen] SimpleBusRegFile_top.ls_rf_0.
 [treeopen] SimpleBusRegFile_top.rtl.
@@ -60,5 +60,9 @@ SimpleBusRegFile_top.rtl.l_0.l_0.we_2
 @24
 SimpleBusRegFile_top.rtl.l_0.l_0.g_reg[31:0]
 SimpleBusRegFile_top.rtl.l_0.l_0.my_reg[31:0]
+@28
+SimpleBusRegFile_top.rtl.l_0.l_0.re
+@25
+SimpleBusRegFile_top.rtl.l_0.l_0.rdata[31:0]
 [pattern_trace] 1
 [pattern_trace] 0
