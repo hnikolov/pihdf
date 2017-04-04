@@ -42,8 +42,8 @@ def A_rtl(rst, clk, sbus):
             g_reg.next = wdata_1
 
 
-    small = 3*8 # TODO Conversion error
-#    small = 4*8
+#    small = 3*8 # TODO Conversion error
+    small = 4*8
 #   Co-simulation error: Part select expressions must be constant.
 # if (a = signed(resize(A_top__top_ls_rf_0_ls_rf_0_wr_addr, 9))) then          : This msb expression violates the rule: (bits)-('sd1)
                                                                    

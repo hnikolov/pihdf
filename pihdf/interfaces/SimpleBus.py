@@ -55,7 +55,6 @@ class SimpleBus(Bus):
             '''|
             | Creates a reg file from all interfaces stored in ls
             |________'''
-#            @always_seq(clk.posedge, reset=rst)
             @always_comb
             def logic_wr():
                 wr_rdy.next = 1 # Simple Bus -> ready/valid not used
@@ -64,8 +63,7 @@ class SimpleBus(Bus):
                     ls_we[a].next = 0
                     if( a == wr_addr ):
                         ls_we[a].next = wr_vld
-                        bits = len(ls_wd[a])
-                        ls_wd[a].next = wr_data[bits:0]
+                        ls_wd[a].next = wr_data  # Conv error if regs have different bit-width
 
             return instances()
         
@@ -76,25 +74,20 @@ class SimpleBus(Bus):
             '''|
             | Creates a reg file from all interfaces stored in ls
             |________'''
-#            @always_seq(clk.posedge, reset=rst)
             @always_comb
             def logic_rd():
-                ra_rdy.next = 1 # Simple Bus -> ready/valid not used
-                
+                ra_rdy.next  = 1 # Simple Bus -> ready/valid not used
+
                 rd_vld.next  = ra_vld
                 rd_data.next = 0xffffffff
                 
                 if( ra_vld == 1 ):
                     for a in range(NUM_ADDR):
                         ls_re[a].next = 0
-                        bits = len(ls_rd[a])
                         if( a == ra_data ):
-#                            print "**************************************************", ls_rd[a]
                             ls_re[a].next = 1 # Do we need this?
-#                            rd_data[bits:0].next = ls_rd[a]
-                            rd_data.next = ls_rd[a]
+                            rd_data.next = ls_rd[a]  # Conv error if regs have different bit-width
                             
-            
             return instances()
 
         bread = bus_logic_read(rst, clk, ra_rdy, ra_vld, ra_data, rd_rdy, rd_vld, rd_data, ls_re, ls_rd)
