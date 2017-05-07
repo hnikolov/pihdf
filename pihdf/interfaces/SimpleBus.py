@@ -44,6 +44,7 @@ class SimpleBus(Bus):
         ls_rd = []
 
         for i in ls:
+            assert (i["width"] <= self.BUS_DWIDTH), "Register {} width {:} bit exceeds the bus width {:} bit".format(i["iname"], i["width"], self.BUS_DWIDTH)
             ls_re.append(i["re"])
             ls_rd.append(i["rd"])
             ls_we.append(i["we"])
