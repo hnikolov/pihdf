@@ -70,7 +70,6 @@ class SimpleBus(Bus):
                         ls_we[a].next = 0
                         ls_wd_data[a].next = 0xff
 
-
             return instances()
 
         bwrite = bus_logic_write(rst, clk, wr_rdy, wr_vld, wr_addr, wr_data, ls_we, ls_wd)
@@ -88,7 +87,6 @@ class SimpleBus(Bus):
             @always_comb
             def logic_rd():
                 ra_rdy.next = 1 # Simple Bus -> ready/valid not used
-
                 rd_vld.next  = ra_vld
                 rd_data.next = 0xffffffff
 
@@ -96,7 +94,6 @@ class SimpleBus(Bus):
                     for a in range(NUM_ADDR):
                         ls_re[a].next = 0
                         if( a == ra_data ):
-#                            print "**************************************************", ls_rd[a]
                             ls_re[a].next = 1 # Do we need this?
                             rd_data.next = ls_rd_data[a]
 

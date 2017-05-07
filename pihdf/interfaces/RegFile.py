@@ -105,7 +105,7 @@ class RegFile:
         ls_addr = []
         addr_lo = addr_hi = START_ADDRESS
 
-        # Map the registers into the address space
+        # Map the registers into the address space. The code supports 'big' registers
         for r in self.ls:
             num_words = int(math.ceil(float(r["width"])/BUS_DWIDTH))
             addr_hi = addr_lo + num_words
