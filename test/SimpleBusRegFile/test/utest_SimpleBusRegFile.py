@@ -28,7 +28,7 @@ class Test_SimpleBusRegFile(t_SimpleBusRegFile):
 
         self.models = {"top":self.RTL}
         # Set fdump to True in order to generate test vector files for the global interfaces
-        self.tb_config = {"simulation_time":600, "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
+        self.tb_config = {"simulation_time":"auto", "cosimulation":False, "trace":True, "fdump":False, "ipgi":0, "ipgo":0}
 
         data = [11, 22, 33, 44, 55, 66, 77, 88, 99]
 

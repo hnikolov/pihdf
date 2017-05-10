@@ -52,7 +52,7 @@ class Bus(object):
 
     def assign(self, *args):
         '''|
-        | Assigns all all signals of all bus interface.
+        | Assigns all signals of all bus interface.
         |________'''
         a = args
         ls_assign = []
@@ -66,6 +66,7 @@ class Bus(object):
         return ls_assign
 
 
+    # TODO: Do we need this? The base Bus class should not support register file
     def create_reg_file(self, rst, clk, filename=""):
         if self.reg_file:
             return self.ctrl.create_reg_file(rst, clk, self.interface_list[0], self.interface_list[1], self.interface_list[2], filename)
