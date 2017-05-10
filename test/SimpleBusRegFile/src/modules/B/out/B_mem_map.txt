@@ -3,7 +3,7 @@ Register list:
 -----------
   0 : [32:] register@A1
   1 : [32:] glob_reg
-  2 : [32:] small_reg@A1
+  2 : [24:] small_reg@A1
   3 : [32:] reg
   4 : [32:] w_reg
   5 : [32:] r_reg

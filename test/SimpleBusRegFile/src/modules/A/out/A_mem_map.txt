@@ -3,5 +3,5 @@ Register list:
 -----------
   0 : [32:] register
   1 : [32:] glob_reg
-  2 : [32:] small_reg
+  2 : [24:] small_reg
 -----------
