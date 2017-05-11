@@ -25,7 +25,7 @@ def B_rtl(rst, clk, sbus):
 
 
     # Local usage of ctrl
-    re, rdata, we, wdata = sbus.ctrl.get_interface("rw", 4*8, 'reg')
+    re, rdata, we, wdata = sbus.ctrl.get_interface('rw', 4*8, 'reg')
 
     c = Signal(modbv(0)[4*8:])
 
@@ -38,8 +38,8 @@ def B_rtl(rst, clk, sbus):
     def comb():
         rdata.next = c
 
-    we_1, wdata_1 = sbus.ctrl.get_interface("wo", 4*8, 'w_reg')
-    re_1, rdata_1 = sbus.ctrl.get_interface("ro", 4*8, 'r_reg')
+    we_1, wdata_1 = sbus.ctrl.get_interface('wo', 4*8, 'w_reg')
+    re_1, rdata_1 = sbus.ctrl.get_interface('ro', 4*8, 'r_reg')
 
     wreg = Signal(modbv(0)[4*8:])
 
