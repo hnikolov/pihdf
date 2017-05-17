@@ -30,11 +30,12 @@ class Test_SimpleBusRegFile(t_SimpleBusRegFile):
         # Set fdump to True in order to generate test vector files for the global interfaces
         self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0}
 
-        data = [11, 22, 33, 44, 55, 66, 77, 88, 99]
-
-#        for j,i in enumerate([0, 6, 11, 16, 19, 24, 30]): # + writing to a wrong address: 30
-        for j,i in enumerate([0, 12, 3, 4, 5, 6, 7, 30]): # + writing to a wrong address: 30
-            fields_in = { 'addr': i, 'data': data[j] }
+        address = [ 0, 12,  3,  4,  5,  6,  7, 30]
+        data    = [11, 22, 33, 44, 55, 66, 77, 88]
+        
+#        for j,i in enumerate([0, 12, 3, 4, 5, 6, 7, 30]): # + writing to a wrong address: 30
+        for a, d in zip(address, data): # + writing to a wrong address: 30
+            fields_in = { 'addr': a, 'data': d }
             self.stim_simple_bus_wa_wd.append( fields_in )
 
         # WRITE TO ALL INSTANCES OF THE GLOBAL REGISTER
