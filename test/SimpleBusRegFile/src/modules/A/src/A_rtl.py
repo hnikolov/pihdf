@@ -29,7 +29,7 @@ def A_rtl(rst, clk, sbus):
 
     @always_comb
     def comb():
-        rdata.next = my_reg
+        rdata.next = my_reg if re == 1 else 0
 
 
         
@@ -54,7 +54,7 @@ def A_rtl(rst, clk, sbus):
 
     @always_comb
     def comb23():
-        rdata_2.next = my_small_reg
+        rdata_2.next = my_small_reg if re_2 == 1 else 0
 
     #--- Custom code end   ---#
 

@@ -61,12 +61,12 @@ class SimpleBus(Bus):
             def we_demux():
                 wr_rdy.next = 1
                 for a in range(NUM_ADDR):
+                    ls_we[a].next      = 0
+                    ls_wd_data[a].next = 0
+
                     if (a == wr_addr):
-                        ls_we[a].next = wr_vld
+                        ls_we[a].next      = wr_vld
                         ls_wd_data[a].next = wr_data
-                    else:
-                        ls_we[a].next = 0
-                        ls_wd_data[a].next = 0xff
 
             return instances()
 
@@ -84,16 +84,16 @@ class SimpleBus(Bus):
 #            @always_seq(clk.posedge, reset=rst)
             @always_comb
             def logic_rd():
-                ra_rdy.next = 1 # Simple Bus -> ready/valid not used
-                rd_vld.next  = ra_vld
-                rd_data.next = 0xffffffff
+                ra_rdy.next  = 1          # Simple Bus -> ready/valid not used
+                rd_vld.next  = ra_vld     # but not used (Simple Bus)
+                rd_data.next = 0xffffffff # To recognize not valid data
 
                 if( ra_vld == 1 ):
                     for a in range(NUM_ADDR):
                         ls_re[a].next = 0
                         if( a == ra_data ):
-                            ls_re[a].next = 1 # Do we need this?
-                            rd_data.next = ls_rd_data[a]
+                            ls_re[a].next = 1
+                            rd_data.next  = ls_rd_data[a]
 
             return instances()
 

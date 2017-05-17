@@ -36,7 +36,7 @@ def B_rtl(rst, clk, sbus):
 
     @always_comb
     def comb():
-        rdata.next = c
+        rdata.next = c if re == 1 else 0
 
     we_1, wdata_1 = sbus.ctrl.get_interface('wo', 4*8, 'w_reg')
     re_1, rdata_1 = sbus.ctrl.get_interface('ro', 4*8, 'r_reg')
@@ -50,7 +50,7 @@ def B_rtl(rst, clk, sbus):
 
     @always_comb
     def comb_1():
-        rdata_1.next = wreg
+        rdata_1.next = wreg if re_1 == 1 else 0
 
 
     #--- Custom code end   ---#
