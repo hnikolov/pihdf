@@ -41,16 +41,28 @@ def B_rtl(rst, clk, sbus):
     we_1, wdata_1 = sbus.ctrl.get_interface('wo', 4*8, 'w_reg')
     re_1, rdata_1 = sbus.ctrl.get_interface('ro', 4*8, 'r_reg')
 
-    wreg = Signal(modbv(0)[4*8:])
-
-    @always_seq(clk.posedge, reset=rst)
-    def my_wreg():
-        if we_1:
-            wreg.next = wdata_1
-
+#    wreg = Signal(modbv(0)[4*8:])
+    
+    wreg = HSD(data=4*8, buf_size=8)
+    
+    wreg_w_rdy, wreg_w_vld, wreg_w_data = wreg.get_src_signals() 
+    wreg_r_rdy, wreg_r_vld, wreg_r_data = wreg.get_snk_signals() 
+    
     @always_comb
-    def comb_1():
-        rdata_1.next = wreg if re_1 == 1 else 0
+    def assign_data():
+        wreg_w_vld.next  = we_1
+        wreg_w_data.next = wdata_1
+        wreg_r_rdy.next  = re_1
+        rdata_1.next     = wreg_r_data
+
+#    @always_seq(clk.posedge, reset=rst)
+#    def my_wreg():
+#        if we_1:
+#            wreg.next = wdata_1
+#
+#    @always_comb
+#    def comb_1():
+#        rdata_1.next = wreg if re_1 == 1 else 0
 
 
     #--- Custom code end   ---#

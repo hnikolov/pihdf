@@ -65,13 +65,21 @@ class Test_B(t_B):
         # Set fdump to True in order to generate test vector files for the global interfaces
         self.tb_config = {"simulation_time":"auto", "cosimulation":True, "trace":False, "fdump":False, "ipgi":0, "ipgo":0}
 
-        fields_in = { 'addr': 4, 'data': 11 }
+        # Write 5 values to the FIFO @ address 4
+        for i in range(11, 16):
+            print "*"
+            fields_in = { 'addr': 4, 'data': i }
+            self.stim_sbus_wa_wd.append( fields_in )
+
+        fields_in = { 'addr': 4, 'data': 22 }
         self.stim_sbus_wa_wd.append( fields_in )
 
         self.cond_sbus_raddr += [(0,("sbus_wa_wd", len(self.stim_sbus_wa_wd)-1))]
 
-        self.stim_sbus_raddr.append({"data": 5})
-        self.ref_sbus_rdata.append({"data": 11})
+        # Read 5 values ffrom the FIFO @ address 5
+        for i in range(11, 16):
+            self.stim_sbus_raddr.append({"data": 5})
+            self.ref_sbus_rdata.append({"data": i})
 
         self.run_it()
 
