@@ -24,7 +24,7 @@ class Test_C(t_C):
     # ----------------------------------------------------------------------------
     # @unittest.skip("")
     def test_000(self):
-        """ >>>>>> TEST_000: TO DO: describe the test """
+        """ >>>>>> TEST_000: Registers access, FIFO write/read """
 
         self.models = {"top":self.RTL}
         # Set fdump to True in order to generate test vector files for the global interfaces
@@ -36,23 +36,28 @@ class Test_C(t_C):
         fields_in = { 'addr': 1, 'data': 22 }
         self.stim_sbus_wa_wd.append( fields_in )
 
+        # write only -> FIFO write
         fields_in = { 'addr': 4, 'data': 33 }
         self.stim_sbus_wa_wd.append( fields_in )
+        fields_in = { 'addr': 4, 'data': 44 }
+        self.stim_sbus_wa_wd.append( fields_in )
 
-        self.cond_sbus_wa_wd += [(1,("sbus_raddr", 0)),
-                                 (2,("sbus_raddr", 1))]
+        self.cond_sbus_raddr += [(0,("sbus_wa_wd", len(self.stim_sbus_wa_wd)-1))]
 
-        self.cond_sbus_raddr += [(0,("sbus_wa_wd", 0)),
-                                 (1,("sbus_wa_wd", 1)),
-                                 (2,("sbus_wa_wd", 2))]
+        self.stim_sbus_raddr.append({"data":  0})
+        self.ref_sbus_rdata.append( {"data": 33}) # Register value = value + global register
 
-        self.stim_sbus_raddr.append({"data": 0})
         self.stim_sbus_raddr.append({"data": 1})
-        self.stim_sbus_raddr.append({"data": 4})
+        self.ref_sbus_rdata.append( {"data": 0}) # Global reg, write only, read returns 0
 
-        self.ref_sbus_rdata.append({"data": 11})
-        self.ref_sbus_rdata.append({"data": 0}) # Write only, read returns 0
-        self.ref_sbus_rdata.append({"data": 0}) # Write only, read returns 0
+        self.stim_sbus_raddr.append({"data": 4})
+        self.ref_sbus_rdata.append( {"data": 0}) # Write only, read returns 0
+
+        # Read only -> FIFO read
+        self.stim_sbus_raddr.append({"data":  5})
+        self.ref_sbus_rdata.append( {"data": 33})
+        self.stim_sbus_raddr.append({"data":  5})
+        self.ref_sbus_rdata.append( {"data": 44})
         
         self.run_it()
 

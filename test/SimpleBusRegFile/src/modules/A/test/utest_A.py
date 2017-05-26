@@ -42,22 +42,19 @@ class Test_A(t_A):
         fields_in = { 'addr': 13, 'data': 33 }  # WRONG ADDRESS
         self.stim_sbus_wa_wd.append( fields_in )
 
-#        self.cond_sbus_wa_wd += [(1,("sbus_raddr", 0)),
-#                                 (2,("sbus_raddr", 1)),
-#                                 (3,("sbus_raddr", 2)),
-#                                 (4,("sbus_raddr", 3))]
-
         self.cond_sbus_raddr += [(0,("sbus_wa_wd", 3))]
 
-        self.stim_sbus_raddr.append({"data": 0})
-        self.stim_sbus_raddr.append({"data": 1})
-        self.stim_sbus_raddr.append({"data": 2})
-        self.stim_sbus_raddr.append({"data": 13}) # WRONG ADDRESS: No response - no ref data assigned
+        self.stim_sbus_raddr.append({"data":  0})
+        self.ref_sbus_rdata.append( {"data": 33}) # register + global register
 
-        self.ref_sbus_rdata.append({"data": 11})
-        self.ref_sbus_rdata.append({"data": 0})  # Global register is declared as write only
-        self.ref_sbus_rdata.append({"data": 2})
-        self.ref_sbus_rdata.append({"data": 0xFFFFFFFF})
+        self.stim_sbus_raddr.append({"data": 1})
+        self.ref_sbus_rdata.append( {"data": 0})  # Global register is declared as write only
+
+        self.stim_sbus_raddr.append({"data": 2})
+        self.ref_sbus_rdata.append( {"data": 2})
+
+        self.stim_sbus_raddr.append({"data": 13}) # WRONG ADDRESS: No response - no ref data assigned
+        self.ref_sbus_rdata.append( {"data": 0xFFFFFFFF})
 
         self.run_it()
 

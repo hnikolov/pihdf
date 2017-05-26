@@ -18,7 +18,9 @@ def A_rtl(rst, clk, sbus):
 
     #--- Custom code begin ---#
     reg_file = sbus.ctrl
-    
+
+    g_reg = Signal(modbv(0)[4*8:])
+
     re, rdata, we, wdata = reg_file.get_interface("rw", 4*8, 'register')
     my_reg = Signal(modbv(0)[4*8:])
 
@@ -29,12 +31,12 @@ def A_rtl(rst, clk, sbus):
 
     @always_comb
     def comb():
-        rdata.next = my_reg if re == 1 else 0
+        rdata.next = my_reg + g_reg if re == 1 else 0
 
 
         
     we_1, wdata_1 = reg_file.get_interface("wg", 4*8, 'glob_reg')
-    g_reg = Signal(modbv(0)[4*8:])
+#    g_reg = Signal(modbv(0)[4*8:])
 
     @always_seq(clk.posedge, reset=rst)
     def g_reg_prcs():
