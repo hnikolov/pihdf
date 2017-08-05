@@ -1,0 +1,58 @@
+{
+    "design":
+    {
+        "name": "AXI4SlaveRegFile",
+        "interfaces":
+        [
+            { "name": "rst",        "type": "Reset",       "active": "1"  },
+            { "name": "clk",        "type": "Clock"                       },
+            { "name": "sbus",       "type": "AXI4Slave", "interfaces": "SBUS", "reg_file":"True" }
+        ]
+    },
+    "structure":
+    {
+        "design_modules":
+        [
+            {
+                "name": "A1", "type": "A",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "sbus" }
+                 ]
+            },
+            {
+                "name": "A2", "type": "A",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "sbus" }
+                 ]
+            },
+            {
+                "name": "B3", "type": "B",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "sbus" }
+                 ]
+            },
+            {
+                "name": "C4", "type": "C",
+                "path": "",
+                "connections":
+                [
+                    { "direction": "IN",  "local_name": "rst",  "connect_to": "rst" },
+                    { "direction": "IN",  "local_name": "clk",  "connect_to": "clk" },
+                    {                     "local_name": "sbus", "connect_to": "sbus" }
+                 ]
+            }
+        ]
+    }
+}

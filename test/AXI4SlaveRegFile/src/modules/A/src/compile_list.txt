@@ -1,0 +1,2 @@
+A_top.v
+tb_A_top.v

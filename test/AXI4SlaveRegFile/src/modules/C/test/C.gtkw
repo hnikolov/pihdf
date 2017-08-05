@@ -1,0 +1,35 @@
+[dumpfile] "AXI4SlaveRegFile/src/modules/C/C/out/C_top.vcd"
+[savefile] "AXI4SlaveRegFile/src/modules/C/C/test/C_top.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_C_top.
+[sst_expanded] 1
+C_top.rst
+C_top.clk
+-
+-SBUS_SBUS_WADDR (IN)
+C_top.rtl.sbus_waddr_ready
+C_top.rtl.sbus_waddr_valid
+C_top.rtl.sbus_waddr_data[31:0]
+-
+-SBUS_SBUS_WDATA (IN)
+C_top.rtl.sbus_wdata_ready
+C_top.rtl.sbus_wdata_valid
+C_top.rtl.sbus_wdata_data[31:0]
+C_top.rtl.sbus_wdata_strobes[3:0]
+-
+-SBUS_SBUS_WRESP (OUT)
+C_top.rtl.sbus_wresp_ready
+C_top.rtl.sbus_wresp_valid
+C_top.rtl.sbus_wresp_data[1:0]
+-
+-SBUS_SBUS_RADDR (IN)
+C_top.rtl.sbus_raddr_ready
+C_top.rtl.sbus_raddr_valid
+C_top.rtl.sbus_raddr_data[31:0]
+-
+-SBUS_SBUS_RDATA (OUT)
+C_top.rtl.sbus_rdata_ready
+C_top.rtl.sbus_rdata_valid
+C_top.rtl.sbus_rdata_data[31:0]
+C_top.rtl.sbus_rdata_response[1:0]

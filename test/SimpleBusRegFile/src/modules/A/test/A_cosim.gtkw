@@ -8,17 +8,17 @@ tb_A_top.dut.rst
 tb_A_top.dut.clk
 -
 -SBUS_SBUS_WA_WD (IN)
-tb_A_top.dut.sbus_sbus_wa_wd_ready
-tb_A_top.dut.sbus_sbus_wa_wd_valid
-tb_A_top.dut.sbus_sbus_wa_wd_addr[7:0]
-tb_A_top.dut.sbus_sbus_wa_wd_data[31:0]
+tb_A_top.dut.sbus_wa_wd_ready
+tb_A_top.dut.sbus_wa_wd_valid
+tb_A_top.dut.sbus_wa_wd_addr[7:0]
+tb_A_top.dut.sbus_wa_wd_data[31:0]
 -
 -SBUS_SBUS_RADDR (IN)
-tb_A_top.dut.sbus_sbus_raddr_ready
-tb_A_top.dut.sbus_sbus_raddr_valid
-tb_A_top.dut.sbus_sbus_raddr_data[7:0]
+tb_A_top.dut.sbus_raddr_ready
+tb_A_top.dut.sbus_raddr_valid
+tb_A_top.dut.sbus_raddr_data[7:0]
 -
 -SBUS_SBUS_RDATA (OUT)
-tb_A_top.dut.sbus_sbus_rdata_ready
-tb_A_top.dut.sbus_sbus_rdata_valid
-tb_A_top.dut.sbus_sbus_rdata_data[31:0]
+tb_A_top.dut.sbus_rdata_ready
+tb_A_top.dut.sbus_rdata_valid
+tb_A_top.dut.sbus_rdata_data[31:0]

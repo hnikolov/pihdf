@@ -1,0 +1,2 @@
+AXI4SlaveRegFile_top.v
+tb_AXI4SlaveRegFile_top.v

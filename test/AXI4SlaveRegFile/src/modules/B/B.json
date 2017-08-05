@@ -1,0 +1,12 @@
+{
+    "design":
+    {
+        "name": "B",
+        "interfaces":
+        [
+            {"name": "rst", "type": "Reset", "active": "1"},
+            {"name": "clk", "type": "Clock"},
+            {"name": "sbus", "type": "AXI4Slave", "interfaces": "SBUS", "reg_file": "True"}
+        ]
+    }
+}

@@ -1,0 +1,35 @@
+[dumpfile] "AXI4SlaveRegFile/AXI4SlaveRegFile/out/AXI4SlaveRegFile_top_cosim.vcd"
+[savefile] "AXI4SlaveRegFile/AXI4SlaveRegFile/test/AXI4SlaveRegFile_top_cosim.gtkw"
+[timestart] 0
+[pos] -1 -1
+[treeopen] tb_AXI4SlaveRegFile_top.
+[sst_expanded] 1
+tb_AXI4SlaveRegFile_top.dut.rst
+tb_AXI4SlaveRegFile_top.dut.clk
+-
+-SBUS_SBUS_WADDR (IN)
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_waddr_ready
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_waddr_valid
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_waddr_data[31:0]
+-
+-SBUS_SBUS_WDATA (IN)
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wdata_ready
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wdata_valid
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wdata_data[31:0]
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wdata_strobes[3:0]
+-
+-SBUS_SBUS_WRESP (OUT)
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wresp_ready
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wresp_valid
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_wresp_data[1:0]
+-
+-SBUS_SBUS_RADDR (IN)
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_raddr_ready
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_raddr_valid
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_raddr_data[31:0]
+-
+-SBUS_SBUS_RDATA (OUT)
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_rdata_ready
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_rdata_valid
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_rdata_data[31:0]
+tb_AXI4SlaveRegFile_top.dut.sbus_sbus_rdata_response[1:0]
