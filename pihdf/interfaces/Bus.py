@@ -2,7 +2,7 @@ import traceback
 
 from myhdl import *
 from collections import OrderedDict
-from RegFileOld import RegFileOld as RegFile # TODO
+from RegFile import RegFile
 
 
 class Bus(object):
