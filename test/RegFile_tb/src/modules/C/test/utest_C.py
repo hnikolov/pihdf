@@ -22,7 +22,7 @@ class Test_C(t_C):
 
 
     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    @unittest.skip("")
     def test_000(self):
         """ >>>>>> TEST_000: TO DO: describe the test """
 

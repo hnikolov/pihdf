@@ -6,8 +6,6 @@ import sys
 import os
 module_path = os.path.dirname(__file__)
 
-lib_path = os.path.abspath(module_path + "/../src/modules/B/B")
-sys.path.append(lib_path)
 
 from src.C_beh import *
 from src.C_rtl import *

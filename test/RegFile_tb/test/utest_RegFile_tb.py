@@ -21,8 +21,8 @@ class Test_RegFile_tb(t_RegFile_tb):
         t_RegFile_tb.tearDown(self)
 
 
-     # ----------------------------------------------------------------------------
-    # @unittest.skip("")
+    # ----------------------------------------------------------------------------
+    @unittest.skip("")
     def test_001(self):
         """ >>>>>> TEST_001: Testing write/read registers """
 
@@ -53,7 +53,7 @@ class Test_RegFile_tb(t_RegFile_tb):
 
 
     # ----------------------------------------------------------------------------
-    #  @unittest.skip("")
+    @unittest.skip("")
     def test_002(self):
         """ >>>>>> TEST_002: Testing write-only/read-only registers """
 
@@ -77,7 +77,7 @@ class Test_RegFile_tb(t_RegFile_tb):
 
 
     # ----------------------------------------------------------------------------
-    #  @unittest.skip("")
+    @unittest.skip("")
     def test_003(self):
         """ >>>>>> TEST_003: All registers are accessible """
 
@@ -112,7 +112,7 @@ class Test_RegFile_tb(t_RegFile_tb):
         self.run_it()
 
     # ----------------------------------------------------------------------------
-    #  @unittest.skip("")
+    @unittest.skip("")
     def test_004(self):
         """ >>>>>> TEST_004: All register sizes are correct """
 
@@ -154,7 +154,7 @@ class Test_RegFile_tb(t_RegFile_tb):
 
 
     # ----------------------------------------------------------------------------
-    #  @unittest.skip("")
+    @unittest.skip("")
     def test_005(self):
         """ >>>>>> TEST_005: 'Big' registers are written atomically when writing their top address """
 
@@ -202,7 +202,7 @@ class Test_RegFile_tb(t_RegFile_tb):
         self.run_it()
 
     # ----------------------------------------------------------------------------
-    #  @unittest.skip("")
+    @unittest.skip("")
     def test_006(self):
         """ >>>>>> TEST_006: 'Big' registers are read atomically when reading their lowest address """
 
